@@ -123,9 +123,6 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
         </Container>
         <Component class="javax.swing.JLabel" name="lbllFotoUser">
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-          </AccessibilityProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="280" y="320" width="160" height="140"/>
@@ -167,15 +164,12 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="org.edisoncor.gui.button.ButtonIpod" name="buttonIpod1">
+        <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnIngresar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ingresar.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Ingresar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIpod1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIngresarActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -183,7 +177,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.edisoncor.gui.label.LabelCustom" name="labelCustom1">
+        <Component class="org.edisoncor.gui.label.LabelCustom" name="lblFecha">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -246,14 +240,14 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.edisoncor.gui.textField.TextFieldRectIcon" name="textFieldRectIcon1">
+        <Component class="org.edisoncor.gui.textField.TextFieldRectIcon" name="txtLegajo">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="110" y="250" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.edisoncor.gui.textField.TextFieldRectIcon" name="textFieldRectIcon2">
+        <Component class="org.edisoncor.gui.textField.TextFieldRectIcon" name="txtClave">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="110" y="290" width="-1" height="-1"/>

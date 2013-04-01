@@ -117,13 +117,13 @@ public class Camara extends javax.swing.JFrame
         lbllFotoUser = new javax.swing.JLabel();
         clockDigital2 = new org.edisoncor.gui.varios.ClockDigital();
         clockFace2 = new org.edisoncor.gui.varios.ClockFace();
-        buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
-        labelCustom1 = new org.edisoncor.gui.label.LabelCustom();
+        btnIngresar = new org.edisoncor.gui.button.ButtonIpod();
+        lblFecha = new org.edisoncor.gui.label.LabelCustom();
         cmbElegir = new org.edisoncor.gui.comboBox.ComboBoxRound();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
-        textFieldRectIcon1 = new org.edisoncor.gui.textField.TextFieldRectIcon();
-        textFieldRectIcon2 = new org.edisoncor.gui.textField.TextFieldRectIcon();
+        txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
+        txtClave = new org.edisoncor.gui.textField.TextFieldRectIcon();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmCapturar = new javax.swing.JMenu();
         jmCArchivo = new javax.swing.JMenuItem();
@@ -147,7 +147,6 @@ public class Camara extends javax.swing.JFrame
         panelCam.setLayout(new java.awt.BorderLayout());
         panelRectTranslucidoComplete2.add(panelCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 250, 230));
         panelRectTranslucidoComplete2.add(lbllFotoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 160, 140));
-        lbllFotoUser.getAccessibleContext().setAccessibleName("");
 
         clockDigital2.setBackground(new java.awt.Color(255, 255, 255));
         clockDigital2.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 18)); // NOI18N
@@ -166,22 +165,21 @@ public class Camara extends javax.swing.JFrame
 
         panelRectTranslucidoComplete2.add(clockFace2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 116, 123));
 
-        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingresar.jpg"))); // NOI18N
-        buttonIpod1.setText("Ingresar");
-        buttonIpod1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIpod1ActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(buttonIpod1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 120));
+        panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 120));
 
-        labelCustom1.setBackground(new java.awt.Color(255, 255, 255));
-        labelCustom1.setForeground(new java.awt.Color(0, 0, 0));
-        labelCustom1.setText("Martes 12, de Marzo de 2013");
-        labelCustom1.setBorde(true);
-        labelCustom1.setColorDeSombra(new java.awt.Color(255, 255, 255));
-        labelCustom1.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
-        panelRectTranslucidoComplete2.add(labelCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 460, 34));
+        lblFecha.setBackground(new java.awt.Color(255, 255, 255));
+        lblFecha.setForeground(new java.awt.Color(0, 0, 0));
+        lblFecha.setText("Martes 12, de Marzo de 2013");
+        lblFecha.setBorde(true);
+        lblFecha.setColorDeSombra(new java.awt.Color(255, 255, 255));
+        lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
+        panelRectTranslucidoComplete2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 460, 34));
 
         cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elegir", "Entrada", "Salida", " " }));
         cmbElegir.addActionListener(new java.awt.event.ActionListener() {
@@ -196,8 +194,8 @@ public class Camara extends javax.swing.JFrame
 
         labelMetric2.setText("Clave");
         panelRectTranslucidoComplete2.add(labelMetric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
-        panelRectTranslucidoComplete2.add(textFieldRectIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
-        panelRectTranslucidoComplete2.add(textFieldRectIcon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+        panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+        panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
 
         jmCapturar.setText("Capturar");
 
@@ -262,7 +260,7 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 // TODO add your handling code here:
 }//GEN-LAST:event_jmCBDActionPerformed
 
-    private void buttonIpod1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod1ActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // validar el empleado
    EmpleadoDao empleados = new EmpleadoDaoImp();
    List<Empleado> lisaEmpleado = empleados.listarEmpleado();
@@ -305,24 +303,14 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
            AsistenciaDao asistencias = new AsistenciaDaoImp();
            asistencias.addAsistencia(asistencia);
           
-            
-        // muestro en la tabla las asistencias  
-        
-         Set<Asistencia> conjuntoAsistencia =empleados.getEmpleado(e.getIdEmpleado()).getAsistencias();
-        // es necesario hacer esto para que me ordene por idAssitencia
-         conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-         conjunto.addAll(conjuntoAsistencia);
-         
-//         TablaUtil.prepararTablaAsambleas(modelo, tablaAsistencia); 
-//         TablaUtil.cargarModeloAsistencia(modelo,conjunto , tablaAsistencia);
-         
-         }else{
+           // Ingreso mal los datos de autenticacion 
+          }else{
            JOptionPane.showMessageDialog(this, "Error de validacion , ingrese de nuevo sus datos","Error",JOptionPane.ERROR_MESSAGE);
            txtLegajo.setText("");
            txtClave.setText("");
            cmbElegir.setSelectedItem("Elegir");
        }
-    }//GEN-LAST:event_buttonIpod1ActionPerformed
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
     * @param args the command line arguments
@@ -336,7 +324,7 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
+    private org.edisoncor.gui.button.ButtonIpod btnIngresar;
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
@@ -348,14 +336,14 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private javax.swing.JMenu jmDispositivos;
     private javax.swing.JMenu jmOtros;
     private javax.swing.JMenuItem jmSalir;
-    private org.edisoncor.gui.label.LabelCustom labelCustom1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
+    private org.edisoncor.gui.label.LabelCustom lblFecha;
     private javax.swing.JLabel lbllFotoUser;
     private javax.swing.JPanel panelCam;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete2;
-    private org.edisoncor.gui.textField.TextFieldRectIcon textFieldRectIcon1;
-    private org.edisoncor.gui.textField.TextFieldRectIcon textFieldRectIcon2;
+    private org.edisoncor.gui.textField.TextFieldRectIcon txtClave;
+    private org.edisoncor.gui.textField.TextFieldRectIcon txtLegajo;
     // End of variables declaration//GEN-END:variables
 
 }
