@@ -27,6 +27,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         cmbBusqueda = new org.edisoncor.gui.comboBox.ComboBoxRound();
@@ -48,6 +49,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA DE EMPLEADOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
+        panelTranslucidoComplete21.setOpaque(false);
 
         labelMetric1.setText("Busqueda");
 
@@ -57,30 +59,34 @@ public class ListadoPersonal extends javax.swing.JDialog {
         panelShadow1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FILTRO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
         panelShadow1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        buttonGroup1.add(rdbHoy);
         rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbHoy.setText("Hoy");
-        panelShadow1.add(rdbHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 34, -1, -1));
+        panelShadow1.add(rdbHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        buttonGroup1.add(rdbActual);
         rdbActual.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbActual.setText("Mes Actual");
-        panelShadow1.add(rdbActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 34, -1, -1));
+        panelShadow1.add(rdbActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
 
+        rdbFecha.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdbFecha);
         rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbFecha.setText("Entre las Fechas");
-        panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 34, -1, -1));
+        panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setText("Y");
-        panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, -1, -1));
+        panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
         datInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         datInicio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        panelShadow1.add(datInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(378, 35, 135, -1));
+        panelShadow1.add(datInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
 
         datFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         datFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         datFin.setMaxSelectableDate(new java.util.Date(253370775670000L));
-        panelShadow1.add(datFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 34, 128, -1));
+        panelShadow1.add(datFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
         buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BUSCAR2.jpg"))); // NOI18N
         buttonIpod1.setText("Buscar");
@@ -113,27 +119,33 @@ public class ListadoPersonal extends javax.swing.JDialog {
         panelTranslucidoComplete21Layout.setHorizontalGroup(
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 773, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(228, 228, 228)
-                .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(209, 209, 209)
-                .addComponent(buttonIpod4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(209, 209, 209)
+                                .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(228, 228, 228)
+                                .addComponent(buttonIpod4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                                .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))))
+                .addContainerGap())
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,17 +157,16 @@ public class ListadoPersonal extends javax.swing.JDialog {
                     .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(buttonIpod4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -217,6 +228,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod2;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod3;
