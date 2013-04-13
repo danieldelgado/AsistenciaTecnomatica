@@ -39,9 +39,9 @@ public class ListadoPersonal extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         datInicio = new com.toedter.calendar.JDateChooser();
         datFin = new com.toedter.calendar.JDateChooser();
-        buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
+        btnBuscar = new org.edisoncor.gui.button.ButtonIpod();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jXTable1 = new org.jdesktop.swingx.JXTable();
+        tblListado = new org.jdesktop.swingx.JXTable();
         buttonIpod2 = new org.edisoncor.gui.button.ButtonIpod();
         buttonIpod3 = new org.edisoncor.gui.button.ButtonIpod();
         buttonIpod4 = new org.edisoncor.gui.button.ButtonIpod();
@@ -88,11 +88,11 @@ public class ListadoPersonal extends javax.swing.JDialog {
         datFin.setMaxSelectableDate(new java.util.Date(253370775670000L));
         panelShadow1.add(datFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
-        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BUSCAR2.jpg"))); // NOI18N
-        buttonIpod1.setText("Buscar");
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BUSCAR2.jpg"))); // NOI18N
+        btnBuscar.setText("Buscar");
 
-        jXTable1.setBackground(new java.awt.Color(135, 133, 133));
-        jXTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblListado.setBackground(new java.awt.Color(135, 133, 133));
+        tblListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -103,7 +103,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jXTable1);
+        jScrollPane1.setViewportView(tblListado);
 
         buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMPRIMIR.jpg"))); // NOI18N
         buttonIpod2.setText("IMPRIMIR");
@@ -143,7 +143,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
                             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                                 .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
@@ -158,7 +158,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
                     .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,8 +228,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.edisoncor.gui.button.ButtonIpod btnBuscar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod2;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod3;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod4;
@@ -238,13 +238,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser datInicio;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXTable jXTable1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.panel.PanelShadow panelShadow1;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
     private javax.swing.JRadioButton rdbActual;
     private javax.swing.JRadioButton rdbFecha;
     private javax.swing.JRadioButton rdbHoy;
+    private org.jdesktop.swingx.JXTable tblListado;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtBusqueda;
     // End of variables declaration//GEN-END:variables
 }
