@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ce03755-f73a-4ed6-bf43-2b25365b15ee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="empleado" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ccd48c85-879e-4baf-b7c3-5f974c86e481" x="164" y="36" width="205" height="32"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Reporte de Asistencia]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="cc237b11-2fa3-4458-8564-7b3a7794afa5" x="22" y="0" width="58" height="20"/>
+				<textElement/>
+				<text><![CDATA[empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f04c60f6-225c-4e71-8c11-1487ff1d03f7" x="225" y="3" width="39" height="20"/>
+				<textElement/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bd0f4acc-cb41-4d8d-91a7-dbdc162c4e4d" x="164" y="3" width="49" height="20"/>
+				<textElement/>
+				<text><![CDATA[hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c7df5987-98f3-439d-83a4-545ec39aba1b" x="103" y="3" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement uuid="78fa44f9-daa6-4eb9-8738-e0b6a9dfcbf5" x="22" y="0" width="68" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5d07ba3f-c85e-492d-984f-811534f5275a" x="164" y="0" width="49" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="29e5073a-4e18-4ecf-976f-1d154e87c879" x="225" y="0" width="39" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c5385e1f-620b-480b-bd1e-1c0c7bd64d17" x="103" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
