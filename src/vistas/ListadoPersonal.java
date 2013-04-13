@@ -4,6 +4,71 @@
  */
 package vistas;
 
+import dominio.Asistencia;
+import dominio.Empleado;
+import dominio.OrdenarAsistenciaPorId;
+import dominio.dao.AsistenciaDao;
+import dominio.dao.EmpleadoDao;
+import dominio.dao.imp.AsistenciaDaoImp;
+import dominio.dao.imp.EmpleadoDaoImp;
+import estudiandojmf.miPlayer;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import Util.DetalleReporte;
+import Util.FechaUtil;
+import Util.ReporteAsitenciaJRDataSource;
+import Util.TablaUtil;
+
+import dominio.Asistencia;
+import dominio.Empleado;
+import dominio.OrdenarAsistenciaPorId;
+import dominio.dao.AsistenciaDao;
+import dominio.dao.EmpleadoDao;
+import dominio.dao.imp.AsistenciaDaoImp;
+import dominio.dao.imp.EmpleadoDaoImp;
+import java.awt.Image;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.media.Player;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
+
 /**
  *
  * @author Leo
@@ -42,9 +107,9 @@ public class ListadoPersonal extends javax.swing.JDialog {
         btnBuscar = new org.edisoncor.gui.button.ButtonIpod();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListado = new org.jdesktop.swingx.JXTable();
-        buttonIpod2 = new org.edisoncor.gui.button.ButtonIpod();
-        buttonIpod3 = new org.edisoncor.gui.button.ButtonIpod();
-        buttonIpod4 = new org.edisoncor.gui.button.ButtonIpod();
+        btnImprimir = new org.edisoncor.gui.button.ButtonIpod();
+        btnIreport = new org.edisoncor.gui.button.ButtonIpod();
+        btnSalir = new org.edisoncor.gui.button.ButtonIpod();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,14 +170,19 @@ public class ListadoPersonal extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblListado);
 
-        buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMPRIMIR.jpg"))); // NOI18N
-        buttonIpod2.setText("IMPRIMIR");
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMPRIMIR.jpg"))); // NOI18N
+        btnImprimir.setText("IMPRIMIR");
 
-        buttonIpod3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PDF1.png"))); // NOI18N
-        buttonIpod3.setText("PDF");
+        btnIreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PDF1.png"))); // NOI18N
+        btnIreport.setText("PDF");
+        btnIreport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIreportActionPerformed(evt);
+            }
+        });
 
-        buttonIpod4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SALIR.jpg"))); // NOI18N
-        buttonIpod4.setText("SALIR");
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SALIR.jpg"))); // NOI18N
+        btnSalir.setText("SALIR");
 
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
@@ -131,11 +201,11 @@ public class ListadoPersonal extends javax.swing.JDialog {
                                 .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
-                                .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(209, 209, 209)
-                                .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnIreport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(228, 228, 228)
-                                .addComponent(buttonIpod4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addContainerGap()
@@ -165,9 +235,9 @@ public class ListadoPersonal extends javax.swing.JDialog {
                 .addGap(6, 6, 6)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buttonIpod4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnIreport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,6 +255,69 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIreportActionPerformed
+             // validar el empleado
+   EmpleadoDao empleados = new EmpleadoDaoImp();
+   List<Empleado> lisaEmpleado = empleados.listarEmpleado();
+   boolean encontrado = false;
+   Empleado e = null ;
+   for ( Empleado empleado : lisaEmpleado) {
+       if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
+           encontrado = true;
+           e =empleado;
+           break;
+       }
+   } 
+//       if (encontrado) {
+          // mostrar en el labelEmpleado su nombre 
+//           lblEmpleado.setText("Bienvenido : "+e.getNombre()); 
+          // capturo la imagen y la muestro en el lbl
+//          Image img =  miPlayer.capturaFoto(this.getPlayer());
+//          Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(lbllFotoUser.getWidth(),lbllFotoUser.getHeight(),Image.SCALE_DEFAULT)); 
+//          lbllFotoUser.setIcon(iconoAdaptado);//  si manda en pantalla
+          // hay que convertir la imagen a byte[] por medio de un puente 
+          // crear la imagen en src y de ahi lo paso a  archivo y luego a byte
+//          miPlayer.guardaImagenEnFichero(img, new File("src/imagTester"));
+//          // capturo la imagen guardada en el src y lo llevo a la bd
+//          File file = new File("src/imagTester");
+//          byte[] imgByte = new byte[(int) file.length()];
+//           try {
+//	        FileInputStream fileInputStream = new FileInputStream(file);
+//	        //convert file into array of bytes
+//	        fileInputStream.read(imgByte);
+//	        fileInputStream.close();
+//        } catch (Exception ex) {
+//	        ex.printStackTrace();
+//        }
+           
+//           String elegir = (String)cmbElegir.getSelectedItem();
+//          // creoo un objeto asistencia
+//           Asistencia asistencia =  new Asistencia(elegir,imgByte ,new Date(), new Date());
+//           asistencia.setEmpleado(e);
+//           //agrego en la bd
+//           AsistenciaDao asistencias = new AsistenciaDaoImp();
+//           asistencias.addAsistencia(asistencia);
+//          
+//            
+//        // muestro en la tabla las asistencias  
+//        
+//         Set<Asistencia> conjuntoAsistencia =empleados.getEmpleado(e.getIdEmpleado()).getAsistencias();
+//        // es necesario hacer esto para que me ordene por idAssitencia
+//         conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+//         conjunto.addAll(conjuntoAsistencia);
+//         
+////         TablaUtil.prepararTablaAsambleas(modelo, tablaAsistencia); 
+////         TablaUtil.cargarModeloAsistencia(modelo,conjunto , tablaAsistencia);
+////         
+//         }else{
+//           JOptionPane.showMessageDialog(this, "Error de validacion , ingrese de nuevo sus datos","Error",JOptionPane.ERROR_MESSAGE);
+//           txtLegajo.setText("");
+//           txtClave.setText("");
+//           cmbElegir.setSelectedItem("Elegir");
+//       }
+//    }                                       
+    }//GEN-LAST:event_btnIreportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,10 +362,10 @@ public class ListadoPersonal extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.button.ButtonIpod btnBuscar;
+    private org.edisoncor.gui.button.ButtonIpod btnImprimir;
+    private org.edisoncor.gui.button.ButtonIpod btnIreport;
+    private org.edisoncor.gui.button.ButtonIpod btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod2;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod3;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod4;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbBusqueda;
     private com.toedter.calendar.JDateChooser datFin;
     private com.toedter.calendar.JDateChooser datInicio;
