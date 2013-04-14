@@ -9,7 +9,7 @@
  * Created on 11/06/2010, 11:53:04 PM
  */
 
-package estudiandojmf;
+package vistas;
 
 /**
  *
@@ -27,6 +27,9 @@ import dominio.dao.AsistenciaDao;
 import dominio.dao.EmpleadoDao;
 import dominio.dao.imp.AsistenciaDaoImp;
 import dominio.dao.imp.EmpleadoDaoImp;
+import estudiandojmf.eventos;
+import estudiandojmf.jDispositivos;
+import estudiandojmf.miPlayer;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;

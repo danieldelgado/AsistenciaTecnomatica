@@ -4,6 +4,10 @@
  */
 package vistas;
 
+import dominio.Empleado;
+import dominio.dao.EmpleadoDao;
+import dominio.dao.imp.EmpleadoDaoImp;
+
 /**
  *
  * @author Leo
@@ -42,8 +46,6 @@ public class Personal extends javax.swing.JDialog {
         txtTelefono = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric7 = new org.edisoncor.gui.label.LabelMetric();
         txtDni = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        labelMetric8 = new org.edisoncor.gui.label.LabelMetric();
-        txtFecNac = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
         buttonIpod2 = new org.edisoncor.gui.button.ButtonIpod();
         buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
@@ -88,13 +90,13 @@ public class Personal extends javax.swing.JDialog {
         txtDni.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDni.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
-        labelMetric8.setText("FECHA DE NACIMIENTO");
-
-        txtFecNac.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtFecNac.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUARDAR.jpg"))); // NOI18N
         btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CANCEL3.jpg"))); // NOI18N
         buttonIpod2.setText("CANCELAR");
@@ -134,20 +136,16 @@ public class Personal extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(labelMetric8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(labelMetric6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(197, 197, 197)
-                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
-                        .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addComponent(labelMetric6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(197, 197, 197)
+                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -181,11 +179,7 @@ public class Personal extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMetric8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,6 +200,17 @@ public class Personal extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // guardar el empleado
+         int legajo = Integer.parseInt(txtLegajo.getText());
+         
+         
+         Empleado empleado = new Empleado(Integer.parseInt(txtLegajo.getText()) ,txtNombre.getText(), txtClave.getText());
+         EmpleadoDao empleados = new EmpleadoDaoImp(); 
+         empleados.addEmpleado(empleado);
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,12 +264,10 @@ public class Personal extends javax.swing.JDialog {
     private org.edisoncor.gui.label.LabelMetric labelMetric5;
     private org.edisoncor.gui.label.LabelMetric labelMetric6;
     private org.edisoncor.gui.label.LabelMetric labelMetric7;
-    private org.edisoncor.gui.label.LabelMetric labelMetric8;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtApellido;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDireccion;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDni;
-    private org.edisoncor.gui.textField.TextFieldRoundIcon txtFecNac;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtLegajo;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtLocalidad;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtNombre;

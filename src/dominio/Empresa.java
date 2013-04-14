@@ -1,5 +1,5 @@
 package dominio;
-// Generated 10-mar-2013 18:44:40 by Hibernate Tools 3.2.1.GA
+// Generated 14/04/2013 19:45:38 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;

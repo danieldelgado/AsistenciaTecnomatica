@@ -6,8 +6,8 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistema_entrada</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="dominio/Empleado.hbm.xml"/>
     <mapping resource="dominio/Asistencia.hbm.xml"/>
     <mapping resource="dominio/Empresa.hbm.xml"/>
+    <mapping resource="dominio/Empleado.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

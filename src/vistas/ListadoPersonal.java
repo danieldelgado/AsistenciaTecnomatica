@@ -155,6 +155,11 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BUSCAR2.jpg"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblListado.setBackground(new java.awt.Color(135, 133, 133));
         tblListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -318,6 +323,45 @@ public class ListadoPersonal extends javax.swing.JDialog {
 //       }
 //    }                                       
     }//GEN-LAST:event_btnIreportActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+      // validar el empleado
+        EmpleadoDao empleados = new EmpleadoDaoImp();
+        List<Empleado> lisaEmpleado = empleados.listarEmpleado();
+        boolean encontrado = false;
+        Empleado e = null ;
+        // busqueda por legajo o apellido
+        if (cmbBusqueda.getSelectedIndex()==1) {
+            // busqueda el empleado por apellido
+              for ( Empleado empleado : lisaEmpleado) {
+                     if (empleado.getNombre()==txtBusqueda.getText()) {
+                       encontrado = true;
+                       e =empleado;
+                       break;
+                       }
+                 } 
+        } else {
+            if (cmbBusqueda.getSelectedIndex()==2) {
+               //busqueda empleado por legajo
+                for ( Empleado empleado : lisaEmpleado) {
+                     if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
+                       encontrado = true;
+                       e =empleado;
+                       break;
+                       }
+                 } 
+            } else {
+                // no selecciono la busqueda en el cmbbusqueda
+                JOptionPane.showMessageDialog(rootPane, "Debes indicar un empleado ", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (encontrado) {
+           System.out.println(e.getNombre());
+        }
+   
+     
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments

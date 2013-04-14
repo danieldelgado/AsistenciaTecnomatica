@@ -9,7 +9,7 @@
  * Created on 15/06/2010, 08:40:17 PM
  */
 
-package estudiandojmf;
+package vistas;
 
 /**
  *
@@ -36,7 +36,7 @@ public class jacerca extends javax.swing.JDialog {
 
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
-        jTextArea1.setFont(new java.awt.Font("Monospaced", 1, 14));
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(204, 0, 0));
         jTextArea1.setRows(5);
         jTextArea1.setText("           ..Na...\n     .,\" .d4#HMMMMM@`\n   .M3..M@ ,%   `?`\n  JM! JMM@ .%           ...    .,     .,          .J.        .,    .,\n JM$  JMM@ .%         .dMMMr.,MMMN, .MMMN.\"   ..NMMMMMNa,  JMMMb .MMMM,\n.MM|  JMM@ .%           dMM@^  dMM#=  JMM@    dMMr  `WMM$   .MMM\"  ,MMM\n.MML  JMMF .%           JMMF   JMMF   JMMF    dMMr   JMM$   .MMN    MMM\n.MMM, JM3  .%           JMMF   JMMF   JMMF    dMMr   JMM$   .MMN    MMM\n JMMMg=    .%       .   JMMF   JMMF   JMMF    dMMr   JMM$   .MMN    MMM\n  JMMMNa,  .%    .JM^   JMMF   JMMF   JMMb    dMML,  JMM$  ..MMN..  MMM\n    7MMMMMMMNNMMM#=    .MMMM; .MMMM|  ,MMMk3 ,T\"MMMMNMM9'  \"TMMMMMMMM\"`\n       ?\"\"\"\"\"\"\"`         T\"     7\"     .\"'        `T=       .MMN ?\"'\n                                                            .MMM,\n                                                            '  ?5,");
@@ -68,8 +68,8 @@ public class jacerca extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-630)/2, (screenSize.height-402)/2, 630, 402);
+        setSize(new java.awt.Dimension(630, 402));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
 

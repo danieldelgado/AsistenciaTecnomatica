@@ -5,6 +5,7 @@
 
 package estudiandojmf;
 
+import vistas.Camara;
 import javax.media.Player;
 
 /**

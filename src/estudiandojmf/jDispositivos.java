@@ -9,6 +9,7 @@ package estudiandojmf;
  *
  * @author Cmop
  */
+import vistas.Camara;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;
