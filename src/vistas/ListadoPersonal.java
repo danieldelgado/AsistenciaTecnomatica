@@ -153,7 +153,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         datFin.setMaxSelectableDate(new java.util.Date(253370775670000L));
         panelShadow1.add(datFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BUSCAR2.jpg"))); // NOI18N
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BUSCAR2.jpg"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,10 +175,10 @@ public class ListadoPersonal extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblListado);
 
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMPRIMIR.jpg"))); // NOI18N
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IMPRIMIR.jpg"))); // NOI18N
         btnImprimir.setText("IMPRIMIR");
 
-        btnIreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/PDF1.png"))); // NOI18N
+        btnIreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PDF1.png"))); // NOI18N
         btnIreport.setText("PDF");
         btnIreport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +186,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SALIR.jpg"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CANCEL3.jpg"))); // NOI18N
         btnSalir.setText("SALIR");
 
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);

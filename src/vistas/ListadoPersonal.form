@@ -267,7 +267,7 @@
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnBuscar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/BUSCAR2.jpg"/>
+              <Image iconType="3" name="/images/BUSCAR2.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
@@ -302,7 +302,7 @@
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnImprimir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/IMPRIMIR.jpg"/>
+              <Image iconType="3" name="/images/IMPRIMIR.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="IMPRIMIR"/>
           </Properties>
@@ -310,7 +310,7 @@
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnIreport">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/PDF1.png"/>
+              <Image iconType="3" name="/images/PDF1.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="PDF"/>
           </Properties>
@@ -321,7 +321,7 @@
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnSalir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/SALIR.jpg"/>
+              <Image iconType="3" name="/images/CANCEL3.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SALIR"/>
           </Properties>
