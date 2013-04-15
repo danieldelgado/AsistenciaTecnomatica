@@ -47,8 +47,10 @@ public class Personal extends javax.swing.JDialog {
         labelMetric7 = new org.edisoncor.gui.label.LabelMetric();
         txtDni = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
-        buttonIpod2 = new org.edisoncor.gui.button.ButtonIpod();
+        btnCancelar = new org.edisoncor.gui.button.ButtonIpod();
         buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
+        labelMetric8 = new org.edisoncor.gui.label.LabelMetric();
+        txtClave = new org.edisoncor.gui.textField.TextFieldRoundIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,11 +100,21 @@ public class Personal extends javax.swing.JDialog {
             }
         });
 
-        buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CANCEL3.jpg"))); // NOI18N
-        buttonIpod2.setText("CANCELAR");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CANCEL3.jpg"))); // NOI18N
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/NUEVO.png"))); // NOI18N
         buttonIpod1.setText("NUEVO");
+
+        labelMetric8.setText("CLAVE");
+
+        txtClave.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtClave.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
@@ -140,12 +152,16 @@ public class Personal extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(64, 64, 64)
-                        .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addComponent(labelMetric6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(197, 197, 197)
                         .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addComponent(labelMetric8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(151, 151, 151)
+                        .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -155,6 +171,10 @@ public class Personal extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMetric8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,9 +199,9 @@ public class Personal extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -204,13 +224,27 @@ public class Personal extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // guardar el empleado
          int legajo = Integer.parseInt(txtLegajo.getText());
-         
-         
-         Empleado empleado = new Empleado(Integer.parseInt(txtLegajo.getText()) ,txtNombre.getText(), txtClave.getText());
+         String clave = txtClave.getText();
+         String nombre = txtNombre.getText();
+         String apellido = txtApellido.getText();
+         String direccion = txtDireccion.getText();
+         String localidad = txtLocalidad.getText();
+        // int dni = Integer.parseInt(txtDni.getText());
+         //int dni = txtDni.getText();
+         String telefono = txtTelefono.getText();
+         Empleado empleado = new Empleado(legajo, apellido, nombre, clave);
+         empleado.setDireccion(direccion);
+         empleado.setLocalidad(localidad);
+        // empleado.setDni(dni);
+         // falta telefono
          EmpleadoDao empleados = new EmpleadoDaoImp(); 
          empleados.addEmpleado(empleado);
-        
+         limpiarVenanaEmpleado();
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,9 +288,9 @@ public class Personal extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.edisoncor.gui.button.ButtonIpod btnCancelar;
     private org.edisoncor.gui.button.ButtonIpod btnGuardar;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod2;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelMetric labelMetric3;
@@ -264,8 +298,10 @@ public class Personal extends javax.swing.JDialog {
     private org.edisoncor.gui.label.LabelMetric labelMetric5;
     private org.edisoncor.gui.label.LabelMetric labelMetric6;
     private org.edisoncor.gui.label.LabelMetric labelMetric7;
+    private org.edisoncor.gui.label.LabelMetric labelMetric8;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtApellido;
+    private org.edisoncor.gui.textField.TextFieldRoundIcon txtClave;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDireccion;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDni;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtLegajo;
@@ -273,4 +309,16 @@ public class Personal extends javax.swing.JDialog {
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtNombre;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarVenanaEmpleado() {
+       txtApellido.setText("");
+       txtClave.setText("");
+       txtDireccion.setText("");
+       txtDni.setText("");
+       txtLegajo.setText("");
+       txtLocalidad.setText("");
+       txtNombre.setText("");
+       txtTelefono.setText("");
+       // falta par aque  el cursor se situe en el campo legajo por defecyto
+    }
 }
