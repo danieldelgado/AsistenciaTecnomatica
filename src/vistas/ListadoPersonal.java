@@ -81,6 +81,10 @@ public class ListadoPersonal extends javax.swing.JDialog {
     public ListadoPersonal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        setVisible(true);
+        datInicio.setEnabled(false);
+        datFin.setEnabled(false);
     }
 
     /**
@@ -99,7 +103,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         txtBusqueda = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         panelShadow1 = new org.edisoncor.gui.panel.PanelShadow();
         rdbHoy = new javax.swing.JRadioButton();
-        rdbActual = new javax.swing.JRadioButton();
+        rdbMes = new javax.swing.JRadioButton();
         rdbFecha = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         datInicio = new com.toedter.calendar.JDateChooser();
@@ -110,6 +114,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         btnImprimir = new org.edisoncor.gui.button.ButtonIpod();
         btnIreport = new org.edisoncor.gui.button.ButtonIpod();
         btnSalir = new org.edisoncor.gui.button.ButtonIpod();
+        btnBusquedaPersonal = new org.edisoncor.gui.button.ButtonIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,17 +132,32 @@ public class ListadoPersonal extends javax.swing.JDialog {
         buttonGroup1.add(rdbHoy);
         rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbHoy.setText("Hoy");
+        rdbHoy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbHoyActionPerformed(evt);
+            }
+        });
         panelShadow1.add(rdbHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        buttonGroup1.add(rdbActual);
-        rdbActual.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        rdbActual.setText("Mes Actual");
-        panelShadow1.add(rdbActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
+        buttonGroup1.add(rdbMes);
+        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbMes.setText("Mes Actual");
+        rdbMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbMesActionPerformed(evt);
+            }
+        });
+        panelShadow1.add(rdbMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
 
         rdbFecha.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdbFecha);
         rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbFecha.setText("Entre las Fechas");
+        rdbFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbFechaActionPerformed(evt);
+            }
+        });
         panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -186,8 +206,22 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CANCEL3.jpg"))); // NOI18N
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SALIR.jpg"))); // NOI18N
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        btnBusquedaPersonal.setBackground(java.awt.SystemColor.controlDkShadow);
+        btnBusquedaPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/binoculares.jpg"))); // NOI18N
+        btnBusquedaPersonal.setText("buttonIcon1");
+        btnBusquedaPersonal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaPersonalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
@@ -203,7 +237,9 @@ public class ListadoPersonal extends javax.swing.JDialog {
                                 .addGap(28, 28, 28)
                                 .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
                                 .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,14 +266,16 @@ public class ListadoPersonal extends javax.swing.JDialog {
                         .addGap(1, 1, 1)
                         .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,7 +293,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         pack();
@@ -363,6 +401,40 @@ public class ListadoPersonal extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
+        BusquedaPersonal bp = new BusquedaPersonal(null, true);
+        if (bp.isSeleccionado() == true);
+        {
+            txtBusqueda.setText(Integer.toString(bp.getEmpleado().getLegajo()));
+        }
+    }//GEN-LAST:event_btnBusquedaPersonalActionPerformed
+
+    private void rdbFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbFechaActionPerformed
+        if (rdbFecha.isSelected())
+        {
+            habilitarFechas();
+            
+        }
+    }//GEN-LAST:event_rdbFechaActionPerformed
+
+    private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
+        if (rdbMes.isSelected())
+        {
+            deshabilitarFechas();
+        }
+    }//GEN-LAST:event_rdbMesActionPerformed
+
+    private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
+        if (rdbHoy.isSelected())
+        {
+            deshabilitarFechas();
+        }
+    }//GEN-LAST:event_rdbHoyActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -406,6 +478,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.button.ButtonIpod btnBuscar;
+    private org.edisoncor.gui.button.ButtonIcon btnBusquedaPersonal;
     private org.edisoncor.gui.button.ButtonIpod btnImprimir;
     private org.edisoncor.gui.button.ButtonIpod btnIreport;
     private org.edisoncor.gui.button.ButtonIpod btnSalir;
@@ -418,10 +491,20 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.panel.PanelShadow panelShadow1;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
-    private javax.swing.JRadioButton rdbActual;
     private javax.swing.JRadioButton rdbFecha;
     private javax.swing.JRadioButton rdbHoy;
+    private javax.swing.JRadioButton rdbMes;
     private org.jdesktop.swingx.JXTable tblListado;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtBusqueda;
     // End of variables declaration//GEN-END:variables
+private void habilitarFechas()
+{
+    datInicio.setEnabled(true);
+    datFin.setEnabled(true);
+}
+private void deshabilitarFechas()
+{
+    datInicio.setEnabled(false);
+    datFin.setEnabled(false);
+}
 }

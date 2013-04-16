@@ -128,6 +128,10 @@ public class Camara extends javax.swing.JFrame
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
         txtClave = new org.edisoncor.gui.textField.TextFieldRectIcon();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mnuLogin = new javax.swing.JMenuItem();
+        mnuPersonal = new javax.swing.JMenuItem();
+        mnuListado = new javax.swing.JMenuItem();
         jmCapturar = new javax.swing.JMenu();
         jmCArchivo = new javax.swing.JMenuItem();
         jmCBD = new javax.swing.JMenuItem();
@@ -149,7 +153,7 @@ public class Camara extends javax.swing.JFrame
         panelCam.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCam.setLayout(new java.awt.BorderLayout());
         panelRectTranslucidoComplete2.add(panelCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 250, 230));
-        panelRectTranslucidoComplete2.add(lbllFotoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, 160, 140));
+        panelRectTranslucidoComplete2.add(lbllFotoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 130, 110));
 
         clockDigital2.setBackground(new java.awt.Color(255, 255, 255));
         clockDigital2.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 18)); // NOI18N
@@ -168,13 +172,14 @@ public class Camara extends javax.swing.JFrame
 
         panelRectTranslucidoComplete2.add(clockFace2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 116, 123));
 
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login.jpg"))); // NOI18N
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 120));
+        panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 80, 80));
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
         lblFecha.setForeground(new java.awt.Color(0, 0, 0));
@@ -199,6 +204,34 @@ public class Camara extends javax.swing.JFrame
         panelRectTranslucidoComplete2.add(labelMetric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
         panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
         panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+
+        jMenu1.setText("Archivo");
+
+        mnuLogin.setText("Login");
+        mnuLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuLoginActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuLogin);
+
+        mnuPersonal.setText("ABM Personal");
+        mnuPersonal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPersonalActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuPersonal);
+
+        mnuListado.setText("Listado de Registros");
+        mnuListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListadoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuListado);
+
+        jMenuBar1.add(jMenu1);
 
         jmCapturar.setText("Capturar");
 
@@ -244,8 +277,8 @@ public class Camara extends javax.swing.JFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
@@ -315,6 +348,18 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
+        Login login = new Login(this, true);
+    }//GEN-LAST:event_mnuLoginActionPerformed
+
+    private void mnuPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPersonalActionPerformed
+        Personal personal = new Personal(this, true);
+    }//GEN-LAST:event_mnuPersonalActionPerformed
+
+    private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
+        ListadoPersonal listado = new ListadoPersonal(this, true);
+    }//GEN-LAST:event_mnuListadoActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -331,6 +376,7 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmAcerca;
     private javax.swing.JMenuItem jmCArchivo;
@@ -343,6 +389,9 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelCustom lblFecha;
     private javax.swing.JLabel lbllFotoUser;
+    private javax.swing.JMenuItem mnuListado;
+    private javax.swing.JMenuItem mnuLogin;
+    private javax.swing.JMenuItem mnuPersonal;
     private javax.swing.JPanel panelCam;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete2;
     private org.edisoncor.gui.textField.TextFieldRectIcon txtClave;
