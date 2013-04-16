@@ -28,9 +28,9 @@ public class TablaUtil {
      * @param modelo  modelo de la tabla asamblea 
      * @param tablaAsamblea  tabla donde contendra informacion de todas las asableas
      */
-    public static void prepararTablaAsambleas(DefaultTableModel modelo, JTable tablaAsistencia){
+    public static void prepararTablaAsistencia(DefaultTableModel modelo, JTable tablaAsistencia){
         
-        String[] titulos = {"Legajo","Empleado","Entrada/Salida","Fecha","Hora"};
+        String[] titulos = {"LEGAJO","EMPLEADO","ENTRADA/SALIDA","FECHA","HORA"};
        modelo= new DefaultTableModel(null,titulos);
        tablaAsistencia.setModel(modelo);
     }

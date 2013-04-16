@@ -128,7 +128,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
         labelMetric1.setText("Busqueda");
 
-        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "APELLIDO", "LEGAJO" }));
+        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "LEGAJO" }));
         cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         cmbBusqueda.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -382,58 +382,98 @@ public class ListadoPersonal extends javax.swing.JDialog {
       // validar el empleado
         System.out.println(txtBusqueda.getText());
         EmpleadoDao empleados = new EmpleadoDaoImp();
-        List<Empleado> lisaEmpleado = empleados.listarEmpleado();
-        boolean encontrado = false;
+        List<Empleado> listaEmpleado = empleados.listarEmpleado();
         Empleado e = null ;
-        // busqueda por legajo o apellido
+        Set<Asistencia> conjuntoAsistencia= new TreeSet<Asistencia>();
+         
         if (cmbBusqueda.getSelectedIndex()==1) {
-            // busqueda el empleado por apellido
-             
-                      
-              for ( Empleado empleado : lisaEmpleado) {
-                     if (empleado.getApellido()==txtBusqueda.getText().toString()) {
-                       encontrado = true;
-                       e =empleado;
-                       break;
-                       }
-                 } 
-        } else {
-            if (cmbBusqueda.getSelectedIndex()==2) {
-               //busqueda empleado por legajo
-                for ( Empleado empleado : lisaEmpleado) {
-                     if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
-                       System.out.println(txtBusqueda.getText());
-                       System.out.println(empleado.getLegajo());
-                       encontrado = true;
-                       e =empleado;
-                       break;
-                       }
-                 } 
-            } else {
-                // Busqueda por todo los empleados
-                
-            }
-        }
-        if (encontrado) {
-            // muestro en la tabla las asistencias  
-          System.out.println(e.getApellido());
-         Set<Asistencia> conjuntoAsistencia =empleados.getEmpleado(e.getLegajo()).getAsistencias();
-        // es necesario hacer esto para que me ordene por idAssitencia
-         conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-         conjunto.addAll(conjuntoAsistencia);
-         
-         TablaUtil.prepararTablaAsambleas(modelo, tblAsistencia); 
-         TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
-         
-         }else{
-            JOptionPane.showMessageDialog(this, "Error de validacion , ingrese de nuevo sus datos","Error",JOptionPane.ERROR_MESSAGE);
+           //busqueda empleado por legajo
+           e= getEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
+           if (e!=null) {
+            // muestro en la tabla las asistencias entre las fechas  indicadas
+            
+           System.out.println(e.getApellido());
+           conjuntoAsistencia =getAsistenciasEntreFechas(dateInicio.getDate(), dateFin.getDate(), e);
+      
+          
+          }else{
+            JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
 
-        }
+          }
+        } else {
+              // Busqueda asistencias de todos los empleados
+              for (Empleado empleado : listaEmpleado) {
+                  for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
+                     Asistencia asistencia = it.next();
+                     if (asistencia.getFecha().getTime()>= dateInicio.getDate().getTime() && asistencia.getFecha().getTime()<= dateFin.getDate().getTime()) {
+                         conjuntoAsistencia.add(asistencia);
+                      } 
+         
+                  }
+              }
+  
+            }
+        
+         // es necesario hacer esto para que me ordene por idAssitencia
+           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+           conjunto.addAll(conjuntoAsistencia);
+         
+           TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
+           TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
+         
    
      
         
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+ private Set<Asistencia> getAsistenciasEntreFechas(Date fechaInicio, Date FechaFin, Empleado e){
+     Set<Asistencia> sublist = null;
+     for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
+         Asistencia asistencia = it.next();
+         if (asistencia.getFecha().getTime()>= fechaInicio.getTime() && asistencia.getFecha().getTime()<= FechaFin.getTime()) {
+             sublist.add(asistencia);
+         } 
+         
+     }
+     
+     return sublist;
+     
+ }
+    private Empleado getEmpleado(String apellido, List<Empleado> listaEmpleado){
+      Empleado e=null;
+      
+       for ( Empleado empleado : listaEmpleado) {
+                     if (empleado.getApellido()==txtBusqueda.getText().toString()) {
+                        e =empleado;
+                       break;
+                       }
+                 } 
+      return e;   
+    }
+    private List<Empleado> getListaEmpleado(String apellido, List<Empleado> listaEmpleado){
+      List<Empleado> lista=null;
+      
+       for ( Empleado empleado : listaEmpleado) {
+                     if (empleado.getApellido()==txtBusqueda.getText().toString()) {
+                        lista.add(empleado);
+                       break;
+                       }
+                 } 
+      return lista;   
+    }
+    private Empleado getEmpleado(int legajo ,List<Empleado> listaEmpleado ){
+        Empleado e=null;
+         for ( Empleado empleado : listaEmpleado) {
+                     if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
+                       System.out.println(txtBusqueda.getText());
+                       System.out.println(empleado.getLegajo());
+                       
+                       e =empleado;
+                       break;
+                       }
+                 } 
+        return e;
+    }
+    
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
         BusquedaPersonal bp = new BusquedaPersonal(null, true);
         if (bp.isSeleccionado() == true);
@@ -476,18 +516,18 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
     private void cmbBusquedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBusquedaItemStateChanged
      
-        if (cmbBusqueda.getSelectedIndex()==1) {
-            // busqueda de empleado por legajo
-            activarBusqueda();
-        } else {
-            if (cmbBusqueda.getSelectedIndex()==2) {
-                //busqueda por aplellido
-                activarBusqueda();
-            } else {
-                // todos los empleados
-                inactivarBusqueda();
-            }
-        }
+//        if (cmbBusqueda.getSelectedIndex()==1) {
+//            // busqueda de empleado por legajo
+//            activarBusqueda();
+//        } else {
+//            if (cmbBusqueda.getSelectedIndex()==2) {
+//                //busqueda por aplellido
+//                activarBusqueda();
+//            } else {
+//                // todos los empleados
+//                inactivarBusqueda();
+//            }
+//        }
         
         
     }//GEN-LAST:event_cmbBusquedaItemStateChanged
@@ -506,14 +546,10 @@ public class ListadoPersonal extends javax.swing.JDialog {
             // busqueda de empleado por legajo
             activarBusqueda();
         } else {
-            if (cmbBusqueda.getSelectedIndex()==2) {
-                //busqueda por aplellido
-                activarBusqueda();
-            } else {
-                // todos los empleados
+              // todos los empleados
                 inactivarBusqueda();
             }
-        }
+        
         
         
     }//GEN-LAST:event_cmbBusquedaActionPerformed

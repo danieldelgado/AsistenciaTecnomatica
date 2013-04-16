@@ -30,7 +30,9 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
 
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor=null;
-        if ("empleado".equals(jrf.getName())) {
+        if ("legajo".equals(jrf.getName())) {
+            valor =  listaAsistencia.get(index).getEmpleado().getLegajo();
+        } else if ("empleado".equals(jrf.getName())) {
             valor =  listaAsistencia.get(index).getEmpleado().getNombre();
         }else if("estado".equals(jrf.getName())){
             valor = listaAsistencia.get(index).getEstado();
