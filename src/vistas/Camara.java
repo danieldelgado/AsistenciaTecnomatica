@@ -333,7 +333,7 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
            
            String elegir = (String)cmbElegir.getSelectedItem();
           // creoo un objeto asistencia
-           Asistencia asistencia =  new Asistencia(elegir,imgByte ,new Date(), new Date());
+           Asistencia asistencia =  new Asistencia(elegir,imgByte ,new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0), new Date());
            asistencia.setEmpleado(e);
            //agrego en la bd
            AsistenciaDao asistencias = new AsistenciaDaoImp();

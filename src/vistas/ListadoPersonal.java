@@ -396,17 +396,23 @@ public class ListadoPersonal extends javax.swing.JDialog {
             // muestro en la tabla las asistencias entre las fechas  indicadas
             
             e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
-           // Set<Asistencia> conjuntoAsistencia= e.getAsistencias();
+            Set<Asistencia> conjuntoAsistencia= e.getAsistencias();
             
            for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
               Asistencia asistencia = it.next();
-              if ( asistencia.getFecha().before(dateInicio.getDate()) &&  asistencia.getFecha().after(dateFin.getDate())) {
-                conjuntoAsistencia2.add(asistencia);
+                                  
+              
+              if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
+                conjuntoAsistencia.remove(asistencia);
                
               }
+//              if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
+//                conjuntoAsistencia.remove(asistencia);
+//               
+//              }
            }
            conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-           conjunto.addAll(conjuntoAsistencia2);
+           conjunto.addAll(conjuntoAsistencia);
                //   System.out.println("cantidad de registro de asistencias  "+conjuntoAsistencia.size());
           
           }else{
@@ -515,8 +521,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1));
-            dateFin.setDate(new Date());
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
+            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
             deshabilitarFechas();
             
         }
@@ -525,8 +531,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            dateInicio.setDate(new Date());
-            dateFin.setDate(new Date());
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
+            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
             deshabilitarFechas();
             
         }
