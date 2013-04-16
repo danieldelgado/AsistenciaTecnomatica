@@ -30,7 +30,7 @@ public class TablaUtil {
      */
     public static void prepararTablaAsambleas(DefaultTableModel modelo, JTable tablaAsistencia){
         
-        String[] titulos = {"Empleado","Entrada/Salida","Fecha","Hora"};
+        String[] titulos = {"Legajo","Empleado","Entrada/Salida","Fecha","Hora"};
        modelo= new DefaultTableModel(null,titulos);
        tablaAsistencia.setModel(modelo);
     }
@@ -48,7 +48,7 @@ public class TablaUtil {
         Asistencia a = (Asistencia) it.next();
        String fecha= FechaUtil.getDateDDMMAAAA(a.getFecha());
         
-        Object[] filaAsistencia = {a.getEmpleado().getNombre(),a.getEstado(),fecha,FechaUtil.getHora(a.getHora())}; 
+        Object[] filaAsistencia = {a.getEmpleado().getLegajo(),a.getEmpleado().getApellido()+" "+a.getEmpleado().getNombre(),a.getEstado(),fecha,FechaUtil.getHora(a.getHora())}; 
   
            modelo.addRow(filaAsistencia);
     }

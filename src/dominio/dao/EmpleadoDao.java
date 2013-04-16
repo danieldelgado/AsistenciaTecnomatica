@@ -11,7 +11,7 @@ import dominio.Empleado;
  * @author alumno
  */
 public interface EmpleadoDao {
-    java.util.List<Empleado> listarEmpleado();
+  java.util.List<Empleado> listarEmpleado();
   public void addEmpleado(Empleado a);
   public void deleteEmpleado(Empleado a);
   public void upDateEmpleado(Empleado a);

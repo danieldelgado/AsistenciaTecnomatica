@@ -74,21 +74,22 @@ import net.sf.jasperreports.swing.JRViewer;
  * @author Leo
  */
 public class ListadoPersonal extends javax.swing.JDialog {
-
+    Set<Asistencia> conjunto;
+    DefaultTableModel modelo;
     /**
      * Creates new form ListadoPersonal
      */
     public ListadoPersonal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(parent);
-        setVisible(true);
         //las fechas por defectos desabikitada porque rbtn  en fecha  actual
-        deshabilitarFechas();
         dateInicio.setDate(new Date());
         dateFin.setDate(new Date());
+        deshabilitarFechas();
         // por defecto el cmbBusqueda esta en Todos los empleados entonces inactivo txtbusqueda ybtnbusq
         inactivarBusqueda();
+        setLocationRelativeTo(parent);
+        setVisible(true);
     }
 
     /**
@@ -114,7 +115,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         dateFin = new com.toedter.calendar.JDateChooser();
         btnBuscar = new org.edisoncor.gui.button.ButtonIpod();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblListado = new org.jdesktop.swingx.JXTable();
+        tblAsistencia = new org.jdesktop.swingx.JXTable();
         btnImprimir = new org.edisoncor.gui.button.ButtonIpod();
         btnIreport = new org.edisoncor.gui.button.ButtonIpod();
         btnSalir = new org.edisoncor.gui.button.ButtonIpod();
@@ -196,8 +197,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
-        tblListado.setBackground(new java.awt.Color(135, 133, 133));
-        tblListado.setModel(new javax.swing.table.DefaultTableModel(
+        tblAsistencia.setBackground(new java.awt.Color(135, 133, 133));
+        tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -208,7 +209,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
                 "LEGAJO", "EMPLEADO", "ESTADO", "FECHA", "HORA"
             }
         ));
-        jScrollPane1.setViewportView(tblListado);
+        jScrollPane1.setViewportView(tblAsistencia);
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IMPRIMIR.jpg"))); // NOI18N
         btnImprimir.setText("IMPRIMIR");
@@ -379,6 +380,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       // validar el empleado
+        System.out.println(txtBusqueda.getText());
         EmpleadoDao empleados = new EmpleadoDaoImp();
         List<Empleado> lisaEmpleado = empleados.listarEmpleado();
         boolean encontrado = false;
@@ -386,8 +388,10 @@ public class ListadoPersonal extends javax.swing.JDialog {
         // busqueda por legajo o apellido
         if (cmbBusqueda.getSelectedIndex()==1) {
             // busqueda el empleado por apellido
+             
+                      
               for ( Empleado empleado : lisaEmpleado) {
-                     if (empleado.getApellido()==txtBusqueda.getText()) {
+                     if (empleado.getApellido()==txtBusqueda.getText().toString()) {
                        encontrado = true;
                        e =empleado;
                        break;
@@ -398,18 +402,32 @@ public class ListadoPersonal extends javax.swing.JDialog {
                //busqueda empleado por legajo
                 for ( Empleado empleado : lisaEmpleado) {
                      if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
+                       System.out.println(txtBusqueda.getText());
+                       System.out.println(empleado.getLegajo());
                        encontrado = true;
                        e =empleado;
                        break;
                        }
                  } 
             } else {
-                // no selecciono la busqueda en el cmbbusqueda
-                JOptionPane.showMessageDialog(rootPane, "Debes indicar un empleado ", "Error", JOptionPane.ERROR_MESSAGE);
+                // Busqueda por todo los empleados
+                
             }
         }
         if (encontrado) {
-           System.out.println(e.getNombre());
+            // muestro en la tabla las asistencias  
+          System.out.println(e.getApellido());
+         Set<Asistencia> conjuntoAsistencia =empleados.getEmpleado(e.getLegajo()).getAsistencias();
+        // es necesario hacer esto para que me ordene por idAssitencia
+         conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+         conjunto.addAll(conjuntoAsistencia);
+         
+         TablaUtil.prepararTablaAsambleas(modelo, tblAsistencia); 
+         TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
+         
+         }else{
+            JOptionPane.showMessageDialog(this, "Error de validacion , ingrese de nuevo sus datos","Error",JOptionPane.ERROR_MESSAGE);
+
         }
    
      
@@ -435,18 +453,20 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            deshabilitarFechas();
             dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1));
             dateFin.setDate(new Date());
+            deshabilitarFechas();
+            
         }
     }//GEN-LAST:event_rdbMesActionPerformed
 
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            deshabilitarFechas();
             dateInicio.setDate(new Date());
             dateFin.setDate(new Date());
+            deshabilitarFechas();
+            
         }
     }//GEN-LAST:event_rdbHoyActionPerformed
 
@@ -557,7 +577,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdbFecha;
     private javax.swing.JRadioButton rdbHoy;
     private javax.swing.JRadioButton rdbMes;
-    private org.jdesktop.swingx.JXTable tblListado;
+    private org.jdesktop.swingx.JXTable tblAsistencia;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtBusqueda;
     // End of variables declaration//GEN-END:variables
 private void habilitarFechas()
