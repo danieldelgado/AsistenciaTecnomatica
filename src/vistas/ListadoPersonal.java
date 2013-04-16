@@ -83,8 +83,12 @@ public class ListadoPersonal extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         setVisible(true);
-        datInicio.setEnabled(false);
-        datFin.setEnabled(false);
+        //las fechas por defectos desabikitada porque rbtn  en fecha  actual
+        deshabilitarFechas();
+        dateInicio.setDate(new Date());
+        dateFin.setDate(new Date());
+        // por defecto el cmbBusqueda esta en Todos los empleados entonces inactivo txtbusqueda ybtnbusq
+        inactivarBusqueda();
     }
 
     /**
@@ -106,8 +110,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
         rdbMes = new javax.swing.JRadioButton();
         rdbFecha = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        datInicio = new com.toedter.calendar.JDateChooser();
-        datFin = new com.toedter.calendar.JDateChooser();
+        dateInicio = new com.toedter.calendar.JDateChooser();
+        dateFin = new com.toedter.calendar.JDateChooser();
         btnBuscar = new org.edisoncor.gui.button.ButtonIpod();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListado = new org.jdesktop.swingx.JXTable();
@@ -123,14 +127,25 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
         labelMetric1.setText("Busqueda");
 
-        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONE UNA OPCION", "APELLIDO", "LEGAJO" }));
+        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "APELLIDO", "LEGAJO" }));
         cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        cmbBusqueda.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbBusquedaItemStateChanged(evt);
+            }
+        });
+        cmbBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBusquedaActionPerformed(evt);
+            }
+        });
 
         panelShadow1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FILTRO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
         panelShadow1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonGroup1.add(rdbHoy);
         rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbHoy.setSelected(true);
         rdbHoy.setText("Hoy");
         rdbHoy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,14 +179,14 @@ public class ListadoPersonal extends javax.swing.JDialog {
         jLabel3.setText("Y");
         panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
-        datInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        datInicio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        panelShadow1.add(datInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
+        dateInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        dateInicio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        panelShadow1.add(dateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
 
-        datFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        datFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        datFin.setMaxSelectableDate(new java.util.Date(253370775670000L));
-        panelShadow1.add(datFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
+        dateFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        dateFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dateFin.setMaxSelectableDate(new java.util.Date(253370775670000L));
+        panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BUSCAR2.jpg"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -184,13 +199,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
         tblListado.setBackground(new java.awt.Color(135, 133, 133));
         tblListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "LEGAJO", "EMPLEADO", "ESTADO", "FECHA", "HORA"
             }
         ));
         jScrollPane1.setViewportView(tblListado);
@@ -262,13 +277,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(13, 13, 13)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,7 +387,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         if (cmbBusqueda.getSelectedIndex()==1) {
             // busqueda el empleado por apellido
               for ( Empleado empleado : lisaEmpleado) {
-                     if (empleado.getNombre()==txtBusqueda.getText()) {
+                     if (empleado.getApellido()==txtBusqueda.getText()) {
                        encontrado = true;
                        e =empleado;
                        break;
@@ -421,6 +436,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
         if (rdbMes.isSelected())
         {
             deshabilitarFechas();
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1));
+            dateFin.setDate(new Date());
         }
     }//GEN-LAST:event_rdbMesActionPerformed
 
@@ -428,12 +445,58 @@ public class ListadoPersonal extends javax.swing.JDialog {
         if (rdbHoy.isSelected())
         {
             deshabilitarFechas();
+            dateInicio.setDate(new Date());
+            dateFin.setDate(new Date());
         }
     }//GEN-LAST:event_rdbHoyActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cmbBusquedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBusquedaItemStateChanged
+     
+        if (cmbBusqueda.getSelectedIndex()==1) {
+            // busqueda de empleado por legajo
+            activarBusqueda();
+        } else {
+            if (cmbBusqueda.getSelectedIndex()==2) {
+                //busqueda por aplellido
+                activarBusqueda();
+            } else {
+                // todos los empleados
+                inactivarBusqueda();
+            }
+        }
+        
+        
+    }//GEN-LAST:event_cmbBusquedaItemStateChanged
+
+    private void inactivarBusqueda(){
+         // dejar no editable el txtbusqueda y no activo el boton busqueda
+        txtBusqueda.setEditable(false);
+        btnBusquedaPersonal.setEnabled(false);
+    }
+    private void activarBusqueda(){
+       txtBusqueda.setEditable(true);
+        btnBusquedaPersonal.setEnabled(true); 
+    }
+    private void cmbBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBusquedaActionPerformed
+       if (cmbBusqueda.getSelectedIndex()==1) {
+            // busqueda de empleado por legajo
+            activarBusqueda();
+        } else {
+            if (cmbBusqueda.getSelectedIndex()==2) {
+                //busqueda por aplellido
+                activarBusqueda();
+            } else {
+                // todos los empleados
+                inactivarBusqueda();
+            }
+        }
+        
+        
+    }//GEN-LAST:event_cmbBusquedaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -484,8 +547,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private org.edisoncor.gui.button.ButtonIpod btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbBusqueda;
-    private com.toedter.calendar.JDateChooser datFin;
-    private com.toedter.calendar.JDateChooser datInicio;
+    private com.toedter.calendar.JDateChooser dateFin;
+    private com.toedter.calendar.JDateChooser dateInicio;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
@@ -499,12 +562,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 private void habilitarFechas()
 {
-    datInicio.setEnabled(true);
-    datFin.setEnabled(true);
+    dateInicio.setEnabled(true);
+    dateFin.setEnabled(true);
+    
 }
 private void deshabilitarFechas()
 {
-    datInicio.setEnabled(false);
-    datFin.setEnabled(false);
+    dateInicio.setEnabled(false);
+    dateFin.setEnabled(false);
 }
 }
