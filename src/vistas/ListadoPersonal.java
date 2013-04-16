@@ -521,8 +521,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
-            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
+            dateInicio.setDate(new Date(Calendar.YEAR,Calendar.MONTH,1,0,0,0));
+            dateFin.setDate(new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0));
             deshabilitarFechas();
             
         }
@@ -531,8 +531,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
-            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
+            dateInicio.setDate(new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0));
+            dateFin.setDate(new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0));
             deshabilitarFechas();
             
         }
