@@ -358,6 +358,7 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 
     private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
         ListadoPersonal listado = new ListadoPersonal(this, true);
+       
     }//GEN-LAST:event_mnuListadoActionPerformed
 
     /**

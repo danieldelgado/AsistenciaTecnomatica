@@ -76,6 +76,7 @@ import net.sf.jasperreports.swing.JRViewer;
 public class ListadoPersonal extends javax.swing.JDialog {
     Set<Asistencia> conjunto;
     DefaultTableModel modelo;
+    private Set<Asistencia> conjuntoAsistencia2=null;
     /**
      * Creates new form ListadoPersonal
      */
@@ -380,21 +381,33 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       // validar el empleado
-        System.out.println(txtBusqueda.getText());
+        
         EmpleadoDao empleados = new EmpleadoDaoImp();
         List<Empleado> listaEmpleado = empleados.listarEmpleado();
-        Empleado e = null ;
-        Set<Asistencia> conjuntoAsistencia= new TreeSet<Asistencia>();
+        Empleado e = new Empleado()  ;
+        boolean encontrado = false;      
+        
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo
-           e= getEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
-           if (e!=null) {
+           //e= getEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
+           encontrado = getBooleanEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
+           if (encontrado) {
             // muestro en la tabla las asistencias entre las fechas  indicadas
             
-           System.out.println(e.getApellido());
-           conjuntoAsistencia =getAsistenciasEntreFechas(dateInicio.getDate(), dateFin.getDate(), e);
-      
+            e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
+           // Set<Asistencia> conjuntoAsistencia= e.getAsistencias();
+            
+           for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
+              Asistencia asistencia = it.next();
+              if ( asistencia.getFecha().before(dateInicio.getDate()) &&  asistencia.getFecha().after(dateFin.getDate())) {
+                conjuntoAsistencia2.add(asistencia);
+               
+              }
+           }
+           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+           conjunto.addAll(conjuntoAsistencia2);
+               //   System.out.println("cantidad de registro de asistencias  "+conjuntoAsistencia.size());
           
           }else{
             JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
@@ -403,10 +416,10 @@ public class ListadoPersonal extends javax.swing.JDialog {
         } else {
               // Busqueda asistencias de todos los empleados
               for (Empleado empleado : listaEmpleado) {
-                  for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
+                  for (Iterator<Asistencia> it = empleado.getAsistencias().iterator(); it.hasNext();) {
                      Asistencia asistencia = it.next();
                      if (asistencia.getFecha().getTime()>= dateInicio.getDate().getTime() && asistencia.getFecha().getTime()<= dateFin.getDate().getTime()) {
-                         conjuntoAsistencia.add(asistencia);
+                         //conjuntoAsistencia.add(asistencia);
                       } 
          
                   }
@@ -414,9 +427,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
   
             }
         
-         // es necesario hacer esto para que me ordene por idAssitencia
-           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-           conjunto.addAll(conjuntoAsistencia);
+                  
+          // conjunto.addAll(e.getAsistencias());
          
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
            TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
@@ -426,12 +438,12 @@ public class ListadoPersonal extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnBuscarActionPerformed
  private Set<Asistencia> getAsistenciasEntreFechas(Date fechaInicio, Date FechaFin, Empleado e){
-     Set<Asistencia> sublist = null;
+     Set<Asistencia> sublist =null;
      for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
          Asistencia asistencia = it.next();
-         if (asistencia.getFecha().getTime()>= fechaInicio.getTime() && asistencia.getFecha().getTime()<= FechaFin.getTime()) {
+       //  if (asistencia.getFecha().getTime()>= fechaInicio.getTime() && asistencia.getFecha().getTime()<= FechaFin.getTime()) {
              sublist.add(asistencia);
-         } 
+        // } 
          
      }
      
@@ -442,30 +454,40 @@ public class ListadoPersonal extends javax.swing.JDialog {
       Empleado e=null;
       
        for ( Empleado empleado : listaEmpleado) {
-                     if (empleado.getApellido()==txtBusqueda.getText().toString()) {
+                     if (empleado.getApellido().equals(apellido)) {
                         e =empleado;
                        break;
                        }
                  } 
       return e;   
     }
-    private List<Empleado> getListaEmpleado(String apellido, List<Empleado> listaEmpleado){
-      List<Empleado> lista=null;
+    private boolean getBooleanEmpleado(int legajo, List<Empleado> listaEmpleado){
+      boolean e=false;
       
        for ( Empleado empleado : listaEmpleado) {
-                     if (empleado.getApellido()==txtBusqueda.getText().toString()) {
-                        lista.add(empleado);
+                     if (empleado.getLegajo()==legajo) {
+                        e =true;
                        break;
                        }
                  } 
-      return lista;   
+      return e;   
     }
+//    private List<Empleado> getListaEmpleado(String apellido, List<Empleado> listaEmpleado){
+//      List<Empleado> lista=null;
+//      
+//       for ( Empleado empleado : listaEmpleado) {
+//                     if (empleado.getApellido().equals(apellido)) {
+//                        lista.add(empleado);
+//                       break;
+//                       }
+//                 } 
+//      return lista;   
+//    }
     private Empleado getEmpleado(int legajo ,List<Empleado> listaEmpleado ){
         Empleado e=null;
          for ( Empleado empleado : listaEmpleado) {
-                     if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
-                       System.out.println(txtBusqueda.getText());
-                       System.out.println(empleado.getLegajo());
+                     if (empleado.getLegajo()==legajo) {
+                     
                        
                        e =empleado;
                        break;
