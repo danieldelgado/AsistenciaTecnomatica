@@ -7,6 +7,7 @@ package vistas;
 import dominio.Empleado;
 import dominio.dao.EmpleadoDao;
 import dominio.dao.imp.EmpleadoDaoImp;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +21,7 @@ public class BusquedaPersonal extends javax.swing.JDialog {
     private List<Empleado> listaEmpleado;
     private boolean seleccionado;
     private int legajo;
-
+    EmpleadoDao empleados = new EmpleadoDaoImp();
    
     public BusquedaPersonal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -54,13 +55,13 @@ public class BusquedaPersonal extends javax.swing.JDialog {
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA DE PERSONAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
         panelTranslucidoComplete21.setOpaque(false);
 
-        tblEmpleado.setBackground(new java.awt.Color(51, 51, 51));
+        tblEmpleado.setBackground(new java.awt.Color(135, 133, 133));
         tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
-                "Lejago", "Empleado"
+                "LEGAJO", "EMPLEADO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -71,6 +72,8 @@ public class BusquedaPersonal extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblEmpleado.setGridColor(new java.awt.Color(255, 255, 255));
+        tblEmpleado.setShowVerticalLines(false);
         jScrollPane1.setViewportView(tblEmpleado);
 
         btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/OK.jpg"))); // NOI18N
@@ -189,10 +192,20 @@ public class BusquedaPersonal extends javax.swing.JDialog {
     }//GEN-LAST:event_txtEmpleadoKeyPressed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
-        
+        // filtrar las coincidencias con el contenido de la caja de texto
+        if ( txtEmpleado.getText().trim().isEmpty()) {
+          listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
+          Util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+          Util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+        }else{
+ 
+        listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
+        Util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+        Util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+     
+    
     /**
      * @param args the command line arguments
      */
@@ -246,9 +259,19 @@ public class BusquedaPersonal extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTablaConEmpleado() {
-       EmpleadoDao empleados = new EmpleadoDaoImp();
+//       EmpleadoDao empleados = new EmpleadoDaoImp();
        listaEmpleado = empleados.listarEmpleado();
        Util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
        Util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+    }
+
+    private List<Empleado> filtrarPorNombreEmpleado(List<Empleado> listaEmpleado, String text) {
+         List<Empleado> list = new ArrayList<Empleado>();
+         for (Empleado empleado : listaEmpleado) {
+             if (empleado.getApellido().contains(text)||empleado.getNombre().contains(text)) {
+                 list.add(empleado);
+             }
+        }
+         return list;
     }
 }

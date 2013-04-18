@@ -34,6 +34,7 @@ import dominio.dao.AsistenciaDao;
 import dominio.dao.EmpleadoDao;
 import dominio.dao.imp.AsistenciaDaoImp;
 import dominio.dao.imp.EmpleadoDaoImp;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
@@ -90,6 +91,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
         deshabilitarFechas();
         // por defecto el cmbBusqueda esta en Todos los empleados entonces inactivo txtbusqueda ybtnbusq
         inactivarBusqueda();
+        rdbHoy.requestFocus();
+        // pantalla se localice en el centro  de la pantalla
         setLocationRelativeTo(parent);
         setVisible(true);
     }
@@ -184,11 +187,12 @@ public class ListadoPersonal extends javax.swing.JDialog {
 
         dateInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         dateInicio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dateInicio.setMaxSelectableDate(new Date());
         panelShadow1.add(dateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
 
         dateFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         dateFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        dateFin.setMaxSelectableDate(new java.util.Date(253370775670000L));
+        dateFin.setMaxSelectableDate(new Date());
         panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BUSCAR2.jpg"))); // NOI18N
@@ -202,15 +206,24 @@ public class ListadoPersonal extends javax.swing.JDialog {
         tblAsistencia.setBackground(new java.awt.Color(135, 133, 133));
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "LEGAJO", "EMPLEADO", "ESTADO", "FECHA", "HORA"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAsistencia.setGridColor(new java.awt.Color(255, 255, 255));
+        tblAsistencia.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tblAsistencia.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        tblAsistencia.setShowGrid(false);
         jScrollPane1.setViewportView(tblAsistencia);
 
         btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IMPRIMIR.jpg"))); // NOI18N
@@ -330,54 +343,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
            break;
        }
    } 
-//       if (encontrado) {
-          // mostrar en el labelEmpleado su nombre 
-//           lblEmpleado.setText("Bienvenido : "+e.getNombre()); 
-          // capturo la imagen y la muestro en el lbl
-//          Image img =  miPlayer.capturaFoto(this.getPlayer());
-//          Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(lbllFotoUser.getWidth(),lbllFotoUser.getHeight(),Image.SCALE_DEFAULT)); 
-//          lbllFotoUser.setIcon(iconoAdaptado);//  si manda en pantalla
-          // hay que convertir la imagen a byte[] por medio de un puente 
-          // crear la imagen en src y de ahi lo paso a  archivo y luego a byte
-//          miPlayer.guardaImagenEnFichero(img, new File("src/imagTester"));
-//          // capturo la imagen guardada en el src y lo llevo a la bd
-//          File file = new File("src/imagTester");
-//          byte[] imgByte = new byte[(int) file.length()];
-//           try {
-//	        FileInputStream fileInputStream = new FileInputStream(file);
-//	        //convert file into array of bytes
-//	        fileInputStream.read(imgByte);
-//	        fileInputStream.close();
-//        } catch (Exception ex) {
-//	        ex.printStackTrace();
-//        }
-           
-//           String elegir = (String)cmbElegir.getSelectedItem();
-//          // creoo un objeto asistencia
-//           Asistencia asistencia =  new Asistencia(elegir,imgByte ,new Date(), new Date());
-//           asistencia.setEmpleado(e);
-//           //agrego en la bd
-//           AsistenciaDao asistencias = new AsistenciaDaoImp();
-//           asistencias.addAsistencia(asistencia);
-//          
-//            
-//        // muestro en la tabla las asistencias  
-//        
-//         Set<Asistencia> conjuntoAsistencia =empleados.getEmpleado(e.getIdEmpleado()).getAsistencias();
-//        // es necesario hacer esto para que me ordene por idAssitencia
-//         conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-//         conjunto.addAll(conjuntoAsistencia);
-//         
-////         TablaUtil.prepararTablaAsambleas(modelo, tablaAsistencia); 
-////         TablaUtil.cargarModeloAsistencia(modelo,conjunto , tablaAsistencia);
-////         
-//         }else{
-//           JOptionPane.showMessageDialog(this, "Error de validacion , ingrese de nuevo sus datos","Error",JOptionPane.ERROR_MESSAGE);
-//           txtLegajo.setText("");
-//           txtClave.setText("");
-//           cmbElegir.setSelectedItem("Elegir");
-//       }
-//    }                                       
+                                       
     }//GEN-LAST:event_btnIreportActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -473,17 +439,6 @@ public class ListadoPersonal extends javax.swing.JDialog {
     }
     
     
-    private Empleado getEmpleado(String apellido, List<Empleado> listaEmpleado){
-      Empleado e=null;
-      
-       for ( Empleado empleado : listaEmpleado) {
-                     if (empleado.getApellido().equals(apellido)) {
-                        e =empleado;
-                       break;
-                       }
-                 } 
-      return e;   
-    }
     private boolean getBooleanEmpleado(int legajo, List<Empleado> listaEmpleado){
       boolean e=false;
       
@@ -495,26 +450,15 @@ public class ListadoPersonal extends javax.swing.JDialog {
                  } 
       return e;   
     }
-
-    private Empleado getEmpleado(int legajo ,List<Empleado> listaEmpleado ){
-        Empleado e=null;
-         for ( Empleado empleado : listaEmpleado) {
-                     if (empleado.getLegajo()==legajo) {
-                     
-                       
-                       e =empleado;
-                       break;
-                       }
-                 } 
-        return e;
-    }
-    
+ 
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
         BusquedaPersonal ventanaPersonal = new BusquedaPersonal(null, true);
         if (ventanaPersonal.isBotonSeleccionado()) {
             // si el usuario selecciono un empleado
             txtBusqueda.setText(String.valueOf(ventanaPersonal.getLegajo()));
             
+            Util.TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia);
+            rdbHoy.requestFocus();
         }
     }//GEN-LAST:event_btnBusquedaPersonalActionPerformed
 
@@ -529,8 +473,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
-            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1));
+            dateFin.setDate(new Date());
             deshabilitarFechas();
             
         }
@@ -539,64 +483,40 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
-            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
+            dateInicio.setDate(new Date());
+            dateFin.setDate(new Date());
             deshabilitarFechas();
             
         }
     }//GEN-LAST:event_rdbHoyActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-      //  this.dispose();
-      int diaInicio= Util.FechaUtil.getDia(dateInicio.getDate());
-      int mesInicio= Util.FechaUtil.getMes(dateInicio.getDate());
-      int anioInicio= Util.FechaUtil.getAnio(dateInicio.getDate());
-        
-      int diafin= Util.FechaUtil.getDia(dateFin.getDate());
-      int mesfin= Util.FechaUtil.getMes(dateFin.getDate());
-      int aniofin= Util.FechaUtil.getAnio(dateFin.getDate());
-        
-      int diaA= Util.FechaUtil.getDia(new Date());
-      int mesA= Util.FechaUtil.getMes(new Date());
-      int anioA= Util.FechaUtil.getAnio(new Date());
-        
-       System.out.println(diaInicio);   
-       System.out.println(mesInicio);   
-       System.out.println(anioInicio);
-       
-       System.out.println(diaA);   
-       System.out.println(mesA);   
-       System.out.println(anioA);
-       
+       this.dispose();
        
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void cmbBusquedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBusquedaItemStateChanged
      
-//        if (cmbBusqueda.getSelectedIndex()==1) {
-//            // busqueda de empleado por legajo
-//            activarBusqueda();
-//        } else {
-//            if (cmbBusqueda.getSelectedIndex()==2) {
-//                //busqueda por aplellido
-//                activarBusqueda();
-//            } else {
-//                // todos los empleados
-//                inactivarBusqueda();
-//            }
-//        }
-        
-        
+   
     }//GEN-LAST:event_cmbBusquedaItemStateChanged
 
     private void inactivarBusqueda(){
          // dejar no editable el txtbusqueda y no activo el boton busqueda
         txtBusqueda.setEditable(false);
+        //borro el contendido de la caja de texto
+        txtBusqueda.setText("");
+        txtBusqueda.setBackground(Color.DARK_GRAY);
+      
         btnBusquedaPersonal.setEnabled(false);
     }
     private void activarBusqueda(){
        txtBusqueda.setEditable(true);
-        btnBusquedaPersonal.setEnabled(true); 
+       //obtnego el foco
+       txtBusqueda.requestFocus();
+       //cambio el color
+       txtBusqueda.setBackground(Color.white);
+       btnBusquedaPersonal.setEnabled(true);
+         
     }
     private void cmbBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBusquedaActionPerformed
        if (cmbBusqueda.getSelectedIndex()==1) {
