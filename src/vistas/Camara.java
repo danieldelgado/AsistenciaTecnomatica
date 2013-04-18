@@ -15,6 +15,7 @@ package vistas;
  *
  * @author Cmop
  */
+import vistas.empleado.AltaEmpleado;
 import Util.DetalleReporte;
 import Util.FechaUtil;
 import Util.ReporteAsitenciaJRDataSource;
@@ -128,17 +129,23 @@ public class Camara extends javax.swing.JFrame
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
         txtClave = new org.edisoncor.gui.textField.TextFieldRectIcon();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        mnuArchivo = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenuItem();
-        mnuPersonal = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jmSalir = new javax.swing.JMenuItem();
+        mnuEmpleados = new javax.swing.JMenu();
+        mnuAltaEmpleado = new javax.swing.JMenuItem();
+        mnuBajaEmpleado = new javax.swing.JMenuItem();
+        mnuModEmpleado = new javax.swing.JMenuItem();
+        mnuRegistros = new javax.swing.JMenu();
         mnuListado = new javax.swing.JMenuItem();
+        mnuModEstados = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jmAcerca = new javax.swing.JMenuItem();
         jmCapturar = new javax.swing.JMenu();
         jmCArchivo = new javax.swing.JMenuItem();
         jmCBD = new javax.swing.JMenuItem();
         jmDispositivos = new javax.swing.JMenu();
-        jmOtros = new javax.swing.JMenu();
-        jmSalir = new javax.swing.JMenuItem();
-        jmAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Toma una Foto");
@@ -205,23 +212,43 @@ public class Camara extends javax.swing.JFrame
         panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
         panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
 
-        jMenu1.setText("Archivo");
+        mnuArchivo.setText("Archivo");
 
-        mnuLogin.setText("Login");
+        mnuLogin.setText("Iniciar Sesion");
         mnuLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuLoginActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuLogin);
+        mnuArchivo.add(mnuLogin);
 
-        mnuPersonal.setText("ABM Personal");
-        mnuPersonal.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Cerrar Sesion");
+        mnuArchivo.add(jMenuItem1);
+
+        jmSalir.setText("Salir");
+        mnuArchivo.add(jmSalir);
+
+        jMenuBar1.add(mnuArchivo);
+
+        mnuEmpleados.setText("Empleados");
+
+        mnuAltaEmpleado.setText("Alta de Empleado");
+        mnuAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPersonalActionPerformed(evt);
+                mnuAltaEmpleadoActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuPersonal);
+        mnuEmpleados.add(mnuAltaEmpleado);
+
+        mnuBajaEmpleado.setText("Baja de Empleado");
+        mnuEmpleados.add(mnuBajaEmpleado);
+
+        mnuModEmpleado.setText("Modificacion de Empleado");
+        mnuEmpleados.add(mnuModEmpleado);
+
+        jMenuBar1.add(mnuEmpleados);
+
+        mnuRegistros.setText("Registros");
 
         mnuListado.setText("Listado de Registros");
         mnuListado.addActionListener(new java.awt.event.ActionListener() {
@@ -229,9 +256,19 @@ public class Camara extends javax.swing.JFrame
                 mnuListadoActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuListado);
+        mnuRegistros.add(mnuListado);
 
-        jMenuBar1.add(jMenu1);
+        mnuModEstados.setText("Modificar Estados");
+        mnuRegistros.add(mnuModEstados);
+
+        jMenuBar1.add(mnuRegistros);
+
+        jMenu4.setText("Acerca");
+
+        jmAcerca.setText("Acerca");
+        jMenu4.add(jmAcerca);
+
+        jMenuBar1.add(jMenu4);
 
         jmCapturar.setText("Capturar");
 
@@ -256,16 +293,6 @@ public class Camara extends javax.swing.JFrame
         jmDispositivos.setText("Dispositivos");
         jMenuBar1.add(jmDispositivos);
 
-        jmOtros.setText("Otros");
-
-        jmSalir.setText("Salir");
-        jmOtros.add(jmSalir);
-
-        jmAcerca.setText("Acerca");
-        jmOtros.add(jmAcerca);
-
-        jMenuBar1.add(jmOtros);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,7 +305,7 @@ public class Camara extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pack();
@@ -348,18 +375,17 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
+        ListadoPersonal listado = new ListadoPersonal(this, true);
+    }//GEN-LAST:event_mnuListadoActionPerformed
+
+    private void mnuAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAltaEmpleadoActionPerformed
+        AltaEmpleado personal = new AltaEmpleado(this, true);
+    }//GEN-LAST:event_mnuAltaEmpleadoActionPerformed
+
     private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
         Login login = new Login(this, true);
     }//GEN-LAST:event_mnuLoginActionPerformed
-
-    private void mnuPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPersonalActionPerformed
-        Personal personal = new Personal(this, true);
-    }//GEN-LAST:event_mnuPersonalActionPerformed
-
-    private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
-        ListadoPersonal listado = new ListadoPersonal(this, true);
-       
-    }//GEN-LAST:event_mnuListadoActionPerformed
 
     /**
     * @param args the command line arguments
@@ -377,22 +403,28 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jmAcerca;
     private javax.swing.JMenuItem jmCArchivo;
     private javax.swing.JMenuItem jmCBD;
     private javax.swing.JMenu jmCapturar;
     private javax.swing.JMenu jmDispositivos;
-    private javax.swing.JMenu jmOtros;
     private javax.swing.JMenuItem jmSalir;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelCustom lblFecha;
     private javax.swing.JLabel lbllFotoUser;
+    private javax.swing.JMenuItem mnuAltaEmpleado;
+    private javax.swing.JMenu mnuArchivo;
+    private javax.swing.JMenuItem mnuBajaEmpleado;
+    private javax.swing.JMenu mnuEmpleados;
     private javax.swing.JMenuItem mnuListado;
     private javax.swing.JMenuItem mnuLogin;
-    private javax.swing.JMenuItem mnuPersonal;
+    private javax.swing.JMenuItem mnuModEmpleado;
+    private javax.swing.JMenuItem mnuModEstados;
+    private javax.swing.JMenu mnuRegistros;
     private javax.swing.JPanel panelCam;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete2;
     private org.edisoncor.gui.textField.TextFieldRectIcon txtClave;
