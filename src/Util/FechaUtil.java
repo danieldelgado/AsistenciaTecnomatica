@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -50,28 +51,48 @@ public class FechaUtil {
         
         return f;
     }
+//    public static int getDia (Date fecha){
+//        String mifecha = fecha.toString();
+//        String dia = mifecha.substring(8, 10);
+//        
+//        
+//        return Integer.parseInt(dia);
+//    }
     public static int getDia (Date fecha){
-        String mifecha = fecha.toString();
-        String dia = mifecha.substring(8, 10);
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
         
-        
-        return Integer.parseInt(dia);
+        return gc.get(Calendar.DAY_OF_MONTH);
     }
     public static int getMes (Date fecha){
-        String mifecha = fecha.toString();
-         String  mes = mifecha.substring(5, 7);
-        
-        
-        return Integer.parseInt(mes);
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
+        int mes  = gc.get(Calendar.MONTH)+1;
+        return mes;
     }
+   
     public static int getAnio (Date fecha){
-        String mifecha = fecha.toString();
-          String anio = mifecha.substring(0, 4);
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
+        return gc.get(Calendar.YEAR);
         
-        
-        return Integer.parseInt(anio);
     }
-    
+   
+//    public static int getMes (Date fecha){
+//        String mifecha = fecha.toString();
+//         String  mes = mifecha.substring(5, 7);
+//        
+//        
+//        return Integer.parseInt(mes);
+//    }
+//    public static int getAnio (Date fecha){
+//        String mifecha = fecha.toString();
+//          String anio = mifecha.substring(0, 4);
+//        
+//        
+//        return Integer.parseInt(anio);
+//    }
+//    
     
     
     /**
@@ -104,4 +125,6 @@ public class FechaUtil {
          return miHora;
      }
     
+    
+     
 }

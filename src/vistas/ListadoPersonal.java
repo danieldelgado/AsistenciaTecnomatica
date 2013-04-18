@@ -398,35 +398,21 @@ public class ListadoPersonal extends javax.swing.JDialog {
             e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
             Set<Asistencia> conjuntoAsistencia= e.getAsistencias();
             
-           for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
-              Asistencia asistencia = it.next();
-//             System.out.println(  dateFin.getDate().getDate()); dia 
-//               System.out.println( dateFin.getDate().getMonth()+1); mes
-//               System.out.println( dateFin.getDate().getYear()+1900); año
-              //filtrao por año
-              
-              //filtrado por mes
+           //filtrao por año
+            conjuntoAsistencia = getFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+            System.out.println("tamaño luego dl filtrado por año " + conjuntoAsistencia.size());  
+            //filtrado por mes
+            conjuntoAsistencia = getFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+            System.out.println("tamaño luego dl filtrado por mes " + conjuntoAsistencia.size());  
               
               //filtrado por dia
-           
-              //   if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
-//              if (( Util.FechaUtil.getDia(asistencia.getFecha())<dateInicio.getDate().getDate()) &&
-//                   ( Util.FechaUtil.getMes(asistencia.getFecha())<dateInicio.getDate().getMonth()+1)&&
-//                    ( Util.FechaUtil.getAnio(asistencia.getFecha())<dateInicio.getDate().getYear()+1900)  
-//                 ) {
-//                conjuntoAsistencia.remove(asistencia);
-//                System.out.println(asistencia.getFecha().getTime());
-//                System.out.println(dateInicio.getDate().getTime());
-//                
-//              }
-//              if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
-//                conjuntoAsistencia.remove(asistencia);
-//               
-//              }
-           }
-           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+           conjuntoAsistencia = getFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+           System.out.println("tamaño luego dl filtrado por mes " + conjuntoAsistencia.size());  
+            
+            
+            conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
            conjunto.addAll(conjuntoAsistencia);
-               //   System.out.println("cantidad de registro de asistencias  "+conjuntoAsistencia.size());
+              
           
           }else{
             JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
@@ -447,7 +433,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         
                   
-          // conjunto.addAll(e.getAsistencias());
+
          
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
            TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
@@ -456,20 +442,53 @@ public class ListadoPersonal extends javax.swing.JDialog {
      
         
     }//GEN-LAST:event_btnBuscarActionPerformed
-    public void getFiltradoPorAño (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
-        for (Asistencia asistencia : conjunto) {
-            if(( Util.FechaUtil.getAnio(asistencia.getFecha())<fechaInicio.getYear()+1900)&&( Util.FechaUtil.getAnio(asistencia.getFecha())>fechaFin.getYear()+1900)){
-                conjunto.remove(asistencia);
+    public Set<Asistencia> getFiltradoPorAño (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
+        int cont=0;
+        for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
+            Asistencia asistencia = it.next();
+            if(( Util.FechaUtil.getAnio(asistencia.getFecha())<Util.FechaUtil.getAnio(fechaInicio))||( Util.FechaUtil.getAnio(asistencia.getFecha())>Util.FechaUtil.getAnio(fechaFin))){
+//               boolean sacado =conjunto.remove((Asistencia)asistencia);
+//               System.out.println(sacado); 
+               it.remove();
+               cont++;
             }
     }
+        System.out.println("contador de año "+cont);
+        return conjunto;
     }
-    public void getFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
-        for (Asistencia asistencia : conjunto) {
-            if(( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)&&( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)){
-                conjunto.remove(asistencia);
-            }
+    public Set<Asistencia> getFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
+        int cont=0;
+        for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
+            Asistencia asistencia = it.next();
+             if(( Util.FechaUtil.getMes(asistencia.getFecha())<Util.FechaUtil.getMes(fechaInicio))||( Util.FechaUtil.getMes(asistencia.getFecha())>Util.FechaUtil.getMes(fechaFin))){
+                it.remove();
+                cont++;
+                }
+        }     
+        System.out.println("contador de mes  "+ cont);
+
+        return conjunto;
     }
+    public Set<Asistencia> getFiltradoPorDia (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
+        int cont=0;
+        for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
+            Asistencia asistencia = it.next();
+             if(( Util.FechaUtil.getDia(asistencia.getFecha())<Util.FechaUtil.getDia(fechaInicio))||( Util.FechaUtil.getDia(asistencia.getFecha())>Util.FechaUtil.getDia(fechaFin))){
+                it.remove();
+                cont++;
+                }
+        }   
+        System.out.println("contador de dia "+cont);
+        return conjunto;
     }
+    
+//    public void getFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
+//        for (Asistencia asistencia : conjunto) {
+//            if(( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)&&( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)){
+//                conjunto.remove(asistencia);
+//            }
+//    }
+//    }
     private Set<Asistencia> getAsistenciasEntreFechas(Date fechaInicio, Date FechaFin, Empleado e){
      Set<Asistencia> sublist =null;
      for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
@@ -566,7 +585,28 @@ public class ListadoPersonal extends javax.swing.JDialog {
     }//GEN-LAST:event_rdbHoyActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
+      //  this.dispose();
+      int diaInicio= Util.FechaUtil.getDia(dateInicio.getDate());
+      int mesInicio= Util.FechaUtil.getMes(dateInicio.getDate());
+      int anioInicio= Util.FechaUtil.getAnio(dateInicio.getDate());
+        
+      int diafin= Util.FechaUtil.getDia(dateFin.getDate());
+      int mesfin= Util.FechaUtil.getMes(dateFin.getDate());
+      int aniofin= Util.FechaUtil.getAnio(dateFin.getDate());
+        
+      int diaA= Util.FechaUtil.getDia(new Date());
+      int mesA= Util.FechaUtil.getMes(new Date());
+      int anioA= Util.FechaUtil.getAnio(new Date());
+        
+       System.out.println(diaInicio);   
+       System.out.println(mesInicio);   
+       System.out.println(anioInicio);
+       
+       System.out.println(diaA);   
+       System.out.println(mesA);   
+       System.out.println(anioA);
+       
+       
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void cmbBusquedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBusquedaItemStateChanged
