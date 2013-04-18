@@ -50,6 +50,30 @@ public class FechaUtil {
         
         return f;
     }
+    public static int getDia (Date fecha){
+        String mifecha = fecha.toString();
+        String dia = mifecha.substring(8, 10);
+        
+        
+        return Integer.parseInt(dia);
+    }
+    public static int getMes (Date fecha){
+        String mifecha = fecha.toString();
+         String  mes = mifecha.substring(5, 7);
+        
+        
+        return Integer.parseInt(mes);
+    }
+    public static int getAnio (Date fecha){
+        String mifecha = fecha.toString();
+          String anio = mifecha.substring(0, 4);
+        
+        
+        return Integer.parseInt(anio);
+    }
+    
+    
+    
     /**
      * 
      * @param fechaHoy una fecha ingresada
