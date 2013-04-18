@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -386,19 +387,32 @@ public class ListadoPersonal extends javax.swing.JDialog {
         List<Empleado> listaEmpleado = empleados.listarEmpleado();
         Empleado e = new Empleado()  ;
         boolean encontrado = false;      
-        
+        Set<Asistencia> conjuntoAsistencia= null;
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo
-           //e= getEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
+           
            encontrado = getBooleanEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
            if (encontrado) {
             // muestro en la tabla las asistencias entre las fechas  indicadas
             
             e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
-            Set<Asistencia> conjuntoAsistencia= e.getAsistencias();
-            
-           //filtrao por año
+            conjuntoAsistencia= e.getAsistencias();
+                      
+          }else{
+            JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
+
+          }
+        } else {
+              // Busqueda asistencias de todos los empleados
+              AsistenciaDao asistencias = new AsistenciaDaoImp();
+              List<Asistencia> listaAsistencia = asistencias.listarAsistencia();
+              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
+              System.out.println(conjuntoAsistencia.size());
+
+            }
+        
+            //filtrao por año
             conjuntoAsistencia = getFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
             System.out.println("tamaño luego dl filtrado por año " + conjuntoAsistencia.size());  
             //filtrado por mes
@@ -406,35 +420,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
             System.out.println("tamaño luego dl filtrado por mes " + conjuntoAsistencia.size());  
               
               //filtrado por dia
-           conjuntoAsistencia = getFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-           System.out.println("tamaño luego dl filtrado por mes " + conjuntoAsistencia.size());  
-            
-            
-            conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+           conjuntoAsistencia = getFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+           System.out.println("tamaño luego dl filtrado por dia " + conjuntoAsistencia.size());  
+                   
+
+           
+           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
            conjunto.addAll(conjuntoAsistencia);
-              
-          
-          }else{
-            JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
-
-          }
-        } else {
-              // Busqueda asistencias de todos los empleados
-              for (Empleado empleado : listaEmpleado) {
-                  for (Iterator<Asistencia> it = empleado.getAsistencias().iterator(); it.hasNext();) {
-                     Asistencia asistencia = it.next();
-                     if (asistencia.getFecha().getTime()>= dateInicio.getDate().getTime() && asistencia.getFecha().getTime()<= dateFin.getDate().getTime()) {
-                         //conjuntoAsistencia.add(asistencia);
-                      } 
-         
-                  }
-              }
-  
-            }
-        
-                  
-
-         
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
            TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
          
@@ -447,8 +439,6 @@ public class ListadoPersonal extends javax.swing.JDialog {
         for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
             Asistencia asistencia = it.next();
             if(( Util.FechaUtil.getAnio(asistencia.getFecha())<Util.FechaUtil.getAnio(fechaInicio))||( Util.FechaUtil.getAnio(asistencia.getFecha())>Util.FechaUtil.getAnio(fechaFin))){
-//               boolean sacado =conjunto.remove((Asistencia)asistencia);
-//               System.out.println(sacado); 
                it.remove();
                cont++;
             }
@@ -482,26 +472,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         return conjunto;
     }
     
-//    public void getFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
-//        for (Asistencia asistencia : conjunto) {
-//            if(( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)&&( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)){
-//                conjunto.remove(asistencia);
-//            }
-//    }
-//    }
-    private Set<Asistencia> getAsistenciasEntreFechas(Date fechaInicio, Date FechaFin, Empleado e){
-     Set<Asistencia> sublist =null;
-     for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
-         Asistencia asistencia = it.next();
-       //  if (asistencia.getFecha().getTime()>= fechaInicio.getTime() && asistencia.getFecha().getTime()<= FechaFin.getTime()) {
-             sublist.add(asistencia);
-        // } 
-         
-     }
-     
-     return sublist;
-     
- }
+    
     private Empleado getEmpleado(String apellido, List<Empleado> listaEmpleado){
       Empleado e=null;
       
@@ -524,17 +495,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
                  } 
       return e;   
     }
-//    private List<Empleado> getListaEmpleado(String apellido, List<Empleado> listaEmpleado){
-//      List<Empleado> lista=null;
-//      
-//       for ( Empleado empleado : listaEmpleado) {
-//                     if (empleado.getApellido().equals(apellido)) {
-//                        lista.add(empleado);
-//                       break;
-//                       }
-//                 } 
-//      return lista;   
-//    }
+
     private Empleado getEmpleado(int legajo ,List<Empleado> listaEmpleado ){
         Empleado e=null;
          for ( Empleado empleado : listaEmpleado) {
