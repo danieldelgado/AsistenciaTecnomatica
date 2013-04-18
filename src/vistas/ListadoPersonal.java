@@ -400,12 +400,25 @@ public class ListadoPersonal extends javax.swing.JDialog {
             
            for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
               Asistencia asistencia = it.next();
-                                  
+//             System.out.println(  dateFin.getDate().getDate()); dia 
+//               System.out.println( dateFin.getDate().getMonth()+1); mes
+//               System.out.println( dateFin.getDate().getYear()+1900); año
+              //filtrao por año
               
-              if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
-                conjuntoAsistencia.remove(asistencia);
-               
-              }
+              //filtrado por mes
+              
+              //filtrado por dia
+           
+              //   if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
+//              if (( Util.FechaUtil.getDia(asistencia.getFecha())<dateInicio.getDate().getDate()) &&
+//                   ( Util.FechaUtil.getMes(asistencia.getFecha())<dateInicio.getDate().getMonth()+1)&&
+//                    ( Util.FechaUtil.getAnio(asistencia.getFecha())<dateInicio.getDate().getYear()+1900)  
+//                 ) {
+//                conjuntoAsistencia.remove(asistencia);
+//                System.out.println(asistencia.getFecha().getTime());
+//                System.out.println(dateInicio.getDate().getTime());
+//                
+//              }
 //              if ( asistencia.getFecha().after(dateInicio.getDate()) &&  asistencia.getFecha().before(dateFin.getDate())) {
 //                conjuntoAsistencia.remove(asistencia);
 //               
@@ -443,7 +456,21 @@ public class ListadoPersonal extends javax.swing.JDialog {
      
         
     }//GEN-LAST:event_btnBuscarActionPerformed
- private Set<Asistencia> getAsistenciasEntreFechas(Date fechaInicio, Date FechaFin, Empleado e){
+    public void getFiltradoPorAño (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
+        for (Asistencia asistencia : conjunto) {
+            if(( Util.FechaUtil.getAnio(asistencia.getFecha())<fechaInicio.getYear()+1900)&&( Util.FechaUtil.getAnio(asistencia.getFecha())>fechaFin.getYear()+1900)){
+                conjunto.remove(asistencia);
+            }
+    }
+    }
+    public void getFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
+        for (Asistencia asistencia : conjunto) {
+            if(( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)&&( Util.FechaUtil.getMes(asistencia.getFecha())<fechaInicio.getMonth()+1)){
+                conjunto.remove(asistencia);
+            }
+    }
+    }
+    private Set<Asistencia> getAsistenciasEntreFechas(Date fechaInicio, Date FechaFin, Empleado e){
      Set<Asistencia> sublist =null;
      for (Iterator<Asistencia> it = e.getAsistencias().iterator(); it.hasNext();) {
          Asistencia asistencia = it.next();
@@ -521,8 +548,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            dateInicio.setDate(new Date(Calendar.YEAR,Calendar.MONTH,1,0,0,0));
-            dateFin.setDate(new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0));
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
+            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
             deshabilitarFechas();
             
         }
@@ -531,8 +558,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            dateInicio.setDate(new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0));
-            dateFin.setDate(new Date(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,0,0,0));
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
+            dateFin.setDate(new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0));
             deshabilitarFechas();
             
         }
