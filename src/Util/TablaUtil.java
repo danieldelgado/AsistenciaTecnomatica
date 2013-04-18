@@ -7,6 +7,7 @@ package Util;
 
 
 import dominio.Asistencia;
+import dominio.Empleado;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -53,6 +54,21 @@ public class TablaUtil {
            modelo.addRow(filaAsistencia);
     }
 }
+  public static void prepararTablaEmpleado(DefaultTableModel modelo, JTable tablaEmpleado){
+        
+        String[] titulos = {"LEGAJO","EMPLEADO"};
+       modelo= new DefaultTableModel(null,titulos);
+       tablaEmpleado.setModel(modelo);
+    }  
+    public static void cargarModeloEmpleado(DefaultTableModel modelo,List<Empleado>listaEmpleado,JTable tablaEmpleado){
+         modelo =(DefaultTableModel) tablaEmpleado.getModel();
+        for ( Empleado a : listaEmpleado) {
+          Object[] filaEmpleado = {a.getLegajo(),a.getApellido() +" "+ a.getNombre()}; 
+           modelo.addRow(filaEmpleado);
+           
+           }
+    }
+  
 }
     
     

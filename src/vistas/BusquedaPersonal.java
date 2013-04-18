@@ -5,34 +5,27 @@
 package vistas;
 
 import dominio.Empleado;
+import dominio.dao.EmpleadoDao;
+import dominio.dao.imp.EmpleadoDaoImp;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Leo
  */
 public class BusquedaPersonal extends javax.swing.JDialog {
-
+    private DefaultTableModel modelo;
+    private List<Empleado> listaEmpleado;
     private boolean seleccionado;
-    private Empleado empleado;
+    private int legajo;
 
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public boolean isSeleccionado() {
-        return seleccionado;
-    }
-
-    public void setSeleccionado(boolean seleccionado) {
-        this.seleccionado = seleccionado;
-    }
+   
     public BusquedaPersonal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarTablaConEmpleado();
         setLocationRelativeTo(this);
         setVisible(true);
         
@@ -49,9 +42,9 @@ public class BusquedaPersonal extends javax.swing.JDialog {
 
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBuscaPersona = new org.jdesktop.swingx.JXTable();
+        tblEmpleado = new org.jdesktop.swingx.JXTable();
         btnSeleccion = new org.edisoncor.gui.button.ButtonIpod();
-        txtFiltrar = new org.edisoncor.gui.textField.TextFieldRoundIcon();
+        txtEmpleado = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         btnCancelar = new org.edisoncor.gui.button.ButtonIpod();
         btnBuscar = new org.edisoncor.gui.button.ButtonRound();
@@ -61,8 +54,8 @@ public class BusquedaPersonal extends javax.swing.JDialog {
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA DE PERSONAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
         panelTranslucidoComplete21.setOpaque(false);
 
-        tblBuscaPersona.setBackground(new java.awt.Color(51, 51, 51));
-        tblBuscaPersona.setModel(new javax.swing.table.DefaultTableModel(
+        tblEmpleado.setBackground(new java.awt.Color(51, 51, 51));
+        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null}
             },
@@ -78,19 +71,19 @@ public class BusquedaPersonal extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblBuscaPersona);
+        jScrollPane1.setViewportView(tblEmpleado);
 
         btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/OK.jpg"))); // NOI18N
-        btnSeleccion.setText("Aceptar");
+        btnSeleccion.setText("Seleccionar");
         btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionActionPerformed(evt);
             }
         });
 
-        txtFiltrar.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtFiltrarKeyPressed(evt);
+                txtEmpleadoKeyPressed(evt);
             }
         });
 
@@ -106,6 +99,11 @@ public class BusquedaPersonal extends javax.swing.JDialog {
 
         btnBuscar.setBackground(java.awt.SystemColor.controlDkShadow);
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
@@ -117,15 +115,14 @@ public class BusquedaPersonal extends javax.swing.JDialog {
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(txtFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                            .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(174, 174, 174)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -133,7 +130,7 @@ public class BusquedaPersonal extends javax.swing.JDialog {
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -158,17 +155,43 @@ public class BusquedaPersonal extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean isBotonSeleccionado() {
+        return seleccionado;
+    }
+
+    public int getLegajo() {
+        return legajo;
+    }
+
+    
+    
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
-        seleccionado = true; 
+        
+        int fila = tblEmpleado.getSelectedRow();
+        if (fila== -1) {
+            // no se selecciono ninguna fila de la lista
+            JOptionPane.showMessageDialog(null, "debes seleccionar un Empleado ", "Informacion",JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            seleccionado = true;
+            modelo = (DefaultTableModel)tblEmpleado.getModel();
+            legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSeleccionActionPerformed
 
-    private void txtFiltrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltrarKeyPressed
+    private void txtEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyPressed
         
-    }//GEN-LAST:event_txtFiltrarKeyPressed
+    }//GEN-LAST:event_txtEmpleadoKeyPressed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +241,14 @@ public class BusquedaPersonal extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
-    private org.jdesktop.swingx.JXTable tblBuscaPersona;
-    private org.edisoncor.gui.textField.TextFieldRoundIcon txtFiltrar;
+    private org.jdesktop.swingx.JXTable tblEmpleado;
+    private org.edisoncor.gui.textField.TextFieldRoundIcon txtEmpleado;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTablaConEmpleado() {
+       EmpleadoDao empleados = new EmpleadoDaoImp();
+       listaEmpleado = empleados.listarEmpleado();
+       Util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+       Util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+    }
 }

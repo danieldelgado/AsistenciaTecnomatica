@@ -510,10 +510,11 @@ public class ListadoPersonal extends javax.swing.JDialog {
     }
     
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
-        BusquedaPersonal bp = new BusquedaPersonal(null, true);
-        if (bp.isSeleccionado() == true);
-        {
-            txtBusqueda.setText(Integer.toString(bp.getEmpleado().getLegajo()));
+        BusquedaPersonal ventanaPersonal = new BusquedaPersonal(null, true);
+        if (ventanaPersonal.isBotonSeleccionado()) {
+            // si el usuario selecciono un empleado
+            txtBusqueda.setText(String.valueOf(ventanaPersonal.getLegajo()));
+            
         }
     }//GEN-LAST:event_btnBusquedaPersonalActionPerformed
 
