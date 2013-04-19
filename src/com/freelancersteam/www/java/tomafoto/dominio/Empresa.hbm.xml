@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/04/2013 09:18:47 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="sistema_entrada" name="com.freelancersteam.www.java.tomafoto.dominio.Empresa" table="empresa">
+    <id name="idEmpresa" type="java.lang.Integer">
+      <column name="ID_EMPRESA"/>
+      <generator class="identity"/>
+    </id>
+    <property name="cuit" type="java.lang.Integer">
+      <column name="CUIT"/>
+    </property>
+    <property name="denominacion" type="string">
+      <column length="100" name="DENOMINACION"/>
+    </property>
+    <property name="domicilio" type="string">
+      <column length="100" name="DOMICILIO"/>
+    </property>
+    <property name="fechaInicio" type="date">
+      <column length="10" name="FECHA_INICIO"/>
+    </property>
+    <set inverse="true" name="empleados">
+      <key>
+        <column name="ID_EMPRESA"/>
+      </key>
+      <one-to-many class="com.freelancersteam.www.java.tomafoto.dominio.Empleado"/>
+    </set>
+  </class>
+</hibernate-mapping>
