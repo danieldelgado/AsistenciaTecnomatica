@@ -287,9 +287,6 @@
         </Container>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnBuscar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/BUSCAR2.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
@@ -333,17 +330,11 @@
         </Container>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnImprimir">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/IMPRIMIR.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="IMPRIMIR"/>
           </Properties>
         </Component>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnIreport">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/PDF1.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="PDF"/>
           </Properties>
           <Events>
@@ -352,9 +343,6 @@
         </Component>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnSalir">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/SALIR.jpg"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="SALIR"/>
           </Properties>
           <Events>
@@ -367,7 +355,7 @@
               <Color blue="69" green="69" id="Control Dk Shadow" palette="2" red="69" type="palette"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/binoculares.jpg"/>
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/binoculares.jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon1"/>
           </Properties>

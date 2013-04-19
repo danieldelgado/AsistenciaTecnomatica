@@ -94,7 +94,6 @@ public class Personal extends javax.swing.JDialog {
         txtDni.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDni.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GUARDAR.jpg"))); // NOI18N
         btnGuardar.setText("GUARDAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +101,6 @@ public class Personal extends javax.swing.JDialog {
             }
         });
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CANCEL3.jpg"))); // NOI18N
         btnCancelar.setText("CANCELAR");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +108,6 @@ public class Personal extends javax.swing.JDialog {
             }
         });
 
-        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/NUEVO.png"))); // NOI18N
         buttonIpod1.setText("NUEVO");
 
         labelMetric8.setText("CLAVE");

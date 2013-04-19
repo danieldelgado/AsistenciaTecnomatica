@@ -46,11 +46,9 @@ public class Login extends javax.swing.JDialog {
         labelMetric2.setText("Clave");
 
         buttonIcon1.setBackground(java.awt.SystemColor.controlDkShadow);
-        buttonIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconKey2.jpg"))); // NOI18N
         buttonIcon1.setText("buttonIcon1");
 
         buttonIcon2.setBackground(java.awt.SystemColor.controlDkShadow);
-        buttonIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CANCEL3.jpg"))); // NOI18N
         buttonIcon2.setText("buttonIcon1");
         buttonIcon2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

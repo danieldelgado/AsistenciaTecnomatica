@@ -145,7 +145,6 @@ public class ListadoPersonal extends javax.swing.JDialog {
         dateFin.setMaxSelectableDate(new Date());
         panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BUSCAR2.jpg"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,10 +175,8 @@ public class ListadoPersonal extends javax.swing.JDialog {
         tblAsistencia.setShowGrid(false);
         jScrollPane1.setViewportView(tblAsistencia);
 
-        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IMPRIMIR.jpg"))); // NOI18N
         btnImprimir.setText("IMPRIMIR");
 
-        btnIreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PDF1.png"))); // NOI18N
         btnIreport.setText("PDF");
         btnIreport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +184,6 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SALIR.jpg"))); // NOI18N
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +192,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         });
 
         btnBusquedaPersonal.setBackground(java.awt.SystemColor.controlDkShadow);
-        btnBusquedaPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/binoculares.jpg"))); // NOI18N
+        btnBusquedaPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/binoculares.jpg"))); // NOI18N
         btnBusquedaPersonal.setText("buttonIcon1");
         btnBusquedaPersonal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

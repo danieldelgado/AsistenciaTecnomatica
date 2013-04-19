@@ -76,7 +76,7 @@ public class BusquedaPersonal extends javax.swing.JDialog {
         tblEmpleado.setShowVerticalLines(false);
         jScrollPane1.setViewportView(tblEmpleado);
 
-        btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/OK.jpg"))); // NOI18N
+        btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/OK.jpg"))); // NOI18N
         btnSeleccion.setText("Seleccionar");
         btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +92,7 @@ public class BusquedaPersonal extends javax.swing.JDialog {
 
         labelMetric1.setText("Empleado");
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CANCEL3.jpg"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/ELIMINAR3.jpg"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

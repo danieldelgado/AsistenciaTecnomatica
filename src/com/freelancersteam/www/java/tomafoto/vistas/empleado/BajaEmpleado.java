@@ -45,10 +45,8 @@ public class BajaEmpleado extends javax.swing.JDialog {
         labelMetric1.setText("ID");
 
         btnEmpleado.setBackground(new java.awt.Color(153, 153, 153));
-        btnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/binoculares.jpg"))); // NOI18N
         btnEmpleado.setText("buttonIcon1");
 
-        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BUSCAR2.jpg"))); // NOI18N
         buttonIpod1.setText("Buscar");
 
         jXTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -71,7 +69,6 @@ public class BajaEmpleado extends javax.swing.JDialog {
         jXTable1.getColumnModel().getColumn(0).setResizable(false);
         jXTable1.getColumnModel().getColumn(1).setResizable(false);
 
-        buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Eliminar3.jpg"))); // NOI18N
         buttonIpod2.setText("Eliminar");
 
         buttonIpod3.setText("Cancelar");
@@ -120,7 +117,7 @@ public class BajaEmpleado extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonIpod3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
