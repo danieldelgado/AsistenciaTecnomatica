@@ -1,5 +1,5 @@
 package dominio;
-// Generated 16/04/2013 01:06:21 AM by Hibernate Tools 3.2.1.GA
+// Generated 19/04/2013 09:18:43 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -19,8 +19,9 @@ public class Empleado  implements java.io.Serializable {
      private String direccion;
      private String localidad;
      private String clave;
+     private Boolean administrador;
      private String telefono;
-     private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
+     private Set asistencias = new HashSet(0);
 
     public Empleado() {
     }
@@ -32,7 +33,7 @@ public class Empleado  implements java.io.Serializable {
         this.nombre = nombre;
         this.clave = clave;
     }
-    public Empleado(int legajo, Empresa empresa, String apellido, String nombre, Integer dni, String direccion, String localidad, String clave, String telefono, Set<Asistencia> asistencias) {
+    public Empleado(int legajo, Empresa empresa, String apellido, String nombre, Integer dni, String direccion, String localidad, String clave, Boolean administrador, String telefono, Set asistencias) {
        this.legajo = legajo;
        this.empresa = empresa;
        this.apellido = apellido;
@@ -41,6 +42,7 @@ public class Empleado  implements java.io.Serializable {
        this.direccion = direccion;
        this.localidad = localidad;
        this.clave = clave;
+       this.administrador = administrador;
        this.telefono = telefono;
        this.asistencias = asistencias;
     }
@@ -101,6 +103,13 @@ public class Empleado  implements java.io.Serializable {
     public void setClave(String clave) {
         this.clave = clave;
     }
+    public Boolean getAdministrador() {
+        return this.administrador;
+    }
+    
+    public void setAdministrador(Boolean administrador) {
+        this.administrador = administrador;
+    }
     public String getTelefono() {
         return this.telefono;
     }
@@ -108,11 +117,11 @@ public class Empleado  implements java.io.Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    public Set<Asistencia> getAsistencias() {
+    public Set getAsistencias() {
         return this.asistencias;
     }
     
-    public void setAsistencias(Set<Asistencia> asistencias) {
+    public void setAsistencias(Set asistencias) {
         this.asistencias = asistencias;
     }
 

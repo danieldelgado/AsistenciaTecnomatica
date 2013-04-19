@@ -1,5 +1,5 @@
 package dominio;
-// Generated 16/04/2013 01:06:21 AM by Hibernate Tools 3.2.1.GA
+// Generated 19/04/2013 09:18:43 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -17,12 +17,12 @@ public class Empresa  implements java.io.Serializable {
      private String denominacion;
      private String domicilio;
      private Date fechaInicio;
-     private Set<Empleado> empleados = new HashSet<Empleado>(0);
+     private Set empleados = new HashSet(0);
 
     public Empresa() {
     }
 
-    public Empresa(Integer cuit, String denominacion, String domicilio, Date fechaInicio, Set<Empleado> empleados) {
+    public Empresa(Integer cuit, String denominacion, String domicilio, Date fechaInicio, Set empleados) {
        this.cuit = cuit;
        this.denominacion = denominacion;
        this.domicilio = domicilio;
@@ -65,11 +65,11 @@ public class Empresa  implements java.io.Serializable {
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    public Set<Empleado> getEmpleados() {
+    public Set getEmpleados() {
         return this.empleados;
     }
     
-    public void setEmpleados(Set<Empleado> empleados) {
+    public void setEmpleados(Set empleados) {
         this.empleados = empleados;
     }
 

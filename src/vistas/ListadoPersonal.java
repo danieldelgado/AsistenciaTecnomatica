@@ -6,7 +6,7 @@ package vistas;
 
 import dominio.Asistencia;
 import dominio.Empleado;
-import dominio.OrdenarAsistenciaPorId;
+import Util.OrdenarAsistenciaPorId;
 import dominio.dao.AsistenciaDao;
 import dominio.dao.EmpleadoDao;
 import dominio.dao.imp.AsistenciaDaoImp;
@@ -29,7 +29,7 @@ import Util.TablaUtil;
 
 import dominio.Asistencia;
 import dominio.Empleado;
-import dominio.OrdenarAsistenciaPorId;
+import Util.OrdenarAsistenciaPorId;
 import dominio.dao.AsistenciaDao;
 import dominio.dao.EmpleadoDao;
 import dominio.dao.imp.AsistenciaDaoImp;
@@ -347,117 +347,61 @@ public class ListadoPersonal extends javax.swing.JDialog {
     }//GEN-LAST:event_btnIreportActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      // validar el empleado
-        
-        EmpleadoDao empleados = new EmpleadoDaoImp();
-        List<Empleado> listaEmpleado = empleados.listarEmpleado();
-        Empleado e = new Empleado()  ;
-        boolean encontrado = false;      
-        Set<Asistencia> conjuntoAsistencia= null;
+      // este conjunto auxiliar contindra los datos q se mostrara a la tabla
+      Set<Asistencia> conjuntoAsistencia= new HashSet<Asistencia>();
+     // Set<Asistencia> conjuntoAsistencia= null;
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo
+            EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+            Empleado  e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
            
-           encontrado = getBooleanEmpleado(Integer.parseInt(txtBusqueda.getText()), listaEmpleado);
-           if (encontrado) {
-            // muestro en la tabla las asistencias entre las fechas  indicadas
-            
-            e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
-            conjuntoAsistencia= e.getAsistencias();
+            if (e!=null) {
+              // si exite el empleado entonces extraigo su conjunto de asistenica
+              conjuntoAsistencia= e.getAsistencias();
                       
-          }else{
+            }else{
             JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
 
-          }
+            }
         } else {
               // Busqueda asistencias de todos los empleados
-              AsistenciaDao asistencias = new AsistenciaDaoImp();
+              AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
               List<Asistencia> listaAsistencia = asistencias.listarAsistencia();
               conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
-              System.out.println(conjuntoAsistencia.size());
+              //System.out.println(conjuntoAsistencia.size());
 
             }
-        
+           
             //filtrao por año
-            conjuntoAsistencia = getFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-            System.out.println("tamaño luego dl filtrado por año " + conjuntoAsistencia.size());  
+            conjuntoAsistencia = Util.AsistenciaUtil.getAsistenciasFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+           // System.out.println("tamaño luego dl filtrado por año " + conjuntoAsistencia.size());  
             //filtrado por mes
-            conjuntoAsistencia = getFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+            conjuntoAsistencia = Util.AsistenciaUtil.getAsistenciasFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
             System.out.println("tamaño luego dl filtrado por mes " + conjuntoAsistencia.size());  
               
               //filtrado por dia
-           conjuntoAsistencia = getFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-           System.out.println("tamaño luego dl filtrado por dia " + conjuntoAsistencia.size());  
-                   
-
+            conjuntoAsistencia = Util.AsistenciaUtil.getAsistenciasFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+           // System.out.println("tamaño luego dl filtrado por dia " + conjuntoAsistencia.size());  
            
+           // creo un conjunto nuevo pero agregandolo un comparador para que ordene por idAsistencia a los datos
            conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
            conjunto.addAll(conjuntoAsistencia);
+           //muestro en la tabla
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
            TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
-         
-   
-     
-        
+                      
     }//GEN-LAST:event_btnBuscarActionPerformed
-    public Set<Asistencia> getFiltradoPorAño (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
-        int cont=0;
-        for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
-            Asistencia asistencia = it.next();
-            if(( Util.FechaUtil.getAnio(asistencia.getFecha())<Util.FechaUtil.getAnio(fechaInicio))||( Util.FechaUtil.getAnio(asistencia.getFecha())>Util.FechaUtil.getAnio(fechaFin))){
-               it.remove();
-               cont++;
-            }
-    }
-        System.out.println("contador de año "+cont);
-        return conjunto;
-    }
-    public Set<Asistencia> getFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
-        int cont=0;
-        for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
-            Asistencia asistencia = it.next();
-             if(( Util.FechaUtil.getMes(asistencia.getFecha())<Util.FechaUtil.getMes(fechaInicio))||( Util.FechaUtil.getMes(asistencia.getFecha())>Util.FechaUtil.getMes(fechaFin))){
-                it.remove();
-                cont++;
-                }
-        }     
-        System.out.println("contador de mes  "+ cont);
-
-        return conjunto;
-    }
-    public Set<Asistencia> getFiltradoPorDia (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
-        int cont=0;
-        for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
-            Asistencia asistencia = it.next();
-             if(( Util.FechaUtil.getDia(asistencia.getFecha())<Util.FechaUtil.getDia(fechaInicio))||( Util.FechaUtil.getDia(asistencia.getFecha())>Util.FechaUtil.getDia(fechaFin))){
-                it.remove();
-                cont++;
-                }
-        }   
-        System.out.println("contador de dia "+cont);
-        return conjunto;
-    }
-    
-    
-    private boolean getBooleanEmpleado(int legajo, List<Empleado> listaEmpleado){
-      boolean e=false;
-      
-       for ( Empleado empleado : listaEmpleado) {
-                     if (empleado.getLegajo()==legajo) {
-                        e =true;
-                       break;
-                       }
-                 } 
-      return e;   
-    }
- 
+   
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
+        // instanceo la ventana a donde quiero ir
         BusquedaPersonal ventanaPersonal = new BusquedaPersonal(null, true);
         if (ventanaPersonal.isBotonSeleccionado()) {
             // si el usuario selecciono un empleado
             txtBusqueda.setText(String.valueOf(ventanaPersonal.getLegajo()));
-            
+            //borro el contenido anterior de la tabla 
             Util.TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia);
+            // el foco estar en el radiobotn hoy
             rdbHoy.requestFocus();
         }
     }//GEN-LAST:event_btnBusquedaPersonalActionPerformed

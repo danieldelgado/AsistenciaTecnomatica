@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dominio;
+package Util;
 
+import dominio.Asistencia;
 import java.util.Comparator;
 
 /**

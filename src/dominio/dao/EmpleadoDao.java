@@ -16,4 +16,5 @@ public interface EmpleadoDao {
   public void deleteEmpleado(Empleado a);
   public void upDateEmpleado(Empleado a);
   public Empleado getEmpleado(int idEmpleado);
+  
 }

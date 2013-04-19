@@ -16,14 +16,9 @@ package vistas;
  * @author Cmop
  */
 import vistas.empleado.AltaEmpleado;
-import Util.DetalleReporte;
-import Util.FechaUtil;
-import Util.ReporteAsitenciaJRDataSource;
-import Util.TablaUtil;
 
 import dominio.Asistencia;
 import dominio.Empleado;
-import dominio.OrdenarAsistenciaPorId;
 import dominio.dao.AsistenciaDao;
 import dominio.dao.EmpleadoDao;
 import dominio.dao.imp.AsistenciaDaoImp;
@@ -33,51 +28,29 @@ import estudiandojmf.jDispositivos;
 import estudiandojmf.jmfVideo;
 import estudiandojmf.miPlayer;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.media.Player;
-import javax.media.Time;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.swing.JRViewer;
 
 
 public class Camara extends javax.swing.JFrame{
     jmfVideo b = new jmfVideo();
-    Set<Asistencia> conjunto;
-    EmpleadoDao empleados = new EmpleadoDaoImp();
-    AsistenciaDao asistencias = new AsistenciaDaoImp();
+//    Set<Asistencia> conjunto;
+    
+//    EmpleadoDao empleados = new EmpleadoDaoImp();
+//    AsistenciaDao asistencias = new AsistenciaDaoImp();
     private Player p1;
     private DefaultTableModel modelo;
     /** Creates new form Camara */
@@ -369,27 +342,16 @@ private void setearDatos(){
 }
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // validar el empleado
-//   EmpleadoDao empleados = new EmpleadoDaoImp();
-      List<Empleado> lisaEmpleado = empleados.listarEmpleado();
-   boolean encontrado = false;
-   Empleado e = null ;
+      EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+       
    try{
-   for ( Empleado empleado : lisaEmpleado) {
-       if (empleado.getLegajo()==Integer.parseInt(txtLegajo.getText())) {
-           encontrado = true;
-           e =empleado;
-           break;
-       }
-   } 
-  
+       Empleado e = empleados.getEmpleado(Integer.parseInt(txtLegajo.getText()));
+       boolean encontrado = Util.EmpleadoUtil.getValidarEmpleado(e,txtClave.getText().trim());
        if (encontrado) {
-           if (e.getClave().equals(txtClave.getText().trim())) {
-               
-           
- 
-           b.capturarImagen();
+            //saco foto 
+            b.capturarImagen();
             // agrego al label
-            //adaptarTamaño(lbllFotoUser, b.getImagen());   esto lo quite para que no salga otra imagen
+            adaptarTamaño(lbllFotoUser, b.getImagen());  // esto lo quite para que no salga otra imagen
             miPlayer.guardaImagenEnFichero(b.getImagen(), new File("src/imagTester"));
             
             // capturo la imagen guardada en el src y lo llevo a la bd
@@ -403,33 +365,27 @@ private void setearDatos(){
             } catch (Exception ex) {
 	        ex.printStackTrace();
             }
-           
+           // capturo el dato si es Entrada o Salida  q eligio el user
            String elegir = (String)cmbElegir.getSelectedItem();
           // creoo un objeto asistencia
-           Asistencia asistencia =  new Asistencia(elegir,imgByte ,new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0), new Date());
-           asistencia.setEmpleado(e);
+           Asistencia asistencia= new Asistencia(e, elegir, imgByte, new Date(),new Date(), false, true,null);
            //agrego en la bd
-            asistencias.addAsistencia(asistencia);
+           AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
+           asistencias.addAsistencia(asistencia);
            // Detengo la camara para que el usuario vea su foto durante 5 segundos y luego reinicio la camara
            // b.getPlayer().setStopTime(new Time(10000));
             b.getPlayer().stop();
             Thread.sleep(5000);
             b.getPlayer().start();
-            //b.getPlayer().wait(3);
-            
-            
-            //panelCam.add(b.Componente());
+            // limpio las cajas de texto                 
             setearDatos();
            
            }else{
                // Ingreso mal los datos de autenticacion 
-               JOptionPane.showMessageDialog(this, "Su CLAVE es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(this, "Su Identificacion es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
                setearDatos();
-           } 
-           }else{
-           JOptionPane.showMessageDialog(this, "El LEGAJO ingresado No Existe , por favor vuleva a Ingrese de neuevo","Error",JOptionPane.ERROR_MESSAGE);
-           setearDatos();
-       }
+          } 
+//          
       }catch(java.lang.NumberFormatException edd){
        JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
        setearDatos();

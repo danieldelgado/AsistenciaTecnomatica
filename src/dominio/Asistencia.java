@@ -1,5 +1,5 @@
 package dominio;
-// Generated 16/04/2013 01:06:21 AM by Hibernate Tools 3.2.1.GA
+// Generated 19/04/2013 09:18:43 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -16,6 +16,9 @@ public class Asistencia  implements java.io.Serializable {
      private byte[] imagen;
      private Date fecha;
      private Date hora;
+     private Boolean modificado;
+     private Boolean correcto;
+     private String observacion;
 
     public Asistencia() {
     }
@@ -27,12 +30,15 @@ public class Asistencia  implements java.io.Serializable {
         this.fecha = fecha;
         this.hora = hora;
     }
-    public Asistencia(Empleado empleado, String estado, byte[] imagen, Date fecha, Date hora) {
+    public Asistencia(Empleado empleado, String estado, byte[] imagen, Date fecha, Date hora, Boolean modificado, Boolean correcto, String observacion) {
        this.empleado = empleado;
        this.estado = estado;
        this.imagen = imagen;
        this.fecha = fecha;
        this.hora = hora;
+       this.modificado = modificado;
+       this.correcto = correcto;
+       this.observacion = observacion;
     }
    
     public Integer getIdAsistencia() {
@@ -76,6 +82,27 @@ public class Asistencia  implements java.io.Serializable {
     
     public void setHora(Date hora) {
         this.hora = hora;
+    }
+    public Boolean getModificado() {
+        return this.modificado;
+    }
+    
+    public void setModificado(Boolean modificado) {
+        this.modificado = modificado;
+    }
+    public Boolean getCorrecto() {
+        return this.correcto;
+    }
+    
+    public void setCorrecto(Boolean correcto) {
+        this.correcto = correcto;
+    }
+    public String getObservacion() {
+        return this.observacion;
+    }
+    
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
 

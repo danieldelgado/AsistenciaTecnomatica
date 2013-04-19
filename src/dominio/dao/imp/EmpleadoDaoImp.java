@@ -46,5 +46,6 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
         t.commit();
        return a;
     }
-    
+
+
 }
