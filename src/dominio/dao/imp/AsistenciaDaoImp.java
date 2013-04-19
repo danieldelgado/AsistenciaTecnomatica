@@ -25,7 +25,7 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     public void addAsistencia(Asistencia a) {
        Transaction t = getSession().beginTransaction();
           getSession().save(a);
-         t.commit();
+        t.commit();
     }
 
     public void deleteAsistencia(Asistencia a) {

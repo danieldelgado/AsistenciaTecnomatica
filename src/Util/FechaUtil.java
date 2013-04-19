@@ -16,32 +16,7 @@ import java.util.GregorianCalendar;
  */
 public class FechaUtil {
     
-    /**
-     * a partir de una fecha ingresada por el usuario con el formato DD/MM/AAAA
-        convierte a un tipo DAte 
-     */ 
-//     public static String getDateDDMMYYYY(Date fecha){
-//     SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");   
-//     
-//     return sdf.format(fecha);
-//     
-//     
-//    }
-    
-      /**
-      * a partir del formato de  fecha que maneja el ssitema este metodo converte
-      * a un formato DD/MM/AAAA
-      */ 
-      
-//    public static Date getDate (String fecha){
-//        try {
-//         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-//         return sdf.parse(fecha);
-//        } catch (ParseException ex) {
-//            return null;
-//        }
-//    }
-     //aaaa-mm-dd
+ 
     public static String getDateDDMMAAAA (Date fecha){
         String mifecha = fecha.toString();
         String dia = mifecha.substring(8, 10);
@@ -51,19 +26,103 @@ public class FechaUtil {
         
         return f;
     }
-//    public static int getDia (Date fecha){
-//        String mifecha = fecha.toString();
-//        String dia = mifecha.substring(8, 10);
-//        
-//        
-//        return Integer.parseInt(dia);
-//    }
+
     public static int getDia (Date fecha){
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(fecha);
         
         return gc.get(Calendar.DAY_OF_MONTH);
     }
+    public static String getDiaString (Date fecha){
+        String dia="";
+        GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
+        int index = gc.get(Calendar.DAY_OF_WEEK);
+        if (index == Calendar.SUNDAY) {
+            dia= "DOMINGO";
+        } else {
+            if (index == Calendar.MONDAY) {
+                dia ="LUNES";
+            } else {
+                if (index == Calendar.TUESDAY) {
+                dia ="MARTES";
+            } else {
+                    if (index == Calendar.THURSDAY) {
+                dia ="JUEVES";
+            } else {
+                  if (index == Calendar.FRIDAY) {
+                dia ="VIERNES";
+            } else {
+                   dia ="SABADO";   
+            }      
+            }
+            }
+            }
+        }
+        
+       return dia;
+    }
+    
+    public static String  getMesString(Date fecha){
+        String mes=null;
+         GregorianCalendar gc = new GregorianCalendar();
+        gc.setTime(fecha);
+        int index  = gc.get(Calendar.MONTH);
+        if (index == Calendar.JANUARY) {
+            mes = "ENERO";
+        } else {
+             if (index == Calendar.FEBRUARY) {
+            mes = "FEBRERO";
+        } else {
+              if (index == Calendar.MARCH) {
+                  mes = "MARZO";
+              } else {
+                   if (index == Calendar.APRIL) {
+                      mes = "ABRIL";
+                   } else {
+                         if (index == Calendar.MAY) {
+                             mes = "MAYO";
+                            } else {
+                             if (index == Calendar.JUNE) {
+                                   mes = "JUNIO";
+                            } else {
+                                 if (index == Calendar.JULY) {
+                                       mes = "JULIO";
+                                   } else {
+                                      if (index == Calendar.AUGUST) {
+                                           mes = "AGOSTO";
+                                      } else {
+                                       if (index == Calendar.SEPTEMBER) {
+                                            mes = "SEPTIEMBRE";
+                                        } else {
+                                          if (index == Calendar.OCTOBER) {
+                                               mes = "OCTUBRE";
+                                            } else {
+                                             if (index == Calendar.NOVEMBER) {
+                                                mes = "NOVIEMBRE";
+                                              } else {
+                                              if (index == Calendar.DECEMBER) {
+                                                        mes = "DICIEMBRE";
+                                                } 
+                                             }
+                                            }
+                                        }
+                                      }
+                                   }
+                             }
+                         }
+                    }
+              }    
+        }
+        }
+        
+        return mes;
+    }
+    public static String getFecha_Dia_DD_De_MM_De_AAAA(Date fecha){
+        String fechaActual = getDiaString(fecha)+" "+getDia(fecha)+" DE "+getMesString(fecha)+" DE "+getAnio(fecha);
+        return fechaActual;
+    }
+    
     public static int getMes (Date fecha){
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(fecha);
@@ -78,23 +137,7 @@ public class FechaUtil {
         
     }
    
-//    public static int getMes (Date fecha){
-//        String mifecha = fecha.toString();
-//         String  mes = mifecha.substring(5, 7);
-//        
-//        
-//        return Integer.parseInt(mes);
-//    }
-//    public static int getAnio (Date fecha){
-//        String mifecha = fecha.toString();
-//          String anio = mifecha.substring(0, 4);
-//        
-//        
-//        return Integer.parseInt(anio);
-//    }
-//    
-    
-    
+  
     /**
      * 
      * @param fechaHoy una fecha ingresada

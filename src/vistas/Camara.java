@@ -30,8 +30,12 @@ import dominio.dao.imp.AsistenciaDaoImp;
 import dominio.dao.imp.EmpleadoDaoImp;
 import estudiandojmf.eventos;
 import estudiandojmf.jDispositivos;
+import estudiandojmf.jmfVideo;
 import estudiandojmf.miPlayer;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -52,9 +56,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.media.Player;
+import javax.media.Time;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -67,16 +73,20 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.swing.JRViewer;
 
 
-public class Camara extends javax.swing.JFrame
-{Set<Asistencia> conjunto;
-    
+public class Camara extends javax.swing.JFrame{
+    jmfVideo b = new jmfVideo();
+    Set<Asistencia> conjunto;
+    EmpleadoDao empleados = new EmpleadoDaoImp();
+    AsistenciaDao asistencias = new AsistenciaDaoImp();
     private Player p1;
     private DefaultTableModel modelo;
     /** Creates new form Camara */
     public Camara(){
         initComponents();
         initComponents2();
- 
+        
+         
+          
     }
 
     public Player getPlayer()
@@ -103,7 +113,17 @@ public class Camara extends javax.swing.JFrame
         jmAcerca.addActionListener(e);
         //Cargamos en el menu los Dispositivos detectados
         jDispositivos.menuDispositivos(this,jmDispositivos);
+        lblFecha.setText(Util.FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(new Date())); 
+        // agrego al panel  la camara de video
+        try{ 
+          panelCam.add(b.Componente());    
+        } catch(Exception nep){
+            JOptionPane.showMessageDialog(this, "La Conexion con la Camara FALLO, espere un minuto y reincie la aplicacion ", "PROBLEMAS DEL DISPOSITIVO", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }       
+         
         setLocationRelativeTo(this); //centramos el formulario
+
     }
 
 
@@ -186,6 +206,11 @@ public class Camara extends javax.swing.JFrame
                 btnIngresarActionPerformed(evt);
             }
         });
+        btnIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnIngresarKeyPressed(evt);
+            }
+        });
         panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 80, 80));
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -196,7 +221,7 @@ public class Camara extends javax.swing.JFrame
         lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
         panelRectTranslucidoComplete2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 460, 34));
 
-        cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elegir", "Entrada", "Salida", " " }));
+        cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Salida", " " }));
         cmbElegir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbElegirActionPerformed(evt);
@@ -209,7 +234,22 @@ public class Camara extends javax.swing.JFrame
 
         labelMetric2.setText("Clave");
         panelRectTranslucidoComplete2.add(labelMetric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+
+        txtLegajo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtLegajoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLegajoKeyTyped(evt);
+            }
+        });
         panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveKeyPressed(evt);
+            }
+        });
         panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
 
         mnuArchivo.setText("Archivo");
@@ -322,13 +362,18 @@ private void cmbElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCBDActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_jmCBDActionPerformed
-
+private void setearDatos(){
+    txtLegajo.setText("");
+    txtClave.setText("");
+    txtLegajo.requestFocus();
+}
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // validar el empleado
-   EmpleadoDao empleados = new EmpleadoDaoImp();
-   List<Empleado> lisaEmpleado = empleados.listarEmpleado();
+//   EmpleadoDao empleados = new EmpleadoDaoImp();
+      List<Empleado> lisaEmpleado = empleados.listarEmpleado();
    boolean encontrado = false;
    Empleado e = null ;
+   try{
    for ( Empleado empleado : lisaEmpleado) {
        if (empleado.getLegajo()==Integer.parseInt(txtLegajo.getText())) {
            encontrado = true;
@@ -336,49 +381,73 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
            break;
        }
    } 
+  
        if (encontrado) {
-          // mostrar en el labelEmpleado su nombre 
-          // lblEmpleado.setText("Bienvenido : "+e.getNombre()); 
-          // capturo la imagen y la muestro en el lbl
-          Image img =  miPlayer.capturaFoto(this.getPlayer());
-          Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(lbllFotoUser.getWidth(),lbllFotoUser.getHeight(),Image.SCALE_DEFAULT)); 
-          lbllFotoUser.setIcon(iconoAdaptado);//  si manda en pantalla
-          // hay que convertir la imagen a byte[] por medio de un puente 
-          // crear la imagen en src y de ahi lo paso a  archivo y luego a byte
-          miPlayer.guardaImagenEnFichero(img, new File("src/imagTester"));
-          // capturo la imagen guardada en el src y lo llevo a la bd
-          File file = new File("src/imagTester");
-          byte[] imgByte = new byte[(int) file.length()];
-           try {
+           if (e.getClave().equals(txtClave.getText().trim())) {
+               
+           
+ 
+           b.capturarImagen();
+            // agrego al label
+            //adaptarTamaño(lbllFotoUser, b.getImagen());   esto lo quite para que no salga otra imagen
+            miPlayer.guardaImagenEnFichero(b.getImagen(), new File("src/imagTester"));
+            
+            // capturo la imagen guardada en el src y lo llevo a la bd
+            File file = new File("src/imagTester");
+            byte[] imgByte = new byte[(int) file.length()];
+            try {
 	        FileInputStream fileInputStream = new FileInputStream(file);
 	        //convert file into array of bytes
 	        fileInputStream.read(imgByte);
 	        fileInputStream.close();
-        } catch (Exception ex) {
+            } catch (Exception ex) {
 	        ex.printStackTrace();
-        }
+            }
            
            String elegir = (String)cmbElegir.getSelectedItem();
           // creoo un objeto asistencia
            Asistencia asistencia =  new Asistencia(elegir,imgByte ,new Date(new Date().getYear(),new Date().getMonth(),new Date().getDate(),0,0,0), new Date());
            asistencia.setEmpleado(e);
            //agrego en la bd
-           AsistenciaDao asistencias = new AsistenciaDaoImp();
-           asistencias.addAsistencia(asistencia);
-          
-           // Ingreso mal los datos de autenticacion 
-          }else{
-           JOptionPane.showMessageDialog(this, "Error de validacion , ingrese de nuevo sus datos","Error",JOptionPane.ERROR_MESSAGE);
-           txtLegajo.setText("");
-           txtClave.setText("");
-           cmbElegir.setSelectedItem("Elegir");
+            asistencias.addAsistencia(asistencia);
+           // Detengo la camara para que el usuario vea su foto durante 5 segundos y luego reinicio la camara
+           // b.getPlayer().setStopTime(new Time(10000));
+            b.getPlayer().stop();
+            Thread.sleep(5000);
+            b.getPlayer().start();
+            //b.getPlayer().wait(3);
+            
+            
+            //panelCam.add(b.Componente());
+            setearDatos();
+           
+           }else{
+               // Ingreso mal los datos de autenticacion 
+               JOptionPane.showMessageDialog(this, "Su CLAVE es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+               setearDatos();
+           } 
+           }else{
+           JOptionPane.showMessageDialog(this, "El LEGAJO ingresado No Existe , por favor vuleva a Ingrese de neuevo","Error",JOptionPane.ERROR_MESSAGE);
+           setearDatos();
        }
+      }catch(java.lang.NumberFormatException edd){
+       JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
+       setearDatos();
+      } catch (InterruptedException ex) {
+            Logger.getLogger(Camara.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
-
+  private void adaptarTamaño (JLabel label , Image img){
+         Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
+          label.setIcon(iconoAdaptado);//  si manda en pantalla
+     }
     private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
         ListadoPersonal listado = new ListadoPersonal(this, true);
     }//GEN-LAST:event_mnuListadoActionPerformed
 
+    
+    
+    
     private void mnuAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAltaEmpleadoActionPerformed
         AltaEmpleado personal = new AltaEmpleado(this, true);
     }//GEN-LAST:event_mnuAltaEmpleadoActionPerformed
@@ -387,6 +456,72 @@ private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
         Login login = new Login(this, true);
     }//GEN-LAST:event_mnuLoginActionPerformed
 
+    private void txtLegajoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+           btnIngresarActionPerformed(null);
+        }
+         else{
+             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+                 btnIngresar.requestFocus();
+             } else {
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
+                     txtClave.requestFocus();
+                 }
+               
+             }
+    
+         }
+        
+        
+    }//GEN-LAST:event_txtLegajoKeyPressed
+
+    private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            btnIngresarActionPerformed(null);
+        }
+         else{
+             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+                 txtLegajo.requestFocus();
+             } else {
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
+                     cmbElegir.requestFocus();
+                 }
+               
+             }
+    
+         }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveKeyPressed
+
+    private void btnIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnIngresarKeyPressed
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            btnIngresarActionPerformed(null);
+        }
+         else{
+             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+                  cmbElegir.requestFocus();
+             } else {
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
+                     txtLegajo.requestFocus();
+                 }
+               
+             }
+    
+         }
+    }//GEN-LAST:event_btnIngresarKeyPressed
+
+    private void txtLegajoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyTyped
+        // conusmir los caracteres del legajo excepto los numeros
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') ||
+         (caracter > '9')) &&
+         (caracter != '\b' /*corresponde a BACK_SPACE*/))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+        
+    }//GEN-LAST:event_txtLegajoKeyTyped
+       
     /**
     * @param args the command line arguments
     */
