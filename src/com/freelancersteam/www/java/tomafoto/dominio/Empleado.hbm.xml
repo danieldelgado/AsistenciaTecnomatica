@@ -1,44 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 19/04/2013 09:18:47 by Hibernate Tools 3.2.1.GA -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="sistema_entrada" name="com.freelancersteam.www.java.tomafoto.dominio.Empleado" table="empleado">
-    <id name="legajo" type="int">
-      <column name="LEGAJO"/>
-      <generator class="assigned"/>
-    </id>
-    <many-to-one class="com.freelancersteam.www.java.tomafoto.dominio.Empresa" fetch="select" name="empresa">
-      <column name="ID_EMPRESA"/>
-    </many-to-one>
-    <property name="apellido" type="string">
-      <column length="100" name="APELLIDO" not-null="true"/>
-    </property>
-    <property name="nombre" type="string">
-      <column length="100" name="NOMBRE" not-null="true"/>
-    </property>
-    <property name="dni" type="java.lang.Integer">
-      <column name="DNI"/>
-    </property>
-    <property name="direccion" type="string">
-      <column length="200" name="DIRECCION"/>
-    </property>
-    <property name="localidad" type="string">
-      <column length="100" name="LOCALIDAD"/>
-    </property>
-    <property name="clave" type="string">
-      <column length="30" name="CLAVE" not-null="true"/>
-    </property>
-    <property name="administrador" type="java.lang.Boolean">
-      <column name="ADMINISTRADOR"/>
-    </property>
-    <property name="telefono" type="string">
-      <column length="20" name="TELEFONO"/>
-    </property>
-    <set inverse="true" name="asistencias">
-      <key>
-        <column name="LEGAJO"/>
-      </key>
-      <one-to-many class="com.freelancersteam.www.java.tomafoto.dominio.Asistencia"/>
-    </set>
-  </class>
+    <class name="com.freelancersteam.www.java.tomafoto.dominio.Empleado" table="empleado" catalog="toma_foto">
+        <id name="legajo" type="int">
+            <column name="LEGAJO" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="empresa" class="com.freelancersteam.www.java.tomafoto.dominio.Empresa" fetch="select">
+            <column name="ID_EMPRESA" />
+        </many-to-one>
+        <property name="apellido" type="string">
+            <column name="APELLIDO" length="100" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="100" not-null="true" />
+        </property>
+        <property name="dni" type="java.lang.Integer">
+            <column name="DNI" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="200" />
+        </property>
+        <property name="localidad" type="string">
+            <column name="LOCALIDAD" length="100" />
+        </property>
+        <property name="clave" type="string">
+            <column name="CLAVE" length="30" not-null="true" />
+        </property>
+        <property name="administrador" type="java.lang.Boolean">
+            <column name="ADMINISTRADOR" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="TELEFONO" length="20" />
+        </property>
+        <set name="asistencias" inverse="true">
+            <key>
+                <column name="LEGAJO" />
+            </key>
+            <one-to-many class="com.freelancersteam.www.java.tomafoto.dominio.Asistencia" />
+        </set>
+    </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 19/04/2013 09:18:43 by Hibernate Tools 3.2.1.GA
+// Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -23,13 +23,6 @@ public class Asistencia  implements java.io.Serializable {
     public Asistencia() {
     }
 
-	
-    public Asistencia(String estado, byte[] imagen, Date fecha, Date hora) {
-        this.estado = estado;
-        this.imagen = imagen;
-        this.fecha = fecha;
-        this.hora = hora;
-    }
     public Asistencia(Empleado empleado, String estado, byte[] imagen, Date fecha, Date hora, Boolean modificado, Boolean correcto, String observacion) {
        this.empleado = empleado;
        this.estado = estado;

@@ -27,10 +27,13 @@ import com.freelancersteam.www.java.tomafoto.estudiandojmf.eventos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jDispositivos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
+import com.freelancersteam.www.java.tomafoto.vistas.empleado.JDBajas;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -272,6 +275,11 @@ public class Camara extends javax.swing.JFrame{
         mnuRegistros.add(mnuListado);
 
         mnuModEstados.setText("Modificar Estados");
+        mnuModEstados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuModEstadosActionPerformed(evt);
+            }
+        });
         mnuRegistros.add(mnuModEstados);
 
         jMenuBar1.add(mnuRegistros);
@@ -343,12 +351,13 @@ private void setearDatos(){
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // validar el empleado
       EmpleadoDaoImp empleados = new EmpleadoDaoImp();
-       
+       byte[] imgByte= null;
    try{
        Empleado e = empleados.getEmpleado(Integer.parseInt(txtLegajo.getText()));
        boolean encontrado = com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil.getValidarEmpleado(e,txtClave.getText().trim());
        if (encontrado) {
-            //saco foto 
+         try{
+           //saco foto 
             b.capturarImagen();
             // agrego al label
             adaptarTamaño(lbllFotoUser, b.getImagen());  // esto lo quite para que no salga otra imagen
@@ -356,31 +365,48 @@ private void setearDatos(){
             
             // capturo la imagen guardada en el src y lo llevo a la bd
             File file = new File("src/imagTester");
-            byte[] imgByte = new byte[(int) file.length()];
-            try {
+            imgByte = new byte[(int) file.length()];
+         
 	        FileInputStream fileInputStream = new FileInputStream(file);
 	        //convert file into array of bytes
 	        fileInputStream.read(imgByte);
 	        fileInputStream.close();
-            } catch (Exception ex) {
-	        ex.printStackTrace();
-            }
-           // capturo el dato si es Entrada o Salida  q eligio el user
+
+//          // capturo el dato si es Entrada o Salida  q eligio el user
+//           String elegir = (String)cmbElegir.getSelectedItem();
+//          // creoo un objeto asistencia
+//           Asistencia asistencia= new Asistencia(e, elegir, imgByte, new Date(),new Date(), false, true,null);
+//           //agrego en la bd
+//           AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
+//           asistencias.addAsistencia(asistencia);
+//           // Detengo la camara para que el usuario vea su foto durante 5 segundos y luego reinicio la camara
+//           // b.getPlayer().setStopTime(new Time(10000));
+//            b.getPlayer().stop();
+//            Thread.sleep(5000);
+//            b.getPlayer().start();
+//            // limpio las cajas de texto                 
+//            setearDatos();
+//         }catch (InterruptedException ee){
+//           JOptionPane.showMessageDialog(this, "1", "Error", JOptionPane.ERROR_MESSAGE);
+
+         } catch (FileNotFoundException ex) {
+             JOptionPane.showMessageDialog(this, "2", "Error", JOptionPane.ERROR_MESSAGE);
+
+           } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "3", "Error", JOptionPane.ERROR_MESSAGE);
+
+           }finally{
+                           // capturo el dato si es Entrada o Salida  q eligio el user
            String elegir = (String)cmbElegir.getSelectedItem();
           // creoo un objeto asistencia
            Asistencia asistencia= new Asistencia(e, elegir, imgByte, new Date(),new Date(), false, true,null);
            //agrego en la bd
            AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
            asistencias.addAsistencia(asistencia);
-           // Detengo la camara para que el usuario vea su foto durante 5 segundos y luego reinicio la camara
-           // b.getPlayer().setStopTime(new Time(10000));
-            b.getPlayer().stop();
-            Thread.sleep(5000);
-            b.getPlayer().start();
-            // limpio las cajas de texto                 
-            setearDatos();
-           
-           }else{
+           // limpio las cajas de texto                 
+            setearDatos();  
+         }
+       }else{
                // Ingreso mal los datos de autenticacion 
                JOptionPane.showMessageDialog(this, "Su Identificacion es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
                setearDatos();
@@ -389,9 +415,9 @@ private void setearDatos(){
       }catch(java.lang.NumberFormatException edd){
        JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
        setearDatos();
-      } catch (InterruptedException ex) {
-            Logger.getLogger(Camara.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      } //catch (InterruptedException ex) {
+//            Logger.getLogger(Camara.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnIngresarActionPerformed
   private void adaptarTamaño (JLabel label , Image img){
          Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
@@ -477,6 +503,12 @@ private void setearDatos(){
       }
         
     }//GEN-LAST:event_txtLegajoKeyTyped
+
+    private void mnuModEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuModEstadosActionPerformed
+        JDBajas ventanaBajas = new JDBajas(this, true);
+        ventanaBajas.setLocationRelativeTo(this);
+        ventanaBajas.setVisible(true);
+    }//GEN-LAST:event_mnuModEstadosActionPerformed
        
     /**
     * @param args the command line arguments

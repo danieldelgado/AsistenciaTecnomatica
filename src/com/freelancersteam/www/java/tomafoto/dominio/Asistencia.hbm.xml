@@ -1,35 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 19/04/2013 09:18:47 by Hibernate Tools 3.2.1.GA -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-  <class catalog="sistema_entrada" name="com.freelancersteam.www.java.tomafoto.dominio.Asistencia" table="asistencia">
-    <id name="idAsistencia" type="java.lang.Integer">
-      <column name="ID_ASISTENCIA"/>
-      <generator class="identity"/>
-    </id>
-    <many-to-one class="com.freelancersteam.www.java.tomafoto.dominio.Empleado" fetch="select" name="empleado">
-      <column name="LEGAJO"/>
-    </many-to-one>
-    <property name="estado" type="string">
-      <column length="30" name="ESTADO" not-null="true"/>
-    </property>
-    <property name="imagen" type="binary">
-      <column name="IMAGEN" not-null="true"/>
-    </property>
-    <property name="fecha" type="date">
-      <column length="10" name="FECHA" not-null="true"/>
-    </property>
-    <property name="hora" type="time">
-      <column length="8" name="HORA" not-null="true"/>
-    </property>
-    <property name="modificado" type="java.lang.Boolean">
-      <column name="MODIFICADO"/>
-    </property>
-    <property name="correcto" type="java.lang.Boolean">
-      <column name="CORRECTO"/>
-    </property>
-    <property name="observacion" type="string">
-      <column length="200" name="OBSERVACION"/>
-    </property>
-  </class>
+    <class name="com.freelancersteam.www.java.tomafoto.dominio.Asistencia" table="asistencia" catalog="toma_foto">
+        <id name="idAsistencia" type="java.lang.Integer">
+            <column name="ID_ASISTENCIA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleado" class="com.freelancersteam.www.java.tomafoto.dominio.Empleado" fetch="select">
+            <column name="LEGAJO" />
+        </many-to-one>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="30" />
+        </property>
+        <property name="imagen" type="binary">
+            <column name="IMAGEN" />
+        </property>
+        <property name="fecha" type="date">
+            <column name="FECHA" length="10" />
+        </property>
+        <property name="hora" type="time">
+            <column name="HORA" length="8" />
+        </property>
+        <property name="modificado" type="java.lang.Boolean">
+            <column name="MODIFICADO" />
+        </property>
+        <property name="correcto" type="java.lang.Boolean">
+            <column name="CORRECTO" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="OBSERVACION" length="200" />
+        </property>
+    </class>
 </hibernate-mapping>
