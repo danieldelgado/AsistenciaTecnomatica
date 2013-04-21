@@ -61,7 +61,7 @@
 				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="29e5073a-4e18-4ecf-976f-1d154e87c879" x="225" y="0" width="39" height="20"/>
+				<reportElement uuid="29e5073a-4e18-4ecf-976f-1d154e87c879" x="225" y="0" width="59" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>

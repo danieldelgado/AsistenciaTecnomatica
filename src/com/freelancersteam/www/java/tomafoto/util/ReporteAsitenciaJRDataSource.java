@@ -49,5 +49,8 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
         this.listaAsistencia.add(a);
     }
     
+     public void setListAsistencia(List<Asistencia> e){
+         this.listaAsistencia = e;
+     }
     
 }

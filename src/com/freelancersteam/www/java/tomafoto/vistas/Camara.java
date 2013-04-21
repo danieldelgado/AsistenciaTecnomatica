@@ -28,6 +28,7 @@ import com.freelancersteam.www.java.tomafoto.estudiandojmf.jDispositivos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
+import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import com.freelancersteam.www.java.tomafoto.vistas.empleado.JDBajas;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -63,7 +64,8 @@ public class Camara extends javax.swing.JFrame{
     public Camara(){
         initComponents();
         initComponents2();
-        
+        // para cargar de entrada los empleaedos de entrada, causa lentitud al ejecutar la aplicacion y a veces conflicto con la camara
+        EmpleadoDao empleadoDao = new EmpleadoDaoImp();
          
           
     }
@@ -127,8 +129,6 @@ public class Camara extends javax.swing.JFrame{
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
         txtClave = new org.edisoncor.gui.textField.TextFieldRectIcon();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenuItem();
@@ -202,7 +202,7 @@ public class Camara extends javax.swing.JFrame{
         lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
         panelRectTranslucidoComplete2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 460, 34));
 
-        cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Salida", " " }));
+        cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Salida" }));
         cmbElegir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbElegirActionPerformed(evt);
@@ -232,22 +232,6 @@ public class Camara extends javax.swing.JFrame{
             }
         });
         panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panelRectTranslucidoComplete2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, -1, -1));
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        panelRectTranslucidoComplete2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
 
         mnuArchivo.setText("Archivo");
 
@@ -409,17 +393,17 @@ private void setearDatos(){
           
            adaptarTamaño(lbllFotoUser, imgIcon.getImage());
           // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             b.getPlayer().start();
           // muestro un mensaje de bienvenida 
-            JOptionPane.showMessageDialog(this, "Bienvenido "+e.getApellido()+" "+e.getNombre(), asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getHora(asistencia.getHora())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
           //  limpio las cajas de texto                 
               setearDatos();
  
 
        
            }catch (Exception eee){
-               mensajero.mensajeError(this,"No se pudo guardar la imagen en la bd, la asisencia si");
+               mensajero.mensajeError(this,"No se pudo guardar la imagen en la bd, ERROR DE CONEXION CON LA BD");
        
          }
        }else{
@@ -524,20 +508,6 @@ private void setearDatos(){
         ventanaBajas.setLocationRelativeTo(this);
         ventanaBajas.setVisible(true);
     }//GEN-LAST:event_mnuModEstadosActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        List<Asistencia> listaAsistencia ;
-        AsistenciaDaoImp asistenciaDao = new AsistenciaDaoImp();
-        listaAsistencia = asistenciaDao.listarAsistencia();
-        int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
-        
-        System.out.println("id asistencia de la asistencia ultima: "+idAsis);
-    }//GEN-LAST:event_jButton2ActionPerformed
        
     /**
     * @param args the command line arguments
@@ -555,8 +525,6 @@ private void setearDatos(){
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

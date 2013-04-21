@@ -12,14 +12,23 @@ import com.freelancersteam.www.java.tomafoto.util.OrdenarAsistenciaPorId;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.EmpleadoDao;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.util.ReporteAsitenciaJRDataSource;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *
@@ -175,7 +184,12 @@ public class ListadoPersonal extends javax.swing.JDialog {
         tblAsistencia.setShowGrid(false);
         jScrollPane1.setViewportView(tblAsistencia);
 
-        btnImprimir.setText("IMPRIMIR");
+        btnImprimir.setText("INFORME");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         btnIreport.setText("PDF");
         btnIreport.addActionListener(new java.awt.event.ActionListener() {
@@ -218,9 +232,9 @@ public class ListadoPersonal extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(209, 209, 209)
+                                .addGap(61, 61, 61)
+                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(185, 185, 185)
                                 .addComponent(btnIreport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(228, 228, 228)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -321,14 +335,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
            
             //filtrao por año
             conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-           // System.out.println("tamaño luego dl filtrado por año " + conjuntoAsistencia.size());  
+             
             //filtrado por mes
             conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-            System.out.println("tamaño luego dl filtrado por mes " + conjuntoAsistencia.size());  
-              
+                        
               //filtrado por dia
             conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-           // System.out.println("tamaño luego dl filtrado por dia " + conjuntoAsistencia.size());  
+            
            
            // creo un conjunto nuevo pero agregandolo un comparador para que ordene por idAsistencia a los datos
            conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
@@ -420,6 +433,32 @@ public class ListadoPersonal extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_cmbBusquedaActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        // GENERAR LA VISTA PREVIA CON IREPORT
+        
+        List<Asistencia> listaAsistencia = new ArrayList<Asistencia>(conjunto);
+        ReporteAsitenciaJRDataSource dataSource = new ReporteAsitenciaJRDataSource();
+        dataSource.setListAsistencia(listaAsistencia); 
+           JasperPrint jPrintt;
+           JDialog reporte = new JDialog();
+            reporte.setSize(900, 700);
+            reporte.setLocationRelativeTo(null);
+            reporte.setTitle("INFORME");
+           //  JasperReport lreporte = (JasperReport) JRLoader.loadObject("reportes/reporteAsistencia.jasper");
+        try {
+            // jPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/reporteAsistencia.jasper"),null, new JRBeanCollectionDataSource(listaAs));
+            jPrintt = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("com/freelancersteam/www/java/tomafoto/reportes/reporteAsistencia.jasper"),null, dataSource);
+            JRViewer jv = new JRViewer(jPrintt);
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+        
+        } catch (JRException ex) {
+            Logger.getLogger(Camara.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     /**
      * @param args the command line arguments
