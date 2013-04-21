@@ -21,7 +21,7 @@ public class conexion {
         try
         {
             Class.forName("org.gjt.mm.mysql.Driver");
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/sistema_entrada","root","");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/toma_foto","root","");
         }
         catch (Exception e){mensajero.mensajeError(null, "Fallo al Conectar a SGBD");}
         return conexion;

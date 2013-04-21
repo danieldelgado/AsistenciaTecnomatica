@@ -88,7 +88,7 @@ public class miPlayer {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             ImageIO.write((RenderedImage) img, formato, out);
             InputStream in = new ByteArrayInputStream(out.toByteArray());
-            String sql = "INSERT INTO imagen(imagen) VALUES (?)";
+            String sql = "INSERT INTO asistencia(Imagen) VALUES (?)";
             Connection cn=conexion.iniciaConexion();
             PreparedStatement stmt = cn.prepareStatement(sql);
             stmt.setBinaryStream(1, in);

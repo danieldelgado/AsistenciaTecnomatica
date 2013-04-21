@@ -23,9 +23,16 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     }
 
     public void addAsistencia(Asistencia a) {
-       Transaction t = getSession().beginTransaction();
+        Transaction t = getSession().beginTransaction();
+        try{
+       
           getSession().save(a);
         t.commit();
+       } catch(RuntimeException re){
+           t.rollback();
+       }finally{
+           getSession().close();
+       } 
     }
 
     public void deleteAsistencia(Asistencia a) {
@@ -43,7 +50,8 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     public Asistencia getAsistencia(int idAsistencia) {
         Transaction t = getSession().beginTransaction();
            Asistencia a = (Asistencia) getSession().get(Asistencia.class, idAsistencia);
-        t.commit();
+          
+           t.commit();
        return a;
     }
     

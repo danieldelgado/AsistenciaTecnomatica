@@ -26,6 +26,7 @@ import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.eventos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jDispositivos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
+import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
 import com.freelancersteam.www.java.tomafoto.vistas.empleado.JDBajas;
 import java.awt.Image;
@@ -34,12 +35,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.Player;
+import javax.media.Time;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -94,7 +97,7 @@ public class Camara extends javax.swing.JFrame{
         try{ 
           panelCam.add(b.Componente());    
         } catch(Exception nep){
-            JOptionPane.showMessageDialog(this, "La Conexion con la Camara FALLO, espere un minuto y reincie la aplicacion ", "PROBLEMAS DEL DISPOSITIVO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La Conexion con la Camara FALLO, revise si su dispositivo esta conectado a la PC y  reincie la aplicacion ", "NO SE RECONOCE LA CAMARA", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }       
          
@@ -124,6 +127,8 @@ public class Camara extends javax.swing.JFrame{
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
         txtClave = new org.edisoncor.gui.textField.TextFieldRectIcon();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenuItem();
@@ -227,6 +232,22 @@ public class Camara extends javax.swing.JFrame{
             }
         });
         panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelRectTranslucidoComplete2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, -1, -1));
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        panelRectTranslucidoComplete2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
 
         mnuArchivo.setText("Archivo");
 
@@ -349,75 +370,69 @@ private void setearDatos(){
     txtLegajo.requestFocus();
 }
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // validar el empleado
+       // validar el empleado
       EmpleadoDaoImp empleados = new EmpleadoDaoImp();
-       byte[] imgByte= null;
+       
    try{
        Empleado e = empleados.getEmpleado(Integer.parseInt(txtLegajo.getText()));
        boolean encontrado = com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil.getValidarEmpleado(e,txtClave.getText().trim());
        if (encontrado) {
          try{
-           //saco foto 
+            //saco foto 
             b.capturarImagen();
-            // agrego al label
-            adaptarTamaño(lbllFotoUser, b.getImagen());  // esto lo quite para que no salga otra imagen
-            miPlayer.guardaImagenEnFichero(b.getImagen(), new File("src/imagTester"));
-            
-            // capturo la imagen guardada en el src y lo llevo a la bd
-            File file = new File("src/imagTester");
-            imgByte = new byte[(int) file.length()];
-         
-	        FileInputStream fileInputStream = new FileInputStream(file);
-	        //convert file into array of bytes
-	        fileInputStream.read(imgByte);
-	        fileInputStream.close();
-
-//          // capturo el dato si es Entrada o Salida  q eligio el user
-//           String elegir = (String)cmbElegir.getSelectedItem();
-//          // creoo un objeto asistencia
-//           Asistencia asistencia= new Asistencia(e, elegir, imgByte, new Date(),new Date(), false, true,null);
-//           //agrego en la bd
-//           AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
-//           asistencias.addAsistencia(asistencia);
-//           // Detengo la camara para que el usuario vea su foto durante 5 segundos y luego reinicio la camara
-//           // b.getPlayer().setStopTime(new Time(10000));
-//            b.getPlayer().stop();
-//            Thread.sleep(5000);
-//            b.getPlayer().start();
-//            // limpio las cajas de texto                 
-//            setearDatos();
-//         }catch (InterruptedException ee){
-//           JOptionPane.showMessageDialog(this, "1", "Error", JOptionPane.ERROR_MESSAGE);
-
-         } catch (FileNotFoundException ex) {
-             JOptionPane.showMessageDialog(this, "2", "Error", JOptionPane.ERROR_MESSAGE);
-
-           } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "3", "Error", JOptionPane.ERROR_MESSAGE);
-
-           }finally{
-                           // capturo el dato si es Entrada o Salida  q eligio el user
-           String elegir = (String)cmbElegir.getSelectedItem();
-          // creoo un objeto asistencia
-           Asistencia asistencia= new Asistencia(e, elegir, imgByte, new Date(),new Date(), false, true,null);
-           //agrego en la bd
+            // detengo la camara
+            b.getPlayer().stop();
+            //capturo el dato si es Entrada o Salida  q eligio el user
+                String elegir = (String)cmbElegir.getSelectedItem();
+            //guardo la foto en la tabla asistencia
+            miPlayer.guardaImagenEnBD(b.getImagen());
+            // Proceso de actualizaion de la asistencia creada 
+           // 1-busco el id de la ultima asistencia guardada
            AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
-           asistencias.addAsistencia(asistencia);
-           // limpio las cajas de texto                 
-            setearDatos();  
+           List<Asistencia> listaAsistencia ;
+           listaAsistencia = asistencias.listarAsistencia();
+           int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
+           //2-obtengo la ultima asistencia guardada y seteo los valores que falta cargar
+           Asistencia asistencia = asistencias.getAsistencia(idAsis);
+           asistencia.setEstado(elegir);
+           asistencia.setEmpleado(e);
+           asistencia.setFecha(new Date());
+           asistencia.setHora(new Date());
+           asistencia.setModificado(false);
+           asistencia.setCorrecto(true);
+           // 3-actualizo la assitencia en la bd
+           asistencias.upDateAsistencia(asistencia);
+           
+           // recupero la foto de la base de datos
+           byte[] imagenbyte = asistencia.getImagen();
+           ImageIcon imgIcon = new ImageIcon(imagenbyte,e.getLegajo()+" "+e.getApellido());
+          
+           adaptarTamaño(lbllFotoUser, imgIcon.getImage());
+          // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
+            Thread.sleep(2000);
+            b.getPlayer().start();
+          // muestro un mensaje de bienvenida 
+            JOptionPane.showMessageDialog(this, "Bienvenido "+e.getApellido()+" "+e.getNombre(), asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
+          //  limpio las cajas de texto                 
+              setearDatos();
+ 
+
+       
+           }catch (Exception eee){
+               mensajero.mensajeError(this,"No se pudo guardar la imagen en la bd, la asisencia si");
+       
          }
        }else{
                // Ingreso mal los datos de autenticacion 
                JOptionPane.showMessageDialog(this, "Su Identificacion es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
                setearDatos();
           } 
-//          
+          
       }catch(java.lang.NumberFormatException edd){
        JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
        setearDatos();
-      } //catch (InterruptedException ex) {
-//            Logger.getLogger(Camara.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+      }        
+   
     }//GEN-LAST:event_btnIngresarActionPerformed
   private void adaptarTamaño (JLabel label , Image img){
          Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
@@ -509,6 +524,20 @@ private void setearDatos(){
         ventanaBajas.setLocationRelativeTo(this);
         ventanaBajas.setVisible(true);
     }//GEN-LAST:event_mnuModEstadosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        List<Asistencia> listaAsistencia ;
+        AsistenciaDaoImp asistenciaDao = new AsistenciaDaoImp();
+        listaAsistencia = asistenciaDao.listarAsistencia();
+        int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
+        
+        System.out.println("id asistencia de la asistencia ultima: "+idAsis);
+    }//GEN-LAST:event_jButton2ActionPerformed
        
     /**
     * @param args the command line arguments
@@ -526,6 +555,8 @@ private void setearDatos(){
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

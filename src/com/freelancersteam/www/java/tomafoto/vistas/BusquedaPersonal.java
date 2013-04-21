@@ -188,12 +188,22 @@ public class BusquedaPersonal extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSeleccionActionPerformed
 
     private void txtEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyPressed
-        
+        // filtrar las coincidencias con el contenido de la caja de texto
+        if ( txtEmpleado.getText().trim().isEmpty()) {
+          listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
+          com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+          com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+        }else{
+ 
+        listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
+        com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+        com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+        }
     }//GEN-LAST:event_txtEmpleadoKeyPressed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // filtrar las coincidencias con el contenido de la caja de texto
-        if ( txtEmpleado.getText().trim().isEmpty()) {
+        if ( txtEmpleado.getText().isEmpty()) {
           listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
           com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
           com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
