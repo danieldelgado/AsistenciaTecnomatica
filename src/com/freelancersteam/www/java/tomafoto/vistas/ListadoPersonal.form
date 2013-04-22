@@ -44,7 +44,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder justification="2" title="BUSQUEDA DE EMPLEADOS">
+            <TitledBorder justification="2" title="GESTOR DE ASISTENCIAS">
               <Font PropertyName="font" name="Calibri" size="28" style="1"/>
             </TitledBorder>
           </Border>
@@ -70,25 +70,26 @@
                                   <Component id="btnBusquedaPersonal" min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                  <Component id="btnImprimir" min="-2" pref="101" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                  <Component id="btnImprimir" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
                                   <Component id="btnIreport" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
                                   <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <Component id="panelShadow1" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="panelShadow1" pref="684" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonIpod1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -115,9 +116,17 @@
                       <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                       <Component id="panelShadow1" min="-2" pref="84" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="198" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="buttonIpod1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="198" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -287,6 +296,9 @@
         </Container>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnBuscar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/BUSCAR2.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
@@ -303,7 +315,7 @@
             <Component class="org.jdesktop.swingx.JXTable" name="tblAsistencia">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="85" green="85" red="87" type="rgb"/>
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
@@ -330,6 +342,9 @@
         </Container>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnImprimir">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/Informe.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="INFORME"/>
           </Properties>
           <Events>
@@ -338,6 +353,9 @@
         </Component>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnIreport">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/PDF1.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PDF"/>
           </Properties>
           <Events>
@@ -346,6 +364,9 @@
         </Component>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="btnSalir">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/SALIR.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="SALIR"/>
           </Properties>
           <Events>
@@ -365,6 +386,14 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaPersonalActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="org.edisoncor.gui.button.ButtonIpod" name="buttonIpod1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/modificar.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -84,10 +84,11 @@ public class ListadoPersonal extends javax.swing.JDialog {
         btnIreport = new org.edisoncor.gui.button.ButtonIpod();
         btnSalir = new org.edisoncor.gui.button.ButtonIpod();
         btnBusquedaPersonal = new org.edisoncor.gui.button.ButtonIcon();
+        buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA DE EMPLEADOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
+        panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GESTOR DE ASISTENCIAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
         panelTranslucidoComplete21.setOpaque(false);
 
         labelMetric1.setText("Busqueda");
@@ -154,6 +155,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         dateFin.setMaxSelectableDate(new Date());
         panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/BUSCAR2.jpg"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,7 +163,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
-        tblAsistencia.setBackground(new java.awt.Color(135, 133, 133));
+        tblAsistencia.setBackground(new java.awt.Color(204, 204, 204));
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -184,6 +186,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
         tblAsistencia.setShowGrid(false);
         jScrollPane1.setViewportView(tblAsistencia);
 
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Informe.jpg"))); // NOI18N
         btnImprimir.setText("INFORME");
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,6 +194,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
+        btnIreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/PDF1.png"))); // NOI18N
         btnIreport.setText("PDF");
         btnIreport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,6 +202,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
             }
         });
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/SALIR.jpg"))); // NOI18N
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +218,9 @@ public class ListadoPersonal extends javax.swing.JDialog {
                 btnBusquedaPersonalActionPerformed(evt);
             }
         });
+
+        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
+        buttonIpod1.setText("Modificar");
 
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
@@ -232,21 +240,22 @@ public class ListadoPersonal extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(185, 185, 185)
+                                .addGap(52, 52, 52)
+                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(228, 228, 228)
                                 .addComponent(btnIreport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(228, 228, 228)
                                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addGap(0, 52, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                                .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))))
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -264,8 +273,13 @@ public class ListadoPersonal extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -508,6 +522,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
     private org.edisoncor.gui.button.ButtonIpod btnIreport;
     private org.edisoncor.gui.button.ButtonIpod btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
+    private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbBusqueda;
     private com.toedter.calendar.JDateChooser dateFin;
     private com.toedter.calendar.JDateChooser dateInicio;

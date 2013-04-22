@@ -87,9 +87,9 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
                           <Component id="buttonIpod1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -278,6 +278,9 @@
         </Component>
         <Component class="org.edisoncor.gui.button.ButtonIpod" name="buttonIpod1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/freelancersteam/www/java/tomafoto/images/NUEVO3.jpg"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="NUEVO"/>
           </Properties>
         </Component>

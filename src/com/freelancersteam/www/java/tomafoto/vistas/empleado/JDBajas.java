@@ -161,7 +161,7 @@ public class JDBajas extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnbajaEmpleado)
                     .addComponent(btnModificarEmpleado))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();

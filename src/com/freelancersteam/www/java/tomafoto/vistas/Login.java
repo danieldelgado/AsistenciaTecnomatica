@@ -46,9 +46,11 @@ public class Login extends javax.swing.JDialog {
         labelMetric2.setText("Clave");
 
         buttonIcon1.setBackground(java.awt.SystemColor.controlDkShadow);
+        buttonIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/iconKey2.jpg"))); // NOI18N
         buttonIcon1.setText("buttonIcon1");
 
         buttonIcon2.setBackground(java.awt.SystemColor.controlDkShadow);
+        buttonIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/SALIR.jpg"))); // NOI18N
         buttonIcon2.setText("buttonIcon1");
         buttonIcon2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,9 +66,9 @@ public class Login extends javax.swing.JDialog {
                 .addGap(49, 49, 49)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(buttonIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonIcon2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonIcon2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

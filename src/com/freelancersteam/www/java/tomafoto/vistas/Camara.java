@@ -29,7 +29,9 @@ import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
+import com.freelancersteam.www.java.tomafoto.vistas.empleado.BajaEmpleado;
 import com.freelancersteam.www.java.tomafoto.vistas.empleado.JDBajas;
+import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -133,6 +135,7 @@ public class Camara extends javax.swing.JFrame{
         mnuArchivo = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mnuAltaEmpresa = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenuItem();
         mnuEmpleados = new javax.swing.JMenu();
         mnuAltaEmpleado = new javax.swing.JMenuItem();
@@ -246,6 +249,14 @@ public class Camara extends javax.swing.JFrame{
         jMenuItem1.setText("Cerrar Sesion");
         mnuArchivo.add(jMenuItem1);
 
+        mnuAltaEmpresa.setText("Alta Empresa");
+        mnuAltaEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAltaEmpresaActionPerformed(evt);
+            }
+        });
+        mnuArchivo.add(mnuAltaEmpresa);
+
         jmSalir.setText("Salir");
         mnuArchivo.add(jmSalir);
 
@@ -262,6 +273,11 @@ public class Camara extends javax.swing.JFrame{
         mnuEmpleados.add(mnuAltaEmpleado);
 
         mnuBajaEmpleado.setText("Baja de Empleado");
+        mnuBajaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBajaEmpleadoActionPerformed(evt);
+            }
+        });
         mnuEmpleados.add(mnuBajaEmpleado);
 
         mnuModEmpleado.setText("Modificacion de Empleado");
@@ -508,6 +524,14 @@ private void setearDatos(){
         ventanaBajas.setLocationRelativeTo(this);
         ventanaBajas.setVisible(true);
     }//GEN-LAST:event_mnuModEstadosActionPerformed
+
+    private void mnuAltaEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAltaEmpresaActionPerformed
+        AltaEmpresa ae = new AltaEmpresa(this, true);
+    }//GEN-LAST:event_mnuAltaEmpresaActionPerformed
+
+    private void mnuBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBajaEmpleadoActionPerformed
+        BajaEmpleado be = new BajaEmpleado(this, true);
+    }//GEN-LAST:event_mnuBajaEmpleadoActionPerformed
        
     /**
     * @param args the command line arguments
@@ -539,6 +563,7 @@ private void setearDatos(){
     private org.edisoncor.gui.label.LabelCustom lblFecha;
     private javax.swing.JLabel lbllFotoUser;
     private javax.swing.JMenuItem mnuAltaEmpleado;
+    private javax.swing.JMenuItem mnuAltaEmpresa;
     private javax.swing.JMenu mnuArchivo;
     private javax.swing.JMenuItem mnuBajaEmpleado;
     private javax.swing.JMenu mnuEmpleados;
