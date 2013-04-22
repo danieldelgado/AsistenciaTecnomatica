@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA
+// Generated 22/04/2013 01:31:03 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -20,6 +20,7 @@ public class Empleado  implements java.io.Serializable {
      private String localidad;
      private String clave;
      private Boolean administrador;
+     private byte[] imagen;
      private String telefono;
      private Set asistencias = new HashSet(0);
 
@@ -33,7 +34,7 @@ public class Empleado  implements java.io.Serializable {
         this.nombre = nombre;
         this.clave = clave;
     }
-    public Empleado(int legajo, Empresa empresa, String apellido, String nombre, Integer dni, String direccion, String localidad, String clave, Boolean administrador, String telefono, Set asistencias) {
+    public Empleado(int legajo, Empresa empresa, String apellido, String nombre, Integer dni, String direccion, String localidad, String clave, Boolean administrador, byte[] imagen, String telefono, Set asistencias) {
        this.legajo = legajo;
        this.empresa = empresa;
        this.apellido = apellido;
@@ -43,6 +44,7 @@ public class Empleado  implements java.io.Serializable {
        this.localidad = localidad;
        this.clave = clave;
        this.administrador = administrador;
+       this.imagen = imagen;
        this.telefono = telefono;
        this.asistencias = asistencias;
     }
@@ -109,6 +111,13 @@ public class Empleado  implements java.io.Serializable {
     
     public void setAdministrador(Boolean administrador) {
         this.administrador = administrador;
+    }
+    public byte[] getImagen() {
+        return this.imagen;
+    }
+    
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
     public String getTelefono() {
         return this.telefono;

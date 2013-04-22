@@ -34,14 +34,14 @@ import net.sf.jasperreports.swing.JRViewer;
  *
  * @author Leo
  */
-public class ListadoPersonal extends javax.swing.JDialog {
+public class GestorAsistencia extends javax.swing.JDialog {
     Set<Asistencia> conjunto;
     DefaultTableModel modelo;
     private Set<Asistencia> conjuntoAsistencia2=null;
     /**
-     * Creates new form ListadoPersonal
+     * Creates new form GestorAsistencia
      */
-    public ListadoPersonal(java.awt.Frame parent, boolean modal) {
+    public GestorAsistencia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         //las fechas por defectos desabikitada porque rbtn  en fecha  actual
@@ -368,7 +368,7 @@ public class ListadoPersonal extends javax.swing.JDialog {
    
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
         // instanceo la ventana a donde quiero ir
-        BusquedaPersonal ventanaPersonal = new BusquedaPersonal(null, true);
+        GestorEmpleado ventanaPersonal = new GestorEmpleado(null, true);
         if (ventanaPersonal.isBotonSeleccionado()) {
             // si el usuario selecciono un empleado
             txtBusqueda.setText(String.valueOf(ventanaPersonal.getLegajo()));
@@ -491,20 +491,20 @@ public class ListadoPersonal extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestorAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestorAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestorAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListadoPersonal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestorAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListadoPersonal dialog = new ListadoPersonal(new javax.swing.JFrame(), true);
+                GestorAsistencia dialog = new GestorAsistencia(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

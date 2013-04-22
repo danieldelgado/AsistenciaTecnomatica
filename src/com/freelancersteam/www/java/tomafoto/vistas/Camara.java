@@ -91,11 +91,11 @@ public class Camara extends javax.swing.JFrame{
         eventos e=new eventos(this);
         addWindowListener(e);
         jmCArchivo.addActionListener(e);
-        jmCBD.addActionListener(e);
+        //jmCBD.addActionListener(e);
         jmSalir.addActionListener(e);
         jmAcerca.addActionListener(e);
         //Cargamos en el menu los Dispositivos detectados
-        jDispositivos.menuDispositivos(this,jmDispositivos);
+       // jDispositivos.menuDispositivos(this,jmDispositivos);
         lblFecha.setText(com.freelancersteam.www.java.tomafoto.util.FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(new Date())); 
         // agrego al panel  la camara de video
         try{ 
@@ -121,7 +121,6 @@ public class Camara extends javax.swing.JFrame{
 
         panelRectTranslucidoComplete2 = new org.edisoncor.gui.panel.PanelRectTranslucidoComplete();
         panelCam = new javax.swing.JPanel();
-        lbllFotoUser = new javax.swing.JLabel();
         clockDigital2 = new org.edisoncor.gui.varios.ClockDigital();
         clockFace2 = new org.edisoncor.gui.varios.ClockFace();
         btnIngresar = new org.edisoncor.gui.button.ButtonIpod();
@@ -130,7 +129,7 @@ public class Camara extends javax.swing.JFrame{
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
-        txtClave = new org.edisoncor.gui.textField.TextFieldRectIcon();
+        txtClave = new org.edisoncor.gui.passwordField.PasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenuItem();
@@ -148,14 +147,15 @@ public class Camara extends javax.swing.JFrame{
         jmAcerca = new javax.swing.JMenuItem();
         jmCapturar = new javax.swing.JMenu();
         jmCArchivo = new javax.swing.JMenuItem();
-        jmCBD = new javax.swing.JMenuItem();
-        jmDispositivos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Toma una Foto");
-        setMinimumSize(new java.awt.Dimension(500, 500));
+        setBackground(new java.awt.Color(0, 0, 0));
+        setMinimumSize(new java.awt.Dimension(560, 432));
         setResizable(false);
 
+        panelRectTranslucidoComplete2.setBackground(new java.awt.Color(255, 255, 255));
+        panelRectTranslucidoComplete2.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelRectTranslucidoComplete2.setFocusable(false);
         panelRectTranslucidoComplete2.setOpaque(false);
         panelRectTranslucidoComplete2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -163,27 +163,29 @@ public class Camara extends javax.swing.JFrame{
         panelCam.setBackground(new java.awt.Color(0, 0, 0));
         panelCam.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCam.setLayout(new java.awt.BorderLayout());
-        panelRectTranslucidoComplete2.add(panelCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 250, 230));
-        panelRectTranslucidoComplete2.add(lbllFotoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 130, 110));
+        panelRectTranslucidoComplete2.add(panelCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 350, 350));
 
         clockDigital2.setBackground(new java.awt.Color(255, 255, 255));
-        clockDigital2.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 18)); // NOI18N
-        panelRectTranslucidoComplete2.add(clockDigital2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 113, 42));
+        clockDigital2.setForeground(new java.awt.Color(255, 255, 255));
+        clockDigital2.setFont(new java.awt.Font("Bodoni MT", 1, 36)); // NOI18N
+        panelRectTranslucidoComplete2.add(clockDigital2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 192, 190, 40));
+
+        clockFace2.setRomano(false);
 
         javax.swing.GroupLayout clockFace2Layout = new javax.swing.GroupLayout(clockFace2);
         clockFace2.setLayout(clockFace2Layout);
         clockFace2Layout.setHorizontalGroup(
             clockFace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 116, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
         clockFace2Layout.setVerticalGroup(
             clockFace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 123, Short.MAX_VALUE)
+            .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        panelRectTranslucidoComplete2.add(clockFace2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 116, 123));
+        panelRectTranslucidoComplete2.add(clockFace2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 140));
 
-        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/OK.jpg"))); // NOI18N
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/login.jpg"))); // NOI18N
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +197,7 @@ public class Camara extends javax.swing.JFrame{
                 btnIngresarKeyPressed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 80, 80));
+        panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 80, 70));
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
         lblFecha.setForeground(new java.awt.Color(0, 0, 0));
@@ -203,22 +205,28 @@ public class Camara extends javax.swing.JFrame{
         lblFecha.setBorde(true);
         lblFecha.setColorDeSombra(new java.awt.Color(255, 255, 255));
         lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
-        panelRectTranslucidoComplete2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 460, 34));
+        panelRectTranslucidoComplete2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 540, 34));
 
-        cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Salida" }));
+        cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SALIDA" }));
         cmbElegir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbElegirActionPerformed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(cmbElegir, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 140, -1));
+        panelRectTranslucidoComplete2.add(cmbElegir, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 100, 30));
 
         labelMetric1.setText("Legajo");
-        panelRectTranslucidoComplete2.add(labelMetric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        panelRectTranslucidoComplete2.add(labelMetric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 50, 20));
 
         labelMetric2.setText("Clave");
-        panelRectTranslucidoComplete2.add(labelMetric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        panelRectTranslucidoComplete2.add(labelMetric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
+        txtLegajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtLegajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLegajoActionPerformed(evt);
+            }
+        });
         txtLegajo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLegajoKeyPressed(evt);
@@ -227,14 +235,15 @@ public class Camara extends javax.swing.JFrame{
                 txtLegajoKeyTyped(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+        panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 100, -1));
 
-        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtClaveKeyPressed(evt);
+        txtClave.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+        panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 100, -1));
 
         mnuArchivo.setText("Archivo");
 
@@ -322,18 +331,7 @@ public class Camara extends javax.swing.JFrame{
         });
         jmCapturar.add(jmCArchivo);
 
-        jmCBD.setText("En Base de Datos");
-        jmCBD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmCBDActionPerformed(evt);
-            }
-        });
-        jmCapturar.add(jmCBD);
-
         jMenuBar1.add(jmCapturar);
-
-        jmDispositivos.setText("Dispositivos");
-        jMenuBar1.add(jmDispositivos);
 
         setJMenuBar(jMenuBar1);
 
@@ -341,13 +339,11 @@ public class Camara extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -360,10 +356,6 @@ private void jmCArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void cmbElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbElegirActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_cmbElegirActionPerformed
-
-private void jmCBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCBDActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jmCBDActionPerformed
 private void setearDatos(){
     txtLegajo.setText("");
     txtClave.setText("");
@@ -407,12 +399,12 @@ private void setearDatos(){
            byte[] imagenbyte = asistencia.getImagen();
            ImageIcon imgIcon = new ImageIcon(imagenbyte,e.getLegajo()+" "+e.getApellido());
           
-           adaptarTamaño(lbllFotoUser, imgIcon.getImage());
+          // adaptarTamaño(lbllFotoUser, imgIcon.getImage());
           // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             b.getPlayer().start();
           // muestro un mensaje de bienvenida 
-            JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getHora(asistencia.getHora())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
           //  limpio las cajas de texto                 
               setearDatos();
  
@@ -439,7 +431,7 @@ private void setearDatos(){
           label.setIcon(iconoAdaptado);//  si manda en pantalla
      }
     private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
-        ListadoPersonal listado = new ListadoPersonal(this, true);
+        GestorAsistencia listado = new GestorAsistencia(this, true);
     }//GEN-LAST:event_mnuListadoActionPerformed
 
     
@@ -471,24 +463,6 @@ private void setearDatos(){
         
         
     }//GEN-LAST:event_txtLegajoKeyPressed
-
-    private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
-         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-            btnIngresarActionPerformed(null);
-        }
-         else{
-             if (evt.getKeyCode()==KeyEvent.VK_UP) {
-                 txtLegajo.requestFocus();
-             } else {
-                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
-                     cmbElegir.requestFocus();
-                 }
-               
-             }
-    
-         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtClaveKeyPressed
 
     private void btnIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnIngresarKeyPressed
          if (evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -532,6 +506,14 @@ private void setearDatos(){
     private void mnuBajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBajaEmpleadoActionPerformed
         BajaEmpleado be = new BajaEmpleado(this, true);
     }//GEN-LAST:event_mnuBajaEmpleadoActionPerformed
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveActionPerformed
+
+    private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLegajoActionPerformed
        
     /**
     * @param args the command line arguments
@@ -554,14 +536,11 @@ private void setearDatos(){
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jmAcerca;
     private javax.swing.JMenuItem jmCArchivo;
-    private javax.swing.JMenuItem jmCBD;
     private javax.swing.JMenu jmCapturar;
-    private javax.swing.JMenu jmDispositivos;
     private javax.swing.JMenuItem jmSalir;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelCustom lblFecha;
-    private javax.swing.JLabel lbllFotoUser;
     private javax.swing.JMenuItem mnuAltaEmpleado;
     private javax.swing.JMenuItem mnuAltaEmpresa;
     private javax.swing.JMenu mnuArchivo;
@@ -574,7 +553,7 @@ private void setearDatos(){
     private javax.swing.JMenu mnuRegistros;
     private javax.swing.JPanel panelCam;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete2;
-    private org.edisoncor.gui.textField.TextFieldRectIcon txtClave;
+    private org.edisoncor.gui.passwordField.PasswordField txtClave;
     private org.edisoncor.gui.textField.TextFieldRectIcon txtLegajo;
     // End of variables declaration//GEN-END:variables
 

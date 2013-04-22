@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 22/04/2013 01:31:04 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.freelancersteam.www.java.tomafoto.dominio.Empresa" table="empresa" catalog="toma_foto">
         <id name="idEmpresa" type="java.lang.Integer">
@@ -19,6 +19,15 @@
         </property>
         <property name="fechaInicio" type="date">
             <column name="FECHA_INICIO" length="10" />
+        </property>
+        <property name="ingresoBruto" type="string">
+            <column name="INGRESO_BRUTO" length="100" not-null="true" />
+        </property>
+        <property name="categoria" type="string">
+            <column name="CATEGORIA" length="100" not-null="true" />
+        </property>
+        <property name="imagen" type="binary">
+            <column name="IMAGEN" />
         </property>
         <set name="empleados" inverse="true">
             <key>

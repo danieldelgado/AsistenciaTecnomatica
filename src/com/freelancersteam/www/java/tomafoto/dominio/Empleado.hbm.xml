@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 22/04/2013 01:31:04 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.freelancersteam.www.java.tomafoto.dominio.Empleado" table="empleado" catalog="toma_foto">
         <id name="legajo" type="int">
@@ -31,6 +31,9 @@
         </property>
         <property name="administrador" type="java.lang.Boolean">
             <column name="ADMINISTRADOR" />
+        </property>
+        <property name="imagen" type="binary">
+            <column name="IMAGEN" />
         </property>
         <property name="telefono" type="string">
             <column name="TELEFONO" length="20" />

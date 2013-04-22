@@ -185,11 +185,11 @@ public class JDBajas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarasistenciaActionPerformed
 
     private void btnAltaAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAltaAsistenciaActionPerformed
-       AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
-       Asistencia a = asistencias.getAsistencia(Integer.parseInt(txtIdAsist.getText()));
-       Empleado e = a.getEmpleado();
-       a = new Asistencia(e, "dd", null, new Date(), new Date(), true, false, null);
-       asistencias.addAsistencia(a);
+//       AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
+//       Asistencia a = asistencias.getAsistencia(Integer.parseInt(txtIdAsist.getText()));
+//       Empleado e = a.getEmpleado();
+//       a = new Asistencia(e, "dd", null, new Date(), new Date(), true, false, null);
+//       asistencias.addAsistencia(a);
     }//GEN-LAST:event_btnAltaAsistenciaActionPerformed
 
     private void btnbajaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbajaEmpleadoActionPerformed

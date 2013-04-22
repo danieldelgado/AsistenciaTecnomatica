@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 20/04/2013 09:24:20 by Hibernate Tools 3.2.1.GA
+// Generated 22/04/2013 01:31:03 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -17,16 +17,27 @@ public class Empresa  implements java.io.Serializable {
      private String denominacion;
      private String domicilio;
      private Date fechaInicio;
+     private String ingresoBruto;
+     private String categoria;
+     private byte[] imagen;
      private Set empleados = new HashSet(0);
 
     public Empresa() {
     }
 
-    public Empresa(Integer cuit, String denominacion, String domicilio, Date fechaInicio, Set empleados) {
+	
+    public Empresa(String ingresoBruto, String categoria) {
+        this.ingresoBruto = ingresoBruto;
+        this.categoria = categoria;
+    }
+    public Empresa(Integer cuit, String denominacion, String domicilio, Date fechaInicio, String ingresoBruto, String categoria, byte[] imagen, Set empleados) {
        this.cuit = cuit;
        this.denominacion = denominacion;
        this.domicilio = domicilio;
        this.fechaInicio = fechaInicio;
+       this.ingresoBruto = ingresoBruto;
+       this.categoria = categoria;
+       this.imagen = imagen;
        this.empleados = empleados;
     }
    
@@ -64,6 +75,27 @@ public class Empresa  implements java.io.Serializable {
     
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
+    }
+    public String getIngresoBruto() {
+        return this.ingresoBruto;
+    }
+    
+    public void setIngresoBruto(String ingresoBruto) {
+        this.ingresoBruto = ingresoBruto;
+    }
+    public String getCategoria() {
+        return this.categoria;
+    }
+    
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    public byte[] getImagen() {
+        return this.imagen;
+    }
+    
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
     public Set getEmpleados() {
         return this.empleados;

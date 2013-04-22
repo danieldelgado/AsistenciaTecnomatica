@@ -23,7 +23,7 @@ public class AsistenciaUtil {
                cont++;
             }
     }
-        System.out.println("contador de año "+cont);
+       
         return conjunto;
     }
     public static Set<Asistencia> getAsistenciasFiltradoPorMes (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
@@ -35,7 +35,7 @@ public class AsistenciaUtil {
                 cont++;
                 }
         }     
-        System.out.println("contador de mes  "+ cont);
+       
 
         return conjunto;
     }
@@ -48,7 +48,7 @@ public class AsistenciaUtil {
                 cont++;
                 }
         }   
-        System.out.println("contador de dia "+cont);
+        
         return conjunto;
     }
     
