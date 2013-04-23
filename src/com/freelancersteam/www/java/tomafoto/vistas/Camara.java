@@ -157,18 +157,16 @@ public class Camara extends javax.swing.JFrame{
         panelRectTranslucidoComplete2.setBackground(new java.awt.Color(255, 255, 255));
         panelRectTranslucidoComplete2.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelRectTranslucidoComplete2.setFocusable(false);
+        panelRectTranslucidoComplete2.setMaximumSize(new java.awt.Dimension(0, 0));
         panelRectTranslucidoComplete2.setOpaque(false);
-        panelRectTranslucidoComplete2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCam.setBackground(new java.awt.Color(0, 0, 0));
         panelCam.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCam.setLayout(new java.awt.BorderLayout());
-        panelRectTranslucidoComplete2.add(panelCam, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 350, 350));
 
         clockDigital2.setBackground(new java.awt.Color(255, 255, 255));
         clockDigital2.setForeground(new java.awt.Color(255, 255, 255));
         clockDigital2.setFont(new java.awt.Font("Bodoni MT", 1, 30)); // NOI18N
-        panelRectTranslucidoComplete2.add(clockDigital2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 192, 190, 40));
 
         clockFace2.setRomano(false);
 
@@ -183,8 +181,6 @@ public class Camara extends javax.swing.JFrame{
             .addGap(0, 140, Short.MAX_VALUE)
         );
 
-        panelRectTranslucidoComplete2.add(clockFace2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 150, 140));
-
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/login.jpg"))); // NOI18N
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +193,6 @@ public class Camara extends javax.swing.JFrame{
                 btnIngresarKeyPressed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, 80, 70));
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
         lblFecha.setForeground(new java.awt.Color(0, 0, 0));
@@ -205,7 +200,6 @@ public class Camara extends javax.swing.JFrame{
         lblFecha.setBorde(true);
         lblFecha.setColorDeSombra(new java.awt.Color(255, 255, 255));
         lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
-        panelRectTranslucidoComplete2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 540, 34));
 
         cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SALIDA" }));
         cmbElegir.addActionListener(new java.awt.event.ActionListener() {
@@ -213,13 +207,10 @@ public class Camara extends javax.swing.JFrame{
                 cmbElegirActionPerformed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(cmbElegir, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 100, 30));
 
         labelMetric1.setText("Legajo");
-        panelRectTranslucidoComplete2.add(labelMetric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 50, 20));
 
         labelMetric2.setText("Clave");
-        panelRectTranslucidoComplete2.add(labelMetric2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         txtLegajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtLegajo.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +226,6 @@ public class Camara extends javax.swing.JFrame{
                 txtLegajoKeyTyped(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(txtLegajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 100, -1));
 
         txtClave.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtClave.addActionListener(new java.awt.event.ActionListener() {
@@ -243,7 +233,69 @@ public class Camara extends javax.swing.JFrame{
                 txtClaveActionPerformed(evt);
             }
         });
-        panelRectTranslucidoComplete2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 100, -1));
+
+        javax.swing.GroupLayout panelRectTranslucidoComplete2Layout = new javax.swing.GroupLayout(panelRectTranslucidoComplete2);
+        panelRectTranslucidoComplete2.setLayout(panelRectTranslucidoComplete2Layout);
+        panelRectTranslucidoComplete2Layout.setHorizontalGroup(
+            panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                        .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        panelRectTranslucidoComplete2Layout.setVerticalGroup(
+            panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                        .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+
+        jMenuBar1.setBorder(null);
 
         mnuArchivo.setText("Archivo");
 
@@ -339,11 +391,11 @@ public class Camara extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
