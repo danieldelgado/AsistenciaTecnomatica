@@ -52,8 +52,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
         inactivarBusqueda();
         rdbHoy.requestFocus();
         // pantalla se localice en el centro  de la pantalla
-        setLocationRelativeTo(parent);
-        setVisible(true);
+        setLocationRelativeTo(this);
+        this.setVisible(true);
     }
 
     /**

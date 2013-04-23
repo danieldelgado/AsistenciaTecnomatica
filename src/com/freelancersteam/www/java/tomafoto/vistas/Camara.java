@@ -102,7 +102,7 @@ public class Camara extends javax.swing.JFrame{
           panelCam.add(b.Componente());    
         } catch(Exception nep){
             JOptionPane.showMessageDialog(this, "La Conexion con la Camara FALLO, revise si su dispositivo esta conectado a la PC y  reincie la aplicacion ", "NO SE RECONOCE LA CAMARA", JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
+//            System.exit(0);
         }       
          
         setLocationRelativeTo(this); //centramos el formulario

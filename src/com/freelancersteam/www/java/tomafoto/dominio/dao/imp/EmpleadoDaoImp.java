@@ -42,7 +42,7 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
 
     public void upDateEmpleado(Empleado a) {
       Transaction t = getSession().beginTransaction();
-         getSession().update(a);
+      getSession().update(a);
       t.commit();
       //getSession().close();
     }

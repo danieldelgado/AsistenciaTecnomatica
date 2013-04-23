@@ -32,17 +32,17 @@ public class GestorEmpleado extends javax.swing.JDialog {
     public GestorEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-//         initComponentes();    
-//        setLocationRelativeTo(this);
-//        setVisible(true);
-//     
+        initComponentesVentana();    
+        setLocationRelativeTo(this);
+        setVisible(true);
+     
         
     }
-//    public void initComponentes(){
-//         cargarTablaConEmpleado();
-//        setEditableVentanaInformacionEmpleado(false);
-//        empleados = new EmpleadoDaoImp();
-//    }
+    public void initComponentesVentana(){
+        empleados = new EmpleadoDaoImp();
+        cargarTablaConEmpleado();
+        setEditableVentanaInformacionEmpleado(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +58,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
         btnSeleccion = new org.edisoncor.gui.button.ButtonIpod();
         txtEmpleado = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
-        btnCancelar = new org.edisoncor.gui.button.ButtonIpod();
         btnBuscar = new org.edisoncor.gui.button.ButtonRound();
         panelTranslucidoComplete22 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
@@ -76,7 +75,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         labelMetric8 = new org.edisoncor.gui.label.LabelMetric();
         txtDni = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
-        btnCancelar1 = new org.edisoncor.gui.button.ButtonIpod();
+        btnCancelar = new org.edisoncor.gui.button.ButtonIpod();
         labelMetric9 = new org.edisoncor.gui.label.LabelMetric();
         txtClave = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         jLabel1 = new javax.swing.JLabel();
@@ -85,8 +84,9 @@ public class GestorEmpleado extends javax.swing.JDialog {
         txtClaveRepetir = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric11 = new org.edisoncor.gui.label.LabelMetric();
         cmbAdministrador = new org.edisoncor.gui.comboBox.ComboBoxRect();
-        buttonIpod2 = new org.edisoncor.gui.button.ButtonIpod();
-        buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
+        btnEliminar = new org.edisoncor.gui.button.ButtonIpod();
+        btnAgregar = new org.edisoncor.gui.button.ButtonIpod();
+        btnModificar = new org.edisoncor.gui.button.ButtonIpod();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,9 +94,24 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA DE PERSONAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
         panelTranslucidoComplete21.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelTranslucidoComplete21.setOpaque(false);
-        panelTranslucidoComplete21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblEmpleado.setBackground(new java.awt.Color(135, 133, 133));
+        tblEmpleado.setBackground(new java.awt.Color(0, 0, 0));
+        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "LEGAJO", "EMPLEADO", "TIPO USUARIO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblEmpleado.setGridColor(new java.awt.Color(255, 255, 255));
         tblEmpleado.setShowVerticalLines(false);
         tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,8 +126,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblEmpleado);
 
-        panelTranslucidoComplete21.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, 260));
-
         btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/OK.jpg"))); // NOI18N
         btnSeleccion.setText("Aceptar");
         btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
@@ -120,26 +133,14 @@ public class GestorEmpleado extends javax.swing.JDialog {
                 btnSeleccionActionPerformed(evt);
             }
         });
-        panelTranslucidoComplete21.add(btnSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
 
         txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtEmpleadoKeyPressed(evt);
             }
         });
-        panelTranslucidoComplete21.add(txtEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 105, -1));
 
         labelMetric1.setText("Empleado");
-        panelTranslucidoComplete21.add(labelMetric1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
-
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/ELIMINAR3.jpg"))); // NOI18N
-        btnCancelar.setText("ELIMINAR");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-        panelTranslucidoComplete21.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 380, 80, -1));
 
         btnBuscar.setBackground(java.awt.SystemColor.controlDkShadow);
         btnBuscar.setText("Buscar");
@@ -148,10 +149,12 @@ public class GestorEmpleado extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
-        panelTranslucidoComplete21.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, -1, -1));
 
         panelTranslucidoComplete22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
+        panelTranslucidoComplete22.setForeground(new java.awt.Color(153, 153, 153));
         panelTranslucidoComplete22.setToolTipText("");
+        panelTranslucidoComplete22.setColorPrimario(new java.awt.Color(0, 0, 0));
+        panelTranslucidoComplete22.setOpaque(false);
 
         labelMetric2.setText("LEGAJO");
 
@@ -196,11 +199,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
             }
         });
 
-        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/CANCEL.jpg"))); // NOI18N
-        btnCancelar1.setText("CANCELAR");
-        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/CANCEL.jpg"))); // NOI18N
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelar1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -233,11 +236,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         cmbAdministrador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COMUN", "ADMINISTRADOR" }));
 
-        buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
-        buttonIpod2.setText("MODIFICAR");
-        buttonIpod2.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/ELIMINAR3.jpg"))); // NOI18N
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIpod2ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -282,10 +285,10 @@ public class GestorEmpleado extends javax.swing.JDialog {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete22Layout.createSequentialGroup()
                                     .addGap(17, 17, 17)
                                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(51, 51, 51)
-                                    .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(47, 47, 47)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
                             .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
@@ -370,34 +373,70 @@ public class GestorEmpleado extends javax.swing.JDialog {
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonIpod2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        panelTranslucidoComplete21.add(panelTranslucidoComplete22, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 370, -1));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
+        btnAgregar.setText("AGREGAR");
 
-        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
-        buttonIpod1.setText("AGREGAR");
-        buttonIpod1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIpod1ActionPerformed(evt);
-            }
-        });
-        panelTranslucidoComplete21.add(buttonIpod1, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 380, 80, -1));
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
+        btnModificar.setText("MODIFICAR");
+
+        javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
+        panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
+        panelTranslucidoComplete21Layout.setHorizontalGroup(
+            panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelTranslucidoComplete21Layout.setVerticalGroup(
+            panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -414,9 +453,9 @@ public class GestorEmpleado extends javax.swing.JDialog {
     
     
     
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
         
@@ -512,14 +551,15 @@ public class GestorEmpleado extends javax.swing.JDialog {
         
         if (isModificar) {
             //actualizar el empleado
-            empleados.upDateEmpleado(e);
+            new EmpleadoDaoImp().upDateEmpleado(e);
+            isModificar = false;
             // ay que ver si modifica el legajo     
         } else {
          //agregar un empleado
             
               empleados.addEmpleado(e);    
                 
-           // ay que ver si ellegajo exite
+           // ay que ver si el legajo exite
           
         }
            setEditableVentanaInformacionEmpleado(false);
@@ -529,9 +569,9 @@ public class GestorEmpleado extends javax.swing.JDialog {
            
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnCancelar1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
         // TODO add your handling code here:
@@ -591,14 +631,14 @@ public class GestorEmpleado extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.edisoncor.gui.button.ButtonIpod btnAgregar;
     private org.edisoncor.gui.button.ButtonRound btnBuscar;
     private org.edisoncor.gui.button.ButtonIpod btnCancelar;
-    private org.edisoncor.gui.button.ButtonIpod btnCancelar1;
+    private org.edisoncor.gui.button.ButtonIpod btnEliminar;
     private org.edisoncor.gui.button.ButtonIpod btnGuardar;
     private org.edisoncor.gui.button.ButtonIpod btnGuardar1;
+    private org.edisoncor.gui.button.ButtonIpod btnModificar;
     private org.edisoncor.gui.button.ButtonIpod btnSeleccion;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod2;
     private org.edisoncor.gui.comboBox.ComboBoxRect cmbAdministrador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
