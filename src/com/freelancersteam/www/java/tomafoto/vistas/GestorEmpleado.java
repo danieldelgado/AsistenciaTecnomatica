@@ -20,14 +20,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestorEmpleado extends javax.swing.JDialog {
     
-    public static  boolean isModificar = false;
+    public   boolean isModificar = false;// paramentro global uso: para ver si se presiono un boton agregar o moficar
+                                         // sirve para configuarar ventnana infomracion  empleado
     
     
     private DefaultTableModel modelo;
     private List<Empleado> listaEmpleado;
     private boolean seleccionado;
     private int legajo;
-    EmpleadoDao empleados ;
+  //  EmpleadoDao empleados ;
    
     public GestorEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,10 +40,12 @@ public class GestorEmpleado extends javax.swing.JDialog {
         
     }
     public void initComponentesVentana(){
-        empleados = new EmpleadoDaoImp();
+        //empleados = new EmpleadoDaoImp();
         cargarTablaConEmpleado();
         setEditableVentanaInformacionEmpleado(false);
+        btnModificar.setEnabled(false);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,22 +101,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setOpaque(false);
 
         tblEmpleado.setBackground(new java.awt.Color(0, 0, 0));
-        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "LEGAJO", "EMPLEADO", "TIPO USUARIO"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         tblEmpleado.setGridColor(new java.awt.Color(0, 0, 0));
         tblEmpleado.setShowVerticalLines(false);
         tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -237,6 +224,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/PDF1.png"))); // NOI18N
         btnReporte.setText("REPORTE");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTranslucidoComplete22Layout = new javax.swing.GroupLayout(panelTranslucidoComplete22);
         panelTranslucidoComplete22.setLayout(panelTranslucidoComplete22Layout);
@@ -374,6 +366,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
         btnModificar.setText("EDITAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/OK.jpg"))); // NOI18N
         btnSeleccion.setText("AGREGAR");
@@ -385,6 +382,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
         btnAgregar.setText("AGREGAR");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTranslucidoComplete23Layout = new javax.swing.GroupLayout(panelTranslucidoComplete23);
         panelTranslucidoComplete23.setLayout(panelTranslucidoComplete23Layout);
@@ -489,13 +491,14 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
     private void txtEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyPressed
         // filtrar las coincidencias con el contenido de la caja de texto
+        listaEmpleado = new EmpleadoDaoImp().listarEmpleado();
         if ( txtEmpleado.getText().trim().isEmpty()) {
-          listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
+          listaEmpleado = filtrarPorNombreEmpleado(listaEmpleado,txtEmpleado.getText()); 
           com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
           com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
         }else{
  
-        listaEmpleado = filtrarPorNombreEmpleado(empleados.listarEmpleado(),txtEmpleado.getText()); 
+        listaEmpleado = filtrarPorNombreEmpleado(listaEmpleado,txtEmpleado.getText()); 
         com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
         com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
         }
@@ -508,10 +511,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
         if (fila != -1) {
         modelo =(DefaultTableModel)tblEmpleado.getModel();
         legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-        Empleado empleado = empleados.getEmpleado(legajo);
+        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
         
         // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
         cargarVentanaInformacionConEmpleado(empleado);
+         btnModificar.setEnabled(true);
         }
     }//GEN-LAST:event_tblEmpleadoMouseClicked
 
@@ -521,16 +525,17 @@ public class GestorEmpleado extends javax.swing.JDialog {
         if (fila!= -1) {
         modelo =(DefaultTableModel)tblEmpleado.getModel();
         legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-        Empleado empleado = empleados.getEmpleado(legajo);
+        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
         setEditableVentanaInformacionEmpleado(false);
         // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
         cargarVentanaInformacionConEmpleado(empleado);
+         btnModificar.setEnabled(true);
         }
        }
     }//GEN-LAST:event_tblEmpleadoKeyPressed
      private Empleado getEmpleadoVentanaInformacion(){
-         Empleado empleado;
-        int legajo = Integer.parseInt(txtLegajo.getText());
+        Empleado empleado;
+        legajo = Integer.parseInt(txtLegajo.getText());
         String clave = txtClave.getText();
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
@@ -547,14 +552,12 @@ public class GestorEmpleado extends javax.swing.JDialog {
          return empleado;
      }
     private void buttonIpod1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod1ActionPerformed
-       limpiarVenanaEmpleado();
-       setEditableVentanaInformacionEmpleado(true);
+//       limpiarVenanaEmpleado();
+//       setEditableVentanaInformacionEmpleado(true);
     }//GEN-LAST:event_buttonIpod1ActionPerformed
 
     private void buttonIpod2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod2ActionPerformed
-      // hacer editable la ventana informacion de empleado
-        setEditableVentanaInformacionEmpleado(true);
-        isModificar= true;
+     
     }//GEN-LAST:event_buttonIpod2ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -566,7 +569,10 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
+       // cancela la operacion actual
+        limpiarVenanaEmpleado();
+        setEditableVentanaInformacionEmpleado(false);
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -577,22 +583,43 @@ public class GestorEmpleado extends javax.swing.JDialog {
         if (isModificar) {
             //actualizar el empleado
             new EmpleadoDaoImp().upDateEmpleado(e);
-            isModificar = false;
+           
             // ay que ver si modifica el legajo
         } else {
             //agregar un empleado
 
-            empleados.addEmpleado(e);
+           new EmpleadoDaoImp().addEmpleado(e);
 
             // ay que ver si el legajo exite
 
         }
+        limpiarVenanaEmpleado();
         setEditableVentanaInformacionEmpleado(false);
         //ACTUALIZAR LA TABLA
         mensajero.mensajeInformacionAtualizacion(this, "La Operacion se realizo Exitosamente");
-        //   initComponentes();
+        initComponentesVentana();
 
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+         // hacer editable la ventana informacion de empleado
+        isModificar= true;
+        setEditableVentanaInformacionEmpleado(true);
+        prepararParaModificar();
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        isModificar= false;
+        limpiarVenanaEmpleado();
+        setEditableVentanaInformacionEmpleado(true);
+        prepararParaAgregar();
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
      
     
     /**
@@ -681,7 +708,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
      */
     private void cargarTablaConEmpleado() {
 
-       listaEmpleado = empleados.listarEmpleado();
+       listaEmpleado =new EmpleadoDaoImp().listarEmpleado();
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
     }
@@ -704,25 +731,65 @@ public class GestorEmpleado extends javax.swing.JDialog {
        txtLocalidad.setText("");
        txtNombre.setText("");
        txtTelefono.setText("");
+       txtClaveRepetir.setText("");
+      // comboBoxRound2.setSelectedIndex(0);
        // falta par aque  el cursor se situe en el campo legajo por defecyto
+       txtLegajo.requestFocus();
     }
 
-   
-    private void setEditableVentanaInformacionEmpleado(boolean logico) {
-       txtLegajo.setEditable(logico);
+   /**
+    * 
+    * @param logico indica que los componetnes estara o no editables
+    * @param isModificado indica si se va a editar para agregar o modificar un empleado existente
+    * en caso de que sea un empleado existente las cajas legajo,clave,y repertir clave se mantendran no editable
+    */
+     
+     private void prepararParaModificar(){
+          
+            txtLegajo.setEditable(false);
+            txtClave.setEditable(false);
+            txtClaveRepetir.setEditable(false);
+            txtApellido.requestFocus();
+        
+     }
+     private void prepararParaAgregar(){
+          btnReporte.setEnabled(false);
+          btnEliminar.setEnabled(false);
+           
+        
+     }
+    
+     private void setEditableVentanaInformacionEmpleado(boolean logico) {
+        // editable la ventana configuarcion
+        // cajas de texto
+        txtLegajo.setEditable(logico);
         txtClave.setEditable(logico);
+        txtClaveRepetir.setEditable(logico);
         txtApellido.setEditable(logico);
         txtNombre.setEditable(logico);
+        txtDni.setEditable(logico);
         txtDireccion.setEditable(logico);
         txtLocalidad.setEditable(logico);
         txtTelefono.setEditable(logico);
+        // el cmbo 
+        comboBoxRound2.setEnabled(logico);
+       //botones
+        btnGuardar1.setEnabled(logico);
+        btnCancelar.setEnabled(logico);
+        btnGuardar.setEnabled(logico);
+        btnReporte.setEnabled(logico);
+        //foco
+        txtLegajo.requestFocus();
+       
         
     }
     public void cargarVentanaInformacionConEmpleado(Empleado empleado){
         txtLegajo.setText(String.valueOf(empleado.getLegajo()));
         txtClave.setText(empleado.getClave());
+        txtClaveRepetir.setText(empleado.getClave());
         txtApellido.setText(empleado.getApellido());
         txtNombre.setText(empleado.getNombre());
+        txtDni.setText(String.valueOf(empleado.getDni()));
         txtDireccion.setText(empleado.getDireccion());
         txtLocalidad.setText(empleado.getLocalidad());
         txtTelefono.setText(empleado.getTelefono());

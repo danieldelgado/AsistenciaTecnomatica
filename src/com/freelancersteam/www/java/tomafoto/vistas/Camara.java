@@ -183,6 +183,7 @@ public class Camara extends javax.swing.JFrame{
 
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/login.jpg"))); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.setAnimacion(false);
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);

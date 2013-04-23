@@ -20,7 +20,7 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
     public List<Empleado> listarEmpleado() {
          Criteria criteria = getSession().createCriteria(Empleado.class);
          List<Empleado> lista = criteria.list();
-        // getSession().close();
+         getSession().close();
          return lista;
         
                 
@@ -30,28 +30,28 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
          Transaction t = getSession().beginTransaction();
           getSession().save(a);
          t.commit();
-        // getSession().close();
+         getSession().close();
     }
 
     public void deleteEmpleado(Empleado a) {
         Transaction t = getSession().beginTransaction();
           getSession().delete(a);
        t.commit();
-      // getSession().close();
+       getSession().close();
     }
 
     public void upDateEmpleado(Empleado a) {
       Transaction t = getSession().beginTransaction();
       getSession().update(a);
       t.commit();
-      //getSession().close();
+      getSession().close();
     }
 
     public Empleado getEmpleado(int idEmpleado) {
        Transaction t = getSession().beginTransaction();
            Empleado a = (Empleado) getSession().get(Empleado.class, idEmpleado);
         t.commit();
-        //getSession().close();
+        getSession().close();
        return a;
     }
 
