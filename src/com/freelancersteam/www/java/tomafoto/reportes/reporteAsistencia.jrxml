@@ -7,6 +7,9 @@
 	<field name="estado" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
 	<field name="hora" class="java.lang.String"/>
+	<field name="imagen" class="java.lang.Object">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -25,7 +28,7 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="23" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="cc237b11-2fa3-4458-8564-7b3a7794afa5" x="22" y="0" width="58" height="20"/>
 				<textElement/>
@@ -46,30 +49,39 @@
 				<textElement/>
 				<text><![CDATA[estado]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="2edd3a20-99a0-49d2-a14a-3c828328abb7" x="326" y="3" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[imagen]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="26" splitType="Stretch">
+		<band height="90" splitType="Stretch">
 			<textField>
-				<reportElement uuid="78fa44f9-daa6-4eb9-8738-e0b6a9dfcbf5" x="22" y="0" width="68" height="20"/>
+				<reportElement uuid="78fa44f9-daa6-4eb9-8738-e0b6a9dfcbf5" x="22" y="10" width="68" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{empleado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5d07ba3f-c85e-492d-984f-811534f5275a" x="164" y="0" width="49" height="20"/>
+				<reportElement uuid="5d07ba3f-c85e-492d-984f-811534f5275a" x="164" y="10" width="49" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="29e5073a-4e18-4ecf-976f-1d154e87c879" x="225" y="0" width="59" height="20"/>
+				<reportElement uuid="29e5073a-4e18-4ecf-976f-1d154e87c879" x="225" y="10" width="59" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c5385e1f-620b-480b-bd1e-1c0c7bd64d17" x="103" y="0" width="50" height="20"/>
+				<reportElement uuid="c5385e1f-620b-480b-bd1e-1c0c7bd64d17" x="103" y="10" width="50" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement uuid="7bcede21-32ae-46bd-9a5f-1f325c3f68df" x="344" y="10" width="82" height="50"/>
+				<imageExpression><![CDATA[JRImageRenderer.getInstance((byte []) $F{imagen})]]></imageExpression>
+			</image>
 		</band>
 	</detail>
 </jasperReport>

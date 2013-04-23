@@ -7,6 +7,7 @@ package com.freelancersteam.www.java.tomafoto.vistas;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.EmpleadoDao;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +19,30 @@ import javax.swing.table.DefaultTableModel;
  * @author Leo
  */
 public class GestorEmpleado extends javax.swing.JDialog {
+    
+    public static  boolean isModificar = false;
+    
+    
     private DefaultTableModel modelo;
     private List<Empleado> listaEmpleado;
     private boolean seleccionado;
     private int legajo;
-    EmpleadoDao empleados = new EmpleadoDaoImp();
+    EmpleadoDao empleados ;
    
     public GestorEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cargarTablaConEmpleado();
-        setLocationRelativeTo(this);
-        setVisible(true);
+//         initComponentes();    
+//        setLocationRelativeTo(this);
+//        setVisible(true);
+//     
         
     }
-
+//    public void initComponentes(){
+//         cargarTablaConEmpleado();
+//        setEditableVentanaInformacionEmpleado(false);
+//        empleados = new EmpleadoDaoImp();
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,22 +97,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblEmpleado.setBackground(new java.awt.Color(135, 133, 133));
-        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "LEGAJO", "EMPLEADO"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         tblEmpleado.setGridColor(new java.awt.Color(255, 255, 255));
         tblEmpleado.setShowVerticalLines(false);
         tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -163,7 +157,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         txtLegajo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtLegajo.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        txtLegajo.setMargin(new java.awt.Insets(2, 2, 2, 2));
 
         labelMetric3.setText("APELLIDO");
 
@@ -242,6 +235,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         buttonIpod2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
         buttonIpod2.setText("MODIFICAR");
+        buttonIpod2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIpod2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTranslucidoComplete22Layout = new javax.swing.GroupLayout(panelTranslucidoComplete22);
         panelTranslucidoComplete22.setLayout(panelTranslucidoComplete22Layout);
@@ -382,6 +380,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
         buttonIpod1.setText("AGREGAR");
+        buttonIpod1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIpod1ActionPerformed(evt);
+            }
+        });
         panelTranslucidoComplete21.add(buttonIpod1, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 380, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -458,23 +461,34 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tblEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadoMouseClicked
+         
+        
         int fila = tblEmpleado.getSelectedRow(); 
+        if (fila != -1) {
         modelo =(DefaultTableModel)tblEmpleado.getModel();
         legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+        Empleado empleado = empleados.getEmpleado(legajo);
+        
         // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
-        txtLegajo.setText(null);
+        cargarVentanaInformacionConEmpleado(empleado);
+        }
     }//GEN-LAST:event_tblEmpleadoMouseClicked
 
     private void tblEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadoKeyPressed
        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-        int fila = tblEmpleado.getSelectedRow(); 
+        int fila = tblEmpleado.getSelectedRow();
+        if (fila!= -1) {
         modelo =(DefaultTableModel)tblEmpleado.getModel();
         legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+        Empleado empleado = empleados.getEmpleado(legajo);
+        setEditableVentanaInformacionEmpleado(false);
+        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
+        cargarVentanaInformacionConEmpleado(empleado);
+        }
        }
     }//GEN-LAST:event_tblEmpleadoKeyPressed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // guardar el empleado
+     private Empleado getEmpleadoVentanaInformacion(){
+         Empleado empleado;
         int legajo = Integer.parseInt(txtLegajo.getText());
         String clave = txtClave.getText();
         String nombre = txtNombre.getText();
@@ -484,14 +498,35 @@ public class GestorEmpleado extends javax.swing.JDialog {
         // int dni = Integer.parseInt(txtDni.getText());
         //int dni = txtDni.getText();
         String telefono = txtTelefono.getText();
-        Empleado empleado = new Empleado(legajo, apellido, nombre, clave);
+        empleado = new Empleado(legajo, apellido, nombre, clave);
         empleado.setDireccion(direccion);
         empleado.setLocalidad(localidad);
         // empleado.setDni(dni);
         // falta telefono
-        EmpleadoDao empleados = new EmpleadoDaoImp();
-        empleados.addEmpleado(empleado);
-        limpiarVenanaEmpleado();
+         return empleado;
+     }
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // guardar el empleado
+       
+        Empleado e=  getEmpleadoVentanaInformacion();
+        
+        if (isModificar) {
+            //actualizar el empleado
+            empleados.upDateEmpleado(e);
+            // ay que ver si modifica el legajo     
+        } else {
+         //agregar un empleado
+            
+              empleados.addEmpleado(e);    
+                
+           // ay que ver si ellegajo exite
+          
+        }
+           setEditableVentanaInformacionEmpleado(false);
+           //ACTUALIZAR LA TABLA
+           mensajero.mensajeInformacionAtualizacion(this, "La Operacion se realizo Exitosamente");
+        //   initComponentes();
+           
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
@@ -501,6 +536,17 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardar1ActionPerformed
+
+    private void buttonIpod1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod1ActionPerformed
+       limpiarVenanaEmpleado();
+       setEditableVentanaInformacionEmpleado(true);
+    }//GEN-LAST:event_buttonIpod1ActionPerformed
+
+    private void buttonIpod2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod2ActionPerformed
+      // hacer editable la ventana informacion de empleado
+        setEditableVentanaInformacionEmpleado(true);
+        isModificar= true;
+    }//GEN-LAST:event_buttonIpod2ActionPerformed
      
     
     /**
@@ -586,7 +632,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
      * PREPERARA Y CARAGA LA TABLA EMPLEADO CON DATOS 
      */
     private void cargarTablaConEmpleado() {
-//       EmpleadoDao empleados = new EmpleadoDaoImp();
+
        listaEmpleado = empleados.listarEmpleado();
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
@@ -611,5 +657,26 @@ public class GestorEmpleado extends javax.swing.JDialog {
        txtNombre.setText("");
        txtTelefono.setText("");
        // falta par aque  el cursor se situe en el campo legajo por defecyto
+    }
+
+   
+    private void setEditableVentanaInformacionEmpleado(boolean logico) {
+       txtLegajo.setEditable(logico);
+        txtClave.setEditable(logico);
+        txtApellido.setEditable(logico);
+        txtNombre.setEditable(logico);
+        txtDireccion.setEditable(logico);
+        txtLocalidad.setEditable(logico);
+        txtTelefono.setEditable(logico);
+        
+    }
+    public void cargarVentanaInformacionConEmpleado(Empleado empleado){
+        txtLegajo.setText(String.valueOf(empleado.getLegajo()));
+        txtClave.setText(empleado.getClave());
+        txtApellido.setText(empleado.getApellido());
+        txtNombre.setText(empleado.getNombre());
+        txtDireccion.setText(empleado.getDireccion());
+        txtLocalidad.setText(empleado.getLocalidad());
+        txtTelefono.setText(empleado.getTelefono());
     }
 }

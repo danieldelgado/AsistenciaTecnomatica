@@ -203,7 +203,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bodoni MT" size="36" style="1"/>
+              <Font name="Bodoni MT" size="30" style="1"/>
             </Property>
           </Properties>
           <Constraints>

@@ -167,7 +167,7 @@ public class Camara extends javax.swing.JFrame{
 
         clockDigital2.setBackground(new java.awt.Color(255, 255, 255));
         clockDigital2.setForeground(new java.awt.Color(255, 255, 255));
-        clockDigital2.setFont(new java.awt.Font("Bodoni MT", 1, 36)); // NOI18N
+        clockDigital2.setFont(new java.awt.Font("Bodoni MT", 1, 30)); // NOI18N
         panelRectTranslucidoComplete2.add(clockDigital2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 192, 190, 40));
 
         clockFace2.setRomano(false);
@@ -431,7 +431,7 @@ private void setearDatos(){
           label.setIcon(iconoAdaptado);//  si manda en pantalla
      }
     private void mnuListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListadoActionPerformed
-        GestorAsistencia listado = new GestorAsistencia(this, true);
+       GestorAsistencia listado = new GestorAsistencia(this, true);
     }//GEN-LAST:event_mnuListadoActionPerformed
 
     

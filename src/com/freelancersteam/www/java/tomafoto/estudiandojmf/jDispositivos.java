@@ -28,7 +28,7 @@ import javax.media.format.YUVFormat;
 import javax.swing.JMenu;
 
 public class jDispositivos {
-
+    public static final String  TITULOJPane = "Sistema Control de Asistencia"; 
     public jDispositivos(){}
 
     /*

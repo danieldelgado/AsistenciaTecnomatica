@@ -5,6 +5,11 @@
 package com.freelancersteam.www.java.tomafoto.util;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,6 +17,10 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -39,6 +48,20 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
             valor = com.freelancersteam.www.java.tomafoto.util.FechaUtil.getDateDDMMAAAA(listaAsistencia.get(index).getFecha());
         }else if("hora".equals(jrf.getName())){
             valor = com.freelancersteam.www.java.tomafoto.util.FechaUtil.getHora(listaAsistencia.get(index).getHora());
+        }
+        else if("imagen".equals(jrf.getName())){
+            ImageIcon img = new ImageIcon(listaAsistencia.get(index).getImagen());
+            valor = img.getImage();
+//           
+//               ByteArrayOutputStream os = new ByteArrayOutputStream();
+//            try { 
+//                ImageIO.write((RenderedImage) img.getImage(),"jpeg", os);
+//            } catch (IOException ex) {
+//                Logger.getLogger(ReporteAsitenciaJRDataSource.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//               InputStream fis = new ByteArrayInputStream(os.toByteArray());
+//               valor = fis;
+          //  valor =listaAsistencia.get(index).getImagen();
         }
         
         
