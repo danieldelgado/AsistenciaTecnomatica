@@ -100,8 +100,26 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelTranslucidoComplete21.setOpaque(false);
 
-        tblEmpleado.setBackground(new java.awt.Color(0, 0, 0));
-        tblEmpleado.setGridColor(new java.awt.Color(0, 0, 0));
+        tblEmpleado.setBackground(new java.awt.Color(204, 204, 204));
+        tblEmpleado.setForeground(new java.awt.Color(204, 204, 204));
+        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "LEGAJO", "EMPLEADO", "TIPO USUARIO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEmpleado.setEditable(false);
+        tblEmpleado.setGridColor(new java.awt.Color(255, 255, 255));
         tblEmpleado.setShowVerticalLines(false);
         tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -173,6 +191,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/GUARDAR.jpg"))); // NOI18N
         btnGuardar.setText("GUARDAR");
+        btnGuardar.setColorDeSombra(new java.awt.Color(255, 255, 255));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -224,11 +243,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/PDF1.png"))); // NOI18N
         btnReporte.setText("REPORTE");
-        btnReporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelTranslucidoComplete22Layout = new javax.swing.GroupLayout(panelTranslucidoComplete22);
         panelTranslucidoComplete22.setLayout(panelTranslucidoComplete22Layout);
@@ -366,11 +380,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
         btnModificar.setText("EDITAR");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
 
         btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/OK.jpg"))); // NOI18N
         btnSeleccion.setText("AGREGAR");
@@ -382,11 +391,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
         btnAgregar.setText("AGREGAR");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelTranslucidoComplete23Layout = new javax.swing.GroupLayout(panelTranslucidoComplete23);
         panelTranslucidoComplete23.setLayout(panelTranslucidoComplete23Layout);

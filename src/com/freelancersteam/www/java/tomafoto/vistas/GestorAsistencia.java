@@ -37,7 +37,7 @@ import net.sf.jasperreports.swing.JRViewer;
 public class GestorAsistencia extends javax.swing.JDialog {
     Set<Asistencia> conjunto;
     DefaultTableModel modelo;
-    private Set<Asistencia> conjuntoAsistencia2=null;
+
     /**
      * Creates new form GestorAsistencia
      */
@@ -306,8 +306,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
     private void btnIreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIreportActionPerformed
              // validar el empleado
-   EmpleadoDao empleados = new EmpleadoDaoImp();
-   List<Empleado> lisaEmpleado = empleados.listarEmpleado();
+   
+   List<Empleado> lisaEmpleado = new EmpleadoDaoImp().listarEmpleado();
    boolean encontrado = false;
    Empleado e = null ;
    for ( Empleado empleado : lisaEmpleado) {
@@ -323,7 +323,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       // este conjunto auxiliar contindra los datos q se mostrara a la tabla
       Set<Asistencia> conjuntoAsistencia= new HashSet<Asistencia>();
-     // Set<Asistencia> conjuntoAsistencia= null;
+     
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo

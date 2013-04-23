@@ -18,41 +18,41 @@ import org.hibernate.Transaction;
 public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
 
     public List<Asistencia> listarAsistencia() {
-      Criteria criteria = getSession().createCriteria(Asistencia.class);
-        return criteria.list();
+       
+       Criteria criteria = getSession().createCriteria(Asistencia.class);
+       List<Asistencia>lista = criteria.list();
+       //getSession().close();
+       return lista;
     }
 
     public void addAsistencia(Asistencia a) {
         Transaction t = getSession().beginTransaction();
-        try{
-       
-          getSession().save(a);
+        getSession().save(a);
         t.commit();
-       } catch(RuntimeException re){
-           t.rollback();
-       }finally{
-           getSession().close();
-       } 
+       // getSession().close();
+       
     }
 
     public void deleteAsistencia(Asistencia a) {
        Transaction t = getSession().beginTransaction();
-          getSession().delete(a);
+       getSession().delete(a);
        t.commit();
+     //  getSession().close();
     }
 
     public void upDateAsistencia(Asistencia a) {
         Transaction t = getSession().beginTransaction();
          getSession().update(a);
-      t.commit();
+         t.commit();
+         //getSession().close();
     }
 
     public Asistencia getAsistencia(int idAsistencia) {
         Transaction t = getSession().beginTransaction();
            Asistencia a = (Asistencia) getSession().get(Asistencia.class, idAsistencia);
-          
            t.commit();
-       return a;
+        //   getSession().close();
+           return a;
     }
     
 }
