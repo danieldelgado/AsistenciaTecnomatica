@@ -51,7 +51,7 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
        Transaction t = getSession().beginTransaction();
            Empleado a = (Empleado) getSession().get(Empleado.class, idEmpleado);
         t.commit();
-        getSession().close();
+      //  getSession().close();
        return a;
     }
 

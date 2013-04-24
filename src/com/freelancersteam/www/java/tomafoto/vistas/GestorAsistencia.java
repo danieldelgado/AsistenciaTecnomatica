@@ -327,7 +327,9 @@ public class GestorAsistencia extends javax.swing.JDialog {
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo
-            EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+           
+            try {
+            EmpleadoDaoImp empleados = new EmpleadoDaoImp();   
             Empleado  e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
            
             if (e!=null) {
@@ -335,9 +337,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
               conjuntoAsistencia= e.getAsistencias();
                       
             }else{
-            JOptionPane.showMessageDialog(this, "No existe el empleado","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "NO EXISTE EL EMPLEADO","ERROR",JOptionPane.ERROR_MESSAGE);
 
+            }         
+            } catch (Exception e) {
+               JOptionPane.showMessageDialog(this, "DEBES INGRESAR UN LEGAJO","ERROR",JOptionPane.ERROR_MESSAGE);
             }
+       
         } else {
               // Busqueda asistencias de todos los empleados
               AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
@@ -368,7 +374,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
    
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
         // instanceo la ventana a donde quiero ir
-        GestorEmpleado ventanaPersonal = new GestorEmpleado(null, true);
+        GestorEmpleado ventanaPersonal = new GestorEmpleado(null, true, GestorEmpleado.VENTANA_GESTOR_ASISTENCIA);
         if (ventanaPersonal.isBotonSeleccionado()) {
             // si el usuario selecciono un empleado
             txtBusqueda.setText(String.valueOf(ventanaPersonal.getLegajo()));

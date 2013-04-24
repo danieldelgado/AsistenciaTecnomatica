@@ -4,12 +4,24 @@
  */
 package com.freelancersteam.www.java.tomafoto.vistas;
 
+import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
+import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
+import com.mysql.jdbc.Util;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Leo
  */
 public class Login extends javax.swing.JDialog {
+     boolean BotonAceptar= false;
 
+    public boolean isBotonAceptar() {
+        return BotonAceptar;
+    }
+     
     /**
      * Creates new form Login
      */
@@ -32,29 +44,40 @@ public class Login extends javax.swing.JDialog {
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
-        textFieldRound1 = new org.edisoncor.gui.textField.TextFieldRound();
+        txtLegajo = new org.edisoncor.gui.textField.TextFieldRound();
         txtClave = new org.edisoncor.gui.passwordField.PasswordFieldRound();
-        buttonIcon1 = new org.edisoncor.gui.button.ButtonIcon();
-        buttonIcon2 = new org.edisoncor.gui.button.ButtonIcon();
+        btnLogin = new org.edisoncor.gui.button.ButtonIcon();
+        btnCancelar = new org.edisoncor.gui.button.ButtonIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LOGIN", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
 
-        labelMetric1.setText("Usuario");
+        labelMetric1.setText("Legajo");
 
         labelMetric2.setText("Clave");
 
-        buttonIcon1.setBackground(java.awt.SystemColor.controlDkShadow);
-        buttonIcon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/iconKey2.jpg"))); // NOI18N
-        buttonIcon1.setText("buttonIcon1");
-
-        buttonIcon2.setBackground(java.awt.SystemColor.controlDkShadow);
-        buttonIcon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/SALIR.jpg"))); // NOI18N
-        buttonIcon2.setText("buttonIcon1");
-        buttonIcon2.addActionListener(new java.awt.event.ActionListener() {
+        txtLegajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIcon2ActionPerformed(evt);
+                txtLegajoActionPerformed(evt);
+            }
+        });
+
+        btnLogin.setBackground(java.awt.SystemColor.controlDkShadow);
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/iconKey2.jpg"))); // NOI18N
+        btnLogin.setText("buttonIcon1");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setBackground(java.awt.SystemColor.controlDkShadow);
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/SALIR.jpg"))); // NOI18N
+        btnCancelar.setText("buttonIcon1");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -66,9 +89,9 @@ public class Login extends javax.swing.JDialog {
                 .addGap(49, 49, 49)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(buttonIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonIcon2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -76,7 +99,7 @@ public class Login extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldRound1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(48, 48, 48))
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -85,15 +108,15 @@ public class Login extends javax.swing.JDialog {
                 .addGap(21, 21, 21)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonIcon2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -111,10 +134,35 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonIcon2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIcon2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_buttonIcon2ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLegajoActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+         EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+         
+         try{
+         Empleado e = empleados.getEmpleado(Integer.parseInt(txtLegajo.getText()));
+         boolean isUsuarioCorrecto = EmpleadoUtil.getValidarEmpleado(e, txtClave.getText());
+         
+         if (isUsuarioCorrecto) {
+            BotonAceptar=true;
+  
+            this.dispose();
+            JOptionPane.showMessageDialog(rootPane, "Bienvenido..");
+        } else {
+            JOptionPane.showMessageDialog(this, "Su Identificacion es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            setearDatos();
+         }
+         }catch(java.lang.NumberFormatException edd){
+           JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
+           setearDatos();
+    }//GEN-LAST:event_btnLoginActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -146,7 +194,8 @@ public class Login extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Login dialog = new Login(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                dialog.addWindowListener(new java.awt
+                        .event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -157,12 +206,18 @@ public class Login extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.edisoncor.gui.button.ButtonIcon buttonIcon1;
-    private org.edisoncor.gui.button.ButtonIcon buttonIcon2;
+    private org.edisoncor.gui.button.ButtonIcon btnCancelar;
+    private org.edisoncor.gui.button.ButtonIcon btnLogin;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
-    private org.edisoncor.gui.textField.TextFieldRound textFieldRound1;
     private org.edisoncor.gui.passwordField.PasswordFieldRound txtClave;
+    private org.edisoncor.gui.textField.TextFieldRound txtLegajo;
     // End of variables declaration//GEN-END:variables
+
+    private void setearDatos() {
+       txtLegajo.setText("");
+       txtClave.setText("");
+       txtLegajo.requestFocus();
+    }
 }

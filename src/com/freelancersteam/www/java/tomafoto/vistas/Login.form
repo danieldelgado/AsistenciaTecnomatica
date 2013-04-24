@@ -51,9 +51,9 @@
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="buttonIcon1" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="btnLogin" min="-2" pref="44" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="buttonIcon2" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -63,7 +63,7 @@
                           <EmptySpace pref="30" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="txtClave" alignment="0" min="-2" pref="84" max="-2" attributes="0"/>
-                              <Component id="textFieldRound1" min="-2" pref="84" max="-2" attributes="0"/>
+                              <Component id="txtLegajo" min="-2" pref="84" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -77,7 +77,7 @@
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labelMetric1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textFieldRound1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtLegajo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -86,8 +86,8 @@
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="buttonIcon1" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="buttonIcon2" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnLogin" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="btnCancelar" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -97,7 +97,7 @@
       <SubComponents>
         <Component class="org.edisoncor.gui.label.LabelMetric" name="labelMetric1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Usuario"/>
+            <Property name="text" type="java.lang.String" value="Legajo"/>
           </Properties>
         </Component>
         <Component class="org.edisoncor.gui.label.LabelMetric" name="labelMetric2">
@@ -105,11 +105,14 @@
             <Property name="text" type="java.lang.String" value="Clave"/>
           </Properties>
         </Component>
-        <Component class="org.edisoncor.gui.textField.TextFieldRound" name="textFieldRound1">
+        <Component class="org.edisoncor.gui.textField.TextFieldRound" name="txtLegajo">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLegajoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="org.edisoncor.gui.passwordField.PasswordFieldRound" name="txtClave">
         </Component>
-        <Component class="org.edisoncor.gui.button.ButtonIcon" name="buttonIcon1">
+        <Component class="org.edisoncor.gui.button.ButtonIcon" name="btnLogin">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="69" green="69" id="Control Dk Shadow" palette="2" red="69" type="palette"/>
@@ -119,8 +122,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="buttonIcon1"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="org.edisoncor.gui.button.ButtonIcon" name="buttonIcon2">
+        <Component class="org.edisoncor.gui.button.ButtonIcon" name="btnCancelar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="69" green="69" id="Control Dk Shadow" palette="2" red="69" type="palette"/>
@@ -131,7 +137,7 @@
             <Property name="text" type="java.lang.String" value="buttonIcon1"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIcon2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

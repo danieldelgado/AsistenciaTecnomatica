@@ -1,0 +1,42 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x04ff1a9b, pid=5924, tid=5468
+#
+# JRE version: 7.0_17-b02
+# Java VM: Java HotSpot(TM) Client VM (23.7-b01 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [jmddraw.dll+0x1a9b]  Java_com_sun_media_renderer_video_DDRenderer_dxDraw+0x1db
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x03fff800):  JavaThread "Loop thread: com.sun.media.renderer.video.DDRenderer@9f2cff" [_thread_in_native, id=5468, stack(0x08780000,0x087d0000)]
+
+siginfo: ExceptionCode=0xc0000005, writing address 0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0x06d306b0, ECX=0x00000000, EDX=0x28fdc600
+ESP=0x087cf748, EBP=0x095a0020, ESI=0x03fff928, EDI=0x00000000
+EIP=0x04ff1a9b, EFLAGS=0x00010206
+
+Top of Stack: (sp=0x087cf748)
+0x087cf748:   03fff800 3388c3d0 087cf898 3388c3d0
+0x087cf758:   09340000 00000000 095a0020 040143b8
+0x087cf768:   00000000 28fdc600 00000a00 00000004
+0x087cf778:   69878238 000001b5 03fff800 000002fb
+0x087cf788:   03fff946 33809524 00000000 00000000
+0x087cf798:   00000000 00000000 00000280 000001e0
+0x087cf7a8:   8ec09e1e 087cf838 28fdc600 04007e06
+0x087cf7b8:   28fdc600 03fff800 087cf7e4 69883e69 
+
+Instructions: (pc=0x04ff1a9b)
+0x04ff1a7b:   85 c0 0f 84 31 01 00 00 83 f8 20 0f 84 28 01 00
+0x04ff1a8b:   00 50 e8 6b 07 00

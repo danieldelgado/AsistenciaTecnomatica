@@ -19,7 +19,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Leo
  */
 public class GestorEmpleado extends javax.swing.JDialog {
-    
+    public static final int VENTANA_GESTOR_ASISTENCIA=1;
+    public static final int MENU=2;
     public   boolean isModificar = false;// paramentro global uso: para ver si se presiono un boton agregar o moficar
                                          // sirve para configuarar ventnana infomracion  empleado
     
@@ -34,9 +35,22 @@ public class GestorEmpleado extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initComponentesVentana();    
+        
         setLocationRelativeTo(this);
         setVisible(true);
-     
+        
+        
+    }
+    public GestorEmpleado(java.awt.Frame parent, boolean modal,int quienloyamo) {
+        super(parent, modal);
+        initComponents();
+        initComponentesVentana();    
+        if (MENU== quienloyamo) {
+            btnSeleccion.setVisible(true);
+        }
+        setLocationRelativeTo(this);
+        setVisible(true);
+        
         
     }
     public void initComponentesVentana(){
@@ -100,26 +114,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelTranslucidoComplete21.setOpaque(false);
 
-        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "LEGAJO", "EMPLEADO", "TIPO USUARIO"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblEmpleado.setEditable(false);
         tblEmpleado.setGridColor(new java.awt.Color(255, 255, 255));
-        tblEmpleado.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tblEmpleado.setSelectionForeground(new java.awt.Color(0, 0, 0));
         tblEmpleado.setShowVerticalLines(false);
         tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -342,9 +337,10 @@ public class GestorEmpleado extends javax.swing.JDialog {
                         .addGap(2, 2, 2)
                         .addComponent(btnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(11, 11, 11)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -482,7 +478,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
     
     
     private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
-        
+         
         int fila = tblEmpleado.getSelectedRow();
         if (fila== -1) {
             // no se selecciono ninguna fila de la lista
@@ -497,17 +493,29 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
     private void txtEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyPressed
         // filtrar las coincidencias con el contenido de la caja de texto
-        listaEmpleado = new EmpleadoDaoImp().listarEmpleado();
+        
+            
+             listaEmpleado = new EmpleadoDaoImp().listarEmpleado();
         if ( txtEmpleado.getText().trim().isEmpty()) {
           listaEmpleado = filtrarPorNombreEmpleado(listaEmpleado,txtEmpleado.getText()); 
-          com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
-          com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+//          com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+//          com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
         }else{
- 
-        listaEmpleado = filtrarPorNombreEmpleado(listaEmpleado,txtEmpleado.getText()); 
-        com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
-        com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+            if (comboBoxRound1.getSelectedIndex()==0) {
+                // POR  NOMBRE
+                 listaEmpleado = filtrarPorNombreEmpleado(listaEmpleado,txtEmpleado.getText()); 
+//                 com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+//                 com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
         }
+         else {
+            // FILTRO POR LEGAJO
+             listaEmpleado = filtrarPorLegajoEmpleado(listaEmpleado,txtEmpleado.getText()); 
+//                 com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+//                 com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+        }
+        }
+       com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
+       com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
     }//GEN-LAST:event_txtEmpleadoKeyPressed
 
     private void tblEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadoMouseClicked
@@ -541,21 +549,21 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }//GEN-LAST:event_tblEmpleadoKeyPressed
      private Empleado getEmpleadoVentanaInformacion(){
         Empleado empleado;
-        legajo = Integer.parseInt(txtLegajo.getText());
+        int legajo = Integer.parseInt(txtLegajo.getText());
         String clave = txtClave.getText();
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String direccion = txtDireccion.getText();
         String localidad = txtLocalidad.getText();
-        // int dni = Integer.parseInt(txtDni.getText());
-        //int dni = txtDni.getText();
+        int dni = Integer.parseInt(txtDni.getText());
         String telefono = txtTelefono.getText();
         empleado = new Empleado(legajo, apellido, nombre, clave);
         empleado.setDireccion(direccion);
         empleado.setLocalidad(localidad);
-        // empleado.setDni(dni);
-        // falta telefono
-         return empleado;
+        empleado.setDni(dni);
+        empleado.setTelefono(telefono);
+        empleado.setAdministrador("ADMINISTRADOR".equals(comboBoxRound2.getSelectedItem().toString()));
+        return empleado;
      }
     private void buttonIpod1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod1ActionPerformed
 //       limpiarVenanaEmpleado();
@@ -567,7 +575,15 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonIpod2ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        this.dispose();
+        int respuesta = JOptionPane.showConfirmDialog(rootPane," SE ELIMINARAN TODOS LOS REGISTROS DEL LEGAJO: "+legajo+"\n"+" Desea Continuar?","BAJA", JOptionPane.OK_CANCEL_OPTION);
+        if (respuesta==JOptionPane.OK_OPTION) {
+             EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+             Empleado e = empleados.getEmpleado(legajo);
+             empleados.deleteEmpleado(e);
+             mensajero.mensajeInformacionBajaOK(this);
+             initComponentesVentana();
+        }
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCargarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarFotoActionPerformed
@@ -589,20 +605,20 @@ public class GestorEmpleado extends javax.swing.JDialog {
         if (isModificar) {
             //actualizar el empleado
             new EmpleadoDaoImp().upDateEmpleado(e);
-           
+            mensajero.mensajeInformacionAtualizacionOK(this);
             // ay que ver si modifica el legajo
         } else {
             //agregar un empleado
 
            new EmpleadoDaoImp().addEmpleado(e);
-
+            mensajero.mensajeInformacionAltaOK(this);
             // ay que ver si el legajo exite
 
         }
         limpiarVenanaEmpleado();
         setEditableVentanaInformacionEmpleado(false);
         //ACTUALIZAR LA TABLA
-        mensajero.mensajeInformacionAtualizacion(this, "La Operacion se realizo Exitosamente");
+       
         initComponentesVentana();
 
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -612,7 +628,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         isModificar= true;
         setEditableVentanaInformacionEmpleado(true);
         prepararParaModificar();
-        
+        legajo = (Integer) tblEmpleado.getModel().getValueAt(tblEmpleado.getSelectedRow(), 0);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
@@ -723,6 +739,15 @@ public class GestorEmpleado extends javax.swing.JDialog {
          List<Empleado> list = new ArrayList<Empleado>();
          for (Empleado empleado : listaEmpleado) {
              if (empleado.getApellido().contains(text)||empleado.getNombre().contains(text)) {
+                 list.add(empleado);
+             }
+        }
+         return list;
+    }
+    private List<Empleado> filtrarPorLegajoEmpleado(List<Empleado> listaEmpleado, String text) {
+         List<Empleado> list = new ArrayList<Empleado>();
+         for (Empleado empleado : listaEmpleado) {
+             if (String.valueOf(empleado.getLegajo()).contains(text)) {
                  list.add(empleado);
              }
         }

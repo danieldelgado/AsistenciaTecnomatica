@@ -29,7 +29,7 @@ import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
-import com.freelancersteam.www.java.tomafoto.vistas.empleado.BajaEmpleado;
+
 import com.freelancersteam.www.java.tomafoto.vistas.empleado.JDBajas;
 import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
 import java.awt.Image;
@@ -63,12 +63,30 @@ public class Camara extends javax.swing.JFrame{
     public Camara(){
         initComponents();
         initComponents2();
+        setconfigurarcionMenuAdministrador(false);
+        setPaneldeControl(false);
         // para cargar de entrada los empleaedos de entrada, causa lentitud al ejecutar la aplicacion y a veces conflicto con la camara
         new EmpleadoDaoImp();
          
           
     }
 
+    private void setPaneldeControl(boolean b){
+        panelInicio.setVisible(b);
+    }
+    private void setconfigurarcionMenuAdministrador(boolean b){
+        
+        mnuAcerca.setVisible(true);
+        mnuEmpleados.setVisible(b);
+        mnuAsistencia.setVisible(b);
+        mnuEmpresa.setVisible(b);
+        //mnu item
+        mnuItmIniciarSesion.setVisible(!b);
+        mnuItmCerrarSesion.setVisible(b);
+        mnuItmInciarControl.setVisible(b);
+        mnuItmSalir.setVisible(true);
+        
+    }
     public Player getPlayer()
     {
         return p1;
@@ -87,10 +105,10 @@ public class Camara extends javax.swing.JFrame{
         //registramos los Oyentes de eventos
         eventos e=new eventos(this);
         addWindowListener(e);
-        jmCArchivo.addActionListener(e);
+        mnuItmConfigurarEmpresa.addActionListener(e);
         //jmCBD.addActionListener(e);
-        jmSalir.addActionListener(e);
-        jmAcerca.addActionListener(e);
+        mnuItmSalir.addActionListener(e);
+        mnuItmAcerca.addActionListener(e);
         //Cargamos en el menu los Dispositivos detectados
        // jDispositivos.menuDispositivos(this,jmDispositivos);
         lblFecha.setText(com.freelancersteam.www.java.tomafoto.util.FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(new Date())); 
@@ -116,7 +134,7 @@ public class Camara extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelRectTranslucidoComplete2 = new org.edisoncor.gui.panel.PanelRectTranslucidoComplete();
+        panelInicio = new org.edisoncor.gui.panel.PanelRectTranslucidoComplete();
         panelCam = new javax.swing.JPanel();
         clockDigital2 = new org.edisoncor.gui.varios.ClockDigital();
         clockFace2 = new org.edisoncor.gui.varios.ClockFace();
@@ -129,21 +147,19 @@ public class Camara extends javax.swing.JFrame{
         txtClave = new org.edisoncor.gui.passwordField.PasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
-        mnuLogin = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jmSalir = new javax.swing.JMenuItem();
+        mnuItmInciarControl = new javax.swing.JMenuItem();
+        mnuItmIniciarSesion = new javax.swing.JMenuItem();
+        mnuItmCerrarSesion = new javax.swing.JMenuItem();
+        mnuItmSalir = new javax.swing.JMenuItem();
         mnuEmpleados = new javax.swing.JMenu();
-        mnuAltaEmpleado = new javax.swing.JMenuItem();
+        mnuItmAltaEmpleado = new javax.swing.JMenuItem();
         mnuItemGestorEmpleado = new javax.swing.JMenuItem();
-        mnuModEmpleado = new javax.swing.JMenuItem();
-        mnuRegistros = new javax.swing.JMenu();
+        mnuAsistencia = new javax.swing.JMenu();
         mnuItmeGestorAsistencia = new javax.swing.JMenuItem();
-        mnuItmModificarAsistencia = new javax.swing.JMenuItem();
-        jmCapturar = new javax.swing.JMenu();
-        jmCArchivo = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jmAcerca = new javax.swing.JMenuItem();
+        mnuEmpresa = new javax.swing.JMenu();
+        mnuItmConfigurarEmpresa = new javax.swing.JMenuItem();
+        mnuAcerca = new javax.swing.JMenu();
+        mnuItmAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Toma una Foto");
@@ -151,11 +167,11 @@ public class Camara extends javax.swing.JFrame{
         setMinimumSize(new java.awt.Dimension(560, 432));
         setResizable(false);
 
-        panelRectTranslucidoComplete2.setBackground(new java.awt.Color(255, 255, 255));
-        panelRectTranslucidoComplete2.setColorPrimario(new java.awt.Color(0, 0, 0));
-        panelRectTranslucidoComplete2.setFocusable(false);
-        panelRectTranslucidoComplete2.setMaximumSize(new java.awt.Dimension(0, 0));
-        panelRectTranslucidoComplete2.setOpaque(false);
+        panelInicio.setBackground(new java.awt.Color(255, 255, 255));
+        panelInicio.setColorPrimario(new java.awt.Color(0, 0, 0));
+        panelInicio.setFocusable(false);
+        panelInicio.setMaximumSize(new java.awt.Dimension(0, 0));
+        panelInicio.setOpaque(false);
 
         panelCam.setBackground(new java.awt.Color(0, 0, 0));
         panelCam.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -232,62 +248,62 @@ public class Camara extends javax.swing.JFrame{
             }
         });
 
-        javax.swing.GroupLayout panelRectTranslucidoComplete2Layout = new javax.swing.GroupLayout(panelRectTranslucidoComplete2);
-        panelRectTranslucidoComplete2.setLayout(panelRectTranslucidoComplete2Layout);
-        panelRectTranslucidoComplete2Layout.setHorizontalGroup(
-            panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
+        panelInicio.setLayout(panelInicioLayout);
+        panelInicioLayout.setHorizontalGroup(
+            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInicioLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelInicioLayout.createSequentialGroup()
                         .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
-                        .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                    .addGroup(panelInicioLayout.createSequentialGroup()
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelInicioLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                            .addGroup(panelInicioLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                            .addGroup(panelInicioLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
                                 .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                            .addGroup(panelInicioLayout.createSequentialGroup()
                                 .addGap(70, 70, 70)
                                 .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                            .addGroup(panelInicioLayout.createSequentialGroup()
                                 .addGap(70, 70, 70)
                                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))))
         );
-        panelRectTranslucidoComplete2Layout.setVerticalGroup(
-            panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+        panelInicioLayout.setVerticalGroup(
+            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInicioLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelInicioLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10))
-                    .addGroup(panelRectTranslucidoComplete2Layout.createSequentialGroup()
+                    .addGroup(panelInicioLayout.createSequentialGroup()
                         .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
-                        .addGroup(panelRectTranslucidoComplete2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
@@ -301,31 +317,44 @@ public class Camara extends javax.swing.JFrame{
 
         mnuArchivo.setText("Archivo");
 
-        mnuLogin.setText("Iniciar Sesion");
-        mnuLogin.addActionListener(new java.awt.event.ActionListener() {
+        mnuItmInciarControl.setText("Iniciar el Control");
+        mnuItmInciarControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuLoginActionPerformed(evt);
+                mnuItmInciarControlActionPerformed(evt);
             }
         });
-        mnuArchivo.add(mnuLogin);
+        mnuArchivo.add(mnuItmInciarControl);
 
-        jMenuItem1.setText("Cerrar Sesion");
-        mnuArchivo.add(jMenuItem1);
+        mnuItmIniciarSesion.setText("Iniciar Sesion");
+        mnuItmIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmIniciarSesionActionPerformed(evt);
+            }
+        });
+        mnuArchivo.add(mnuItmIniciarSesion);
 
-        jmSalir.setText("Salir");
-        mnuArchivo.add(jmSalir);
+        mnuItmCerrarSesion.setText("Cerrar Sesion");
+        mnuItmCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmCerrarSesionActionPerformed(evt);
+            }
+        });
+        mnuArchivo.add(mnuItmCerrarSesion);
+
+        mnuItmSalir.setText("Salir");
+        mnuArchivo.add(mnuItmSalir);
 
         jMenuBar1.add(mnuArchivo);
 
         mnuEmpleados.setText("Empleados");
 
-        mnuAltaEmpleado.setText("Alta de Empleado");
-        mnuAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+        mnuItmAltaEmpleado.setText("Alta de Empleado");
+        mnuItmAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAltaEmpleadoActionPerformed(evt);
+                mnuItmAltaEmpleadoActionPerformed(evt);
             }
         });
-        mnuEmpleados.add(mnuAltaEmpleado);
+        mnuEmpleados.add(mnuItmAltaEmpleado);
 
         mnuItemGestorEmpleado.setText("Gestor de Empleado");
         mnuItemGestorEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -335,12 +364,9 @@ public class Camara extends javax.swing.JFrame{
         });
         mnuEmpleados.add(mnuItemGestorEmpleado);
 
-        mnuModEmpleado.setText("Modificacion de Empleado");
-        mnuEmpleados.add(mnuModEmpleado);
-
         jMenuBar1.add(mnuEmpleados);
 
-        mnuRegistros.setText("Asistencia");
+        mnuAsistencia.setText("Asistencia");
 
         mnuItmeGestorAsistencia.setText("Gestor de Asistencia");
         mnuItmeGestorAsistencia.addActionListener(new java.awt.event.ActionListener() {
@@ -348,39 +374,28 @@ public class Camara extends javax.swing.JFrame{
                 mnuItmeGestorAsistenciaActionPerformed(evt);
             }
         });
-        mnuRegistros.add(mnuItmeGestorAsistencia);
+        mnuAsistencia.add(mnuItmeGestorAsistencia);
 
-        mnuItmModificarAsistencia.setText("Modicar Asistencia");
-        mnuItmModificarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+        jMenuBar1.add(mnuAsistencia);
+
+        mnuEmpresa.setText("Empresa");
+
+        mnuItmConfigurarEmpresa.setText("Configurar Datos de Empresa");
+        mnuItmConfigurarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuItmModificarAsistenciaActionPerformed(evt);
+                mnuItmConfigurarEmpresaActionPerformed(evt);
             }
         });
-        mnuRegistros.add(mnuItmModificarAsistencia);
+        mnuEmpresa.add(mnuItmConfigurarEmpresa);
 
-        jMenuBar1.add(mnuRegistros);
+        jMenuBar1.add(mnuEmpresa);
 
-        jmCapturar.setText("Empresa");
+        mnuAcerca.setText("Acerca");
 
-        jmCArchivo.setText("Registrar Empresa");
-        jmCArchivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmCArchivoActionPerformed(evt);
-            }
-        });
-        jmCapturar.add(jmCArchivo);
+        mnuItmAcerca.setText("Acerca");
+        mnuAcerca.add(mnuItmAcerca);
 
-        jMenuItem2.setText("Modificar Datos Empresa");
-        jmCapturar.add(jMenuItem2);
-
-        jMenuBar1.add(jmCapturar);
-
-        jMenu4.setText("Acerca");
-
-        jmAcerca.setText("Acerca");
-        jMenu4.add(jmAcerca);
-
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(mnuAcerca);
 
         setJMenuBar(jMenuBar1);
 
@@ -388,19 +403,20 @@ public class Camara extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelRectTranslucidoComplete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jmCArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCArchivoActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jmCArchivoActionPerformed
+private void mnuItmConfigurarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmConfigurarEmpresaActionPerformed
+   new AltaEmpresa(this,true);
+    
+}//GEN-LAST:event_mnuItmConfigurarEmpresaActionPerformed
 
 private void cmbElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbElegirActionPerformed
 // TODO add your handling code here:
@@ -486,13 +502,23 @@ private void setearDatos(){
     
     
     
-    private void mnuAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAltaEmpleadoActionPerformed
+    private void mnuItmAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmAltaEmpleadoActionPerformed
         AltaEmpleado personal = new AltaEmpleado(this, true);
-    }//GEN-LAST:event_mnuAltaEmpleadoActionPerformed
+    }//GEN-LAST:event_mnuItmAltaEmpleadoActionPerformed
 
-    private void mnuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuLoginActionPerformed
+    private void mnuItmIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmIniciarSesionActionPerformed
         Login login = new Login(this, true);
-    }//GEN-LAST:event_mnuLoginActionPerformed
+        if (login.isBotonAceptar()) {
+             setconfigurarcionMenuAdministrador(true);
+             setPaneldeControl(false);
+             
+             
+             
+        } 
+        
+        
+       
+    }//GEN-LAST:event_mnuItmIniciarSesionActionPerformed
 
     private void txtLegajoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -542,14 +568,9 @@ private void setearDatos(){
         
     }//GEN-LAST:event_txtLegajoKeyTyped
 
-    private void mnuItmModificarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmModificarAsistenciaActionPerformed
-        JDBajas ventanaBajas = new JDBajas(this, true);
-        ventanaBajas.setLocationRelativeTo(this);
-        ventanaBajas.setVisible(true);
-    }//GEN-LAST:event_mnuItmModificarAsistenciaActionPerformed
-
     private void mnuItemGestorEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemGestorEmpleadoActionPerformed
-        BajaEmpleado be = new BajaEmpleado(this, true);
+      GestorEmpleado ventanaGestorEmpleado= new GestorEmpleado(this, true,GestorEmpleado.MENU);
+       
     }//GEN-LAST:event_mnuItemGestorEmpleadoActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
@@ -559,6 +580,17 @@ private void setearDatos(){
     private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLegajoActionPerformed
+
+    private void mnuItmInciarControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmInciarControlActionPerformed
+     setPaneldeControl(true);
+     setconfigurarcionMenuAdministrador(false);
+    }//GEN-LAST:event_mnuItmInciarControlActionPerformed
+
+    private void mnuItmCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmCerrarSesionActionPerformed
+       setconfigurarcionMenuAdministrador(false);
+       setPaneldeControl(false);
+        
+    }//GEN-LAST:event_mnuItmCerrarSesionActionPerformed
        
     /**
     * @param args the command line arguments
@@ -576,28 +608,26 @@ private void setearDatos(){
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jmAcerca;
-    private javax.swing.JMenuItem jmCArchivo;
-    private javax.swing.JMenu jmCapturar;
-    private javax.swing.JMenuItem jmSalir;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelCustom lblFecha;
-    private javax.swing.JMenuItem mnuAltaEmpleado;
+    private javax.swing.JMenu mnuAcerca;
     private javax.swing.JMenu mnuArchivo;
+    private javax.swing.JMenu mnuAsistencia;
     private javax.swing.JMenu mnuEmpleados;
+    private javax.swing.JMenu mnuEmpresa;
     private javax.swing.JMenuItem mnuItemGestorEmpleado;
-    private javax.swing.JMenuItem mnuItmModificarAsistencia;
+    private javax.swing.JMenuItem mnuItmAcerca;
+    private javax.swing.JMenuItem mnuItmAltaEmpleado;
+    private javax.swing.JMenuItem mnuItmCerrarSesion;
+    private javax.swing.JMenuItem mnuItmConfigurarEmpresa;
+    private javax.swing.JMenuItem mnuItmInciarControl;
+    private javax.swing.JMenuItem mnuItmIniciarSesion;
+    private javax.swing.JMenuItem mnuItmSalir;
     private javax.swing.JMenuItem mnuItmeGestorAsistencia;
-    private javax.swing.JMenuItem mnuLogin;
-    private javax.swing.JMenuItem mnuModEmpleado;
-    private javax.swing.JMenu mnuRegistros;
     private javax.swing.JPanel panelCam;
-    private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelRectTranslucidoComplete2;
+    private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelInicio;
     private org.edisoncor.gui.passwordField.PasswordField txtClave;
     private org.edisoncor.gui.textField.TextFieldRectIcon txtLegajo;
     // End of variables declaration//GEN-END:variables
