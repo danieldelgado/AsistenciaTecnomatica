@@ -19,33 +19,21 @@ import com.freelancersteam.www.java.tomafoto.vistas.empleado.AltaEmpleado;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
-import com.freelancersteam.www.java.tomafoto.dominio.dao.AsistenciaDao;
-import com.freelancersteam.www.java.tomafoto.dominio.dao.EmpleadoDao;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.eventos;
-import com.freelancersteam.www.java.tomafoto.estudiandojmf.jDispositivos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 
-import com.freelancersteam.www.java.tomafoto.vistas.empleado.JDBajas;
+
 import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.media.Player;
-import javax.media.Time;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -428,7 +416,7 @@ private void setearDatos(){
 }
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
        // validar el empleado
-      //EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+     
        
    try{
        Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));

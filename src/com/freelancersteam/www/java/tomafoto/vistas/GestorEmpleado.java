@@ -70,8 +70,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private void initComponents() {
 
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmpleado = new org.jdesktop.swingx.JXTable();
         txtEmpleado = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         panelTranslucidoComplete22 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
@@ -106,6 +104,8 @@ public class GestorEmpleado extends javax.swing.JDialog {
         btnModificar = new org.edisoncor.gui.button.ButtonIpod();
         btnSeleccion = new org.edisoncor.gui.button.ButtonIpod();
         btnAgregar = new org.edisoncor.gui.button.ButtonIpod();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblEmpleado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,20 +113,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BUSQUEDA DE PERSONAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
         panelTranslucidoComplete21.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelTranslucidoComplete21.setOpaque(false);
-
-        tblEmpleado.setGridColor(new java.awt.Color(255, 255, 255));
-        tblEmpleado.setShowVerticalLines(false);
-        tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblEmpleadoMouseClicked(evt);
-            }
-        });
-        tblEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tblEmpleadoKeyPressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblEmpleado);
 
         txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -414,22 +400,56 @@ public class GestorEmpleado extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tblEmpleado.setBackground(new java.awt.Color(204, 204, 204));
+        tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "LEGAJO", "EMPLEADO", "TIPO USUARIO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmpleadoMouseClicked(evt);
+            }
+        });
+        tblEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblEmpleadoKeyPressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblEmpleado);
+
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
         panelTranslucidoComplete21Layout.setHorizontalGroup(
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelTranslucidoComplete23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addGap(20, 20, 20)
+                        .addGap(14, 14, 14)
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelTranslucidoComplete23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
+                                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
                 .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(13, 13, 13))
         );
@@ -440,8 +460,8 @@ public class GestorEmpleado extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, 446, Short.MAX_VALUE)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -516,36 +536,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
     }//GEN-LAST:event_txtEmpleadoKeyPressed
-
-    private void tblEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadoMouseClicked
-         
-        
-        int fila = tblEmpleado.getSelectedRow(); 
-        if (fila != -1) {
-        modelo =(DefaultTableModel)tblEmpleado.getModel();
-        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
-        
-        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
-        cargarVentanaInformacionConEmpleado(empleado);
-         btnModificar.setEnabled(true);
-        }
-    }//GEN-LAST:event_tblEmpleadoMouseClicked
-
-    private void tblEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadoKeyPressed
-       if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-        int fila = tblEmpleado.getSelectedRow();
-        if (fila!= -1) {
-        modelo =(DefaultTableModel)tblEmpleado.getModel();
-        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
-        setEditableVentanaInformacionEmpleado(false);
-        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
-        cargarVentanaInformacionConEmpleado(empleado);
-         btnModificar.setEnabled(true);
-        }
-       }
-    }//GEN-LAST:event_tblEmpleadoKeyPressed
      private Empleado getEmpleadoVentanaInformacion(){
         Empleado empleado;
         int legajo = Integer.parseInt(txtLegajo.getText());
@@ -641,6 +631,36 @@ public class GestorEmpleado extends javax.swing.JDialog {
         prepararParaAgregar();
         
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadoMouseClicked
+         int fila = tblEmpleado.getSelectedRow(); 
+        if (fila != -1) {
+        modelo =(DefaultTableModel)tblEmpleado.getModel();
+        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
+        
+        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
+        cargarVentanaInformacionConEmpleado(empleado);
+         btnModificar.setEnabled(true);
+        }
+        
+    }//GEN-LAST:event_tblEmpleadoMouseClicked
+
+    private void tblEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadoKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+        int fila = tblEmpleado.getSelectedRow();
+        if (fila!= -1) {
+        modelo =(DefaultTableModel)tblEmpleado.getModel();
+        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
+        setEditableVentanaInformacionEmpleado(false);
+        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
+        cargarVentanaInformacionConEmpleado(empleado);
+         btnModificar.setEnabled(true);
+        }
+       }
+        
+    }//GEN-LAST:event_tblEmpleadoKeyPressed
      
     
     /**
@@ -696,7 +716,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private org.edisoncor.gui.comboBox.ComboBoxRound comboBoxRound1;
     private org.edisoncor.gui.comboBox.ComboBoxRound comboBoxRound2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric10;
     private org.edisoncor.gui.label.LabelMetric labelMetric11;
@@ -711,7 +731,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete22;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete23;
-    private org.jdesktop.swingx.JXTable tblEmpleado;
+    private javax.swing.JTable tblEmpleado;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtApellido;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtClave;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtClaveRepetir;
