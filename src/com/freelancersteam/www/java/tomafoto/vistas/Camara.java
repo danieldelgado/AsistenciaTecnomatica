@@ -25,6 +25,7 @@ import com.freelancersteam.www.java.tomafoto.estudiandojmf.eventos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
+import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 
 
@@ -54,9 +55,15 @@ public class Camara extends javax.swing.JFrame{
         setconfigurarcionMenuAdministrador(false);
         setPaneldeControl(false);
         // para cargar de entrada los empleaedos de entrada, causa lentitud al ejecutar la aplicacion y a veces conflicto con la camara
-        new EmpleadoDaoImp();
-         
-          
+        //new EmpleadoDaoImp();
+        // si la tabla esta vacia por defecto que cree un administrador ficticio
+        int numeroEmpleado = new EmpleadoDaoImp().listarEmpleado().size();
+        if (numeroEmpleado==0) {
+            //crea un empleado ficticio
+           Empleado e = EmpleadoUtil.CreateEmpleadoAdministrador();
+           new EmpleadoDaoImp().addEmpleado(e);
+        }
+          // habria que ver si ya existe un administrador-------
     }
 
     private void setPaneldeControl(boolean b){
@@ -150,7 +157,7 @@ public class Camara extends javax.swing.JFrame{
         mnuItmAcerca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Toma una Foto");
+        setTitle("CONTROL DE ASISTENCIA");
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(560, 432));
         setResizable(false);
@@ -479,10 +486,7 @@ private void setearDatos(){
       }        
    
     }//GEN-LAST:event_btnIngresarActionPerformed
-  private void adaptarTamaño (JLabel label , Image img){
-         Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
-          label.setIcon(iconoAdaptado);//  si manda en pantalla
-     }
+  
     private void mnuItmeGestorAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmeGestorAsistenciaActionPerformed
        GestorAsistencia listado = new GestorAsistencia(this, true);
     }//GEN-LAST:event_mnuItmeGestorAsistenciaActionPerformed

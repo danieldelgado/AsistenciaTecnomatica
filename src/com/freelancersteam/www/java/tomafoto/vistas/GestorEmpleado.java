@@ -8,10 +8,17 @@ import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.EmpleadoDao;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,8 +36,9 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private List<Empleado> listaEmpleado;
     private boolean seleccionado;
     private int legajo;
+    int quienloyamo;
   //  EmpleadoDao empleados ;
-   
+   ImageIcon icono;; // correspondiente a la imagen del usuario
     public GestorEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -43,10 +51,19 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }
     public GestorEmpleado(java.awt.Frame parent, boolean modal,int quienloyamo) {
         super(parent, modal);
+        this.quienloyamo = quienloyamo;
         initComponents();
         initComponentesVentana();    
         if (MENU== quienloyamo) {
-            btnSeleccion.setVisible(true);
+            //boton seleccionar no debe aparecer
+            btnSeleccion.setVisible(false);
+           
+            
+        }else{
+            panelInformacionEmpleado.setVisible(false);
+            this.setSize(this.getWidth()-panelInformacionEmpleado.getWidth(), this.getHeight());
+            btnNuevo.setVisible(false);
+            btnModificar.setVisible(false);
         }
         setLocationRelativeTo(this);
         setVisible(true);
@@ -56,8 +73,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
     public void initComponentesVentana(){
         //empleados = new EmpleadoDaoImp();
         cargarTablaConEmpleado();
-        setEditableVentanaInformacionEmpleado(false);
+        limpiarVenanaEmpleado();
+        setEnableVentanaInformacionEmpleado(false);
+        
         btnModificar.setEnabled(false);
+        btnNuevo.setEnabled(true);
     }
     
     /**
@@ -69,10 +89,9 @@ public class GestorEmpleado extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        elegirFoto = new javax.swing.JFileChooser();
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
-        txtEmpleado = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
-        panelTranslucidoComplete22 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
+        panelInformacionEmpleado = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric3 = new org.edisoncor.gui.label.LabelMetric();
@@ -87,25 +106,27 @@ public class GestorEmpleado extends javax.swing.JDialog {
         txtTelefono = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric8 = new org.edisoncor.gui.label.LabelMetric();
         txtDni = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
         btnCancelarOperacion = new org.edisoncor.gui.button.ButtonIpod();
         labelMetric9 = new org.edisoncor.gui.label.LabelMetric();
         txtClave = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        jLabel1 = new javax.swing.JLabel();
+        lblFotoEmpleado = new javax.swing.JLabel();
         btnCargarFoto = new org.edisoncor.gui.button.ButtonIpod();
         labelMetric10 = new org.edisoncor.gui.label.LabelMetric();
         txtClaveRepetir = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric11 = new org.edisoncor.gui.label.LabelMetric();
         btnEliminar = new org.edisoncor.gui.button.ButtonIpod();
-        comboBoxRound2 = new org.edisoncor.gui.comboBox.ComboBoxRound();
+        cmbTipoUsuario = new org.edisoncor.gui.comboBox.ComboBoxRound();
         btnReporte = new org.edisoncor.gui.button.ButtonIpod();
-        comboBoxRound1 = new org.edisoncor.gui.comboBox.ComboBoxRound();
+        btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
         panelTranslucidoComplete23 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         btnModificar = new org.edisoncor.gui.button.ButtonIpod();
+        btnNuevo = new org.edisoncor.gui.button.ButtonIpod();
         btnSeleccion = new org.edisoncor.gui.button.ButtonIpod();
-        btnAgregar = new org.edisoncor.gui.button.ButtonIpod();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblEmpleado = new javax.swing.JTable();
+        labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
+        comboBoxRound1 = new org.edisoncor.gui.comboBox.ComboBoxRound();
+        txtEmpleado = new org.edisoncor.gui.textField.TextFieldRoundIcon();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,73 +135,65 @@ public class GestorEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete21.setColorPrimario(new java.awt.Color(0, 0, 0));
         panelTranslucidoComplete21.setOpaque(false);
 
-        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtEmpleadoKeyPressed(evt);
-            }
-        });
-
-        labelMetric1.setText("FILTRO");
-
-        panelTranslucidoComplete22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
-        panelTranslucidoComplete22.setForeground(new java.awt.Color(153, 153, 153));
-        panelTranslucidoComplete22.setToolTipText("");
-        panelTranslucidoComplete22.setColorPrimario(new java.awt.Color(0, 0, 0));
-        panelTranslucidoComplete22.setOpaque(false);
+        panelInformacionEmpleado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
+        panelInformacionEmpleado.setForeground(new java.awt.Color(153, 153, 153));
+        panelInformacionEmpleado.setToolTipText("");
+        panelInformacionEmpleado.setColorPrimario(new java.awt.Color(0, 0, 0));
+        panelInformacionEmpleado.setOpaque(false);
 
         labelMetric2.setText("LEGAJO");
 
         txtLegajo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtLegajo.setText("No editable");
         txtLegajo.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txtLegajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLegajoActionPerformed(evt);
+            }
+        });
+        txtLegajo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLegajoFocusLost(evt);
+            }
+        });
 
         labelMetric3.setText("APELLIDO");
 
         txtApellido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtApellido.setText("En reporte");
         txtApellido.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric4.setText("NOMBRE");
 
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtNombre.setText("En reporte");
         txtNombre.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric5.setText("DIRECCION");
 
         txtDireccion.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtDireccion.setText("En reporte");
         txtDireccion.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric6.setText("LOCALIDAD");
 
         txtLocalidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtLocalidad.setText("En reporte");
         txtLocalidad.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric7.setText("DNI");
 
         txtTelefono.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTelefono.setText("En reporte");
         txtTelefono.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric8.setText("TELEFONO");
 
         txtDni.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtDni.setText("En reporte");
         txtDni.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/GUARDAR.jpg"))); // NOI18N
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.setColorDeSombra(new java.awt.Color(255, 255, 255));
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
             }
         });
 
         btnCancelarOperacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Atras.png"))); // NOI18N
-        btnCancelarOperacion.setText("ATRAS");
+        btnCancelarOperacion.setText("CANCELAR");
+        btnCancelarOperacion.setAnimacion(false);
         btnCancelarOperacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarOperacionActionPerformed(evt);
@@ -192,12 +205,12 @@ public class GestorEmpleado extends javax.swing.JDialog {
         txtClave.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtClave.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
-        jLabel1.setBackground(new java.awt.Color(153, 255, 153));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("FOTO");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
+        lblFotoEmpleado.setBackground(new java.awt.Color(153, 255, 153));
+        lblFotoEmpleado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblFotoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
+        lblFotoEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFotoEmpleado.setText("FOTO");
+        lblFotoEmpleado.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
 
         btnCargarFoto.setText("cargar foto");
         btnCargarFoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -216,33 +229,45 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/ELIMINAR3.jpg"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.setAnimacion(false);
+        btnEliminar.setBorderPainted(true);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
 
-        comboBoxRound2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COMUN", "ADMINISTRADOR" }));
+        cmbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COMUN", "ADMINISTRADOR" }));
 
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/PDF1.png"))); // NOI18N
         btnReporte.setText("REPORTE");
+        btnReporte.setAnimacion(false);
 
-        javax.swing.GroupLayout panelTranslucidoComplete22Layout = new javax.swing.GroupLayout(panelTranslucidoComplete22);
-        panelTranslucidoComplete22.setLayout(panelTranslucidoComplete22Layout);
-        panelTranslucidoComplete22Layout.setHorizontalGroup(
-            panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/GUARDAR.jpg"))); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.setAnimacion(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelInformacionEmpleadoLayout = new javax.swing.GroupLayout(panelInformacionEmpleado);
+        panelInformacionEmpleado.setLayout(panelInformacionEmpleadoLayout);
+        panelInformacionEmpleadoLayout.setHorizontalGroup(
+            panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                                 .addComponent(labelMetric4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(75, 75, 75)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInformacionEmpleadoLayout.createSequentialGroup()
+                                    .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(labelMetric8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(23, 23, 23)
@@ -250,106 +275,106 @@ public class GestorEmpleado extends javax.swing.JDialog {
                                     .addGap(18, 18, 18)
                                     .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                                    .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
+                                    .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformacionEmpleadoLayout.createSequentialGroup()
                                             .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18))
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                        .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                                             .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(70, 70, 70)))
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(comboBoxRound2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
+                                            .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(btnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                            .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInformacionEmpleadoLayout.createSequentialGroup()
                                     .addComponent(labelMetric5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(60, 60, 60)
                                     .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete22Layout.createSequentialGroup()
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInformacionEmpleadoLayout.createSequentialGroup()
+                                    .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(labelMetric6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(labelMetric7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(59, 59, 59)
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                    .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                            .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                            .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtClaveRepetir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addComponent(lblFotoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
-        panelTranslucidoComplete22Layout.setVerticalGroup(
-            panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+        panelInformacionEmpleadoLayout.setVerticalGroup(
+            panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFotoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtClaveRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(10, 10, 10)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboBoxRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                    .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(btnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(11, 11, 11)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelMetric8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                    .addGroup(panelInformacionEmpleadoLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelInformacionEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,48 +382,37 @@ public class GestorEmpleado extends javax.swing.JDialog {
                 .addGap(18, 18, 18))
         );
 
-        comboBoxRound1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "Legajo" }));
-
         panelTranslucidoComplete23.setBackground(new java.awt.Color(0, 0, 0));
+        panelTranslucidoComplete23.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         panelTranslucidoComplete23.setColorPrimario(new java.awt.Color(0, 0, 0));
+        panelTranslucidoComplete23.setOpaque(false);
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
-        btnModificar.setText("EDITAR");
+        btnModificar.setText("MODIFIC");
+        btnModificar.setAnimacion(false);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
+        btnNuevo.setText("NUEVO");
+        btnNuevo.setAnimacion(false);
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnSeleccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/OK.jpg"))); // NOI18N
-        btnSeleccion.setText("SELECCIONAR");
+        btnSeleccion.setText("SELECT");
+        btnSeleccion.setAnimacion(false);
         btnSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionActionPerformed(evt);
             }
         });
-
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
-        btnAgregar.setText("AGREGAR");
-
-        javax.swing.GroupLayout panelTranslucidoComplete23Layout = new javax.swing.GroupLayout(panelTranslucidoComplete23);
-        panelTranslucidoComplete23.setLayout(panelTranslucidoComplete23Layout);
-        panelTranslucidoComplete23Layout.setHorizontalGroup(
-            panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTranslucidoComplete23Layout.createSequentialGroup()
-                .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelTranslucidoComplete23Layout.setVerticalGroup(
-            panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTranslucidoComplete23Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         tblEmpleado.setBackground(new java.awt.Color(204, 204, 204));
         tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
@@ -429,57 +443,89 @@ public class GestorEmpleado extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblEmpleado);
 
+        labelMetric1.setText("FILTRO");
+
+        comboBoxRound1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "Legajo" }));
+
+        txtEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmpleadoKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelTranslucidoComplete23Layout = new javax.swing.GroupLayout(panelTranslucidoComplete23);
+        panelTranslucidoComplete23.setLayout(panelTranslucidoComplete23Layout);
+        panelTranslucidoComplete23Layout.setHorizontalGroup(
+            panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTranslucidoComplete23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete23Layout.createSequentialGroup()
+                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete23Layout.createSequentialGroup()
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete23Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
+                .addContainerGap())
+        );
+        panelTranslucidoComplete23Layout.setVerticalGroup(
+            panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTranslucidoComplete23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelTranslucidoComplete23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout panelTranslucidoComplete21Layout = new javax.swing.GroupLayout(panelTranslucidoComplete21);
         panelTranslucidoComplete21.setLayout(panelTranslucidoComplete21Layout);
         panelTranslucidoComplete21Layout.setHorizontalGroup(
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelTranslucidoComplete23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
-                                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
-                .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(panelTranslucidoComplete23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelInformacionEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(13, 13, 13))
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addGap(14, 14, 14)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, 446, Short.MAX_VALUE)
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(panelTranslucidoComplete23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(panelInformacionEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelTranslucidoComplete23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -496,20 +542,6 @@ public class GestorEmpleado extends javax.swing.JDialog {
     
     
     
-    private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
-         
-        int fila = tblEmpleado.getSelectedRow();
-        if (fila== -1) {
-            // no se selecciono ninguna fila de la lista
-            JOptionPane.showMessageDialog(null, "debes seleccionar un Empleado ", "Informacion",JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            seleccionado = true;
-            modelo = (DefaultTableModel)tblEmpleado.getModel();
-            legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnSeleccionActionPerformed
-
     private void txtEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoKeyPressed
         // filtrar las coincidencias con el contenido de la caja de texto
         
@@ -530,7 +562,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
             // FILTRO POR LEGAJO
              listaEmpleado = filtrarPorLegajoEmpleado(listaEmpleado,txtEmpleado.getText()); 
 //                 com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
-//                 com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
+//                  com.freelancersteam.www.java.tomafoto.util.TablaUtil.cargarModeloEmpleado(modelo, listaEmpleado, tblEmpleado);
         }
         }
        com.freelancersteam.www.java.tomafoto.util.TablaUtil.prepararTablaEmpleado(modelo, tblEmpleado);
@@ -551,7 +583,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         empleado.setLocalidad(localidad);
         empleado.setDni(dni);
         empleado.setTelefono(telefono);
-        empleado.setAdministrador("ADMINISTRADOR".equals(comboBoxRound2.getSelectedItem().toString()));
+        empleado.setAdministrador("ADMINISTRADOR".equals(cmbTipoUsuario.getSelectedItem().toString()));
         return empleado;
      }
     private void buttonIpod1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIpod1ActionPerformed
@@ -576,15 +608,100 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCargarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarFotoActionPerformed
-        // TODO add your handling code here:
+       int resp;
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("jpg, gif", "jpg","gif");
+        elegirFoto.setFileFilter(filter);
+        resp=elegirFoto.showOpenDialog(this);
+        
+        if (resp==JFileChooser.APPROVE_OPTION) {
+          // mostrar la imagen en el lablfoto
+              String ruta = elegirFoto.getSelectedFile().toString();
+              File fichero=elegirFoto.getSelectedFile();
+              icono=new ImageIcon(fichero.getPath());
+              Icon iconoAdaptado= new ImageIcon(icono.getImage().getScaledInstance(lblFotoEmpleado.getWidth(),lblFotoEmpleado.getHeight(),Image.SCALE_DEFAULT)); //con esta línea se adapta el tamaño de la imagen al jlabel
+             lblFotoEmpleado.setIcon(iconoAdaptado);
+             
+        } 
+
+
     }//GEN-LAST:event_btnCargarFotoActionPerformed
 
     private void btnCancelarOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarOperacionActionPerformed
        // cancela la operacion actual
-        limpiarVenanaEmpleado();
-        setEditableVentanaInformacionEmpleado(false);
+        
+        initComponentesVentana();
         
     }//GEN-LAST:event_btnCancelarOperacionActionPerformed
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void tblEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadoMouseClicked
+//         int fila = tblEmpleado.getSelectedRow(); 
+//        if (fila != -1) {
+//        modelo =(DefaultTableModel)tblEmpleado.getModel();
+//        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+//        if (quienloyamo==MENU) {
+//        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
+//         // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
+//        cargarVentanaInformacionConEmpleado(empleado);
+//         btnModificar.setEnabled(true);
+//        }
+//        }
+        
+    }//GEN-LAST:event_tblEmpleadoMouseClicked
+
+    private void tblEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadoKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+        int fila = tblEmpleado.getSelectedRow();
+        if (fila!= -1) {
+        modelo =(DefaultTableModel)tblEmpleado.getModel();
+        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+            if (quienloyamo==MENU) {
+                 Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
+              //  setEnableVentanaInformacisyonEmpleado(false);
+                // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
+                 cargarVentanaInformacionConEmpleado(empleado);
+                System.out.println(empleado.getApellido());
+                 btnModificar.setEnabled(true);    
+            }
+       
+        }
+       }
+        
+    }//GEN-LAST:event_tblEmpleadoKeyPressed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // hacer editable la ventana informacion de empleado
+        isModificar= true;
+        setEditableVentanaInformacionEmpleado(true);
+        prepararParaModificar();
+        legajo = (Integer) tblEmpleado.getModel().getValueAt(tblEmpleado.getSelectedRow(), 0);
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+         isModificar= false;
+        limpiarVenanaEmpleado();
+        setEnableVentanaInformacionEmpleado(true);
+        setEditableVentanaInformacionEmpleado(true);
+        prepararParaAgregar();
+        
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionActionPerformed
+           
+        int fila = tblEmpleado.getSelectedRow();
+        if (fila== -1) {
+            // no se selecciono ninguna fila de la lista
+            JOptionPane.showMessageDialog(null, "debes seleccionar un Empleado ", "Informacion",JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            seleccionado = true;
+            modelo = (DefaultTableModel)tblEmpleado.getModel();
+            legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSeleccionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // guardar el empleado
@@ -604,64 +721,56 @@ public class GestorEmpleado extends javax.swing.JDialog {
             // ay que ver si el legajo exite
 
         }
-        limpiarVenanaEmpleado();
-        setEditableVentanaInformacionEmpleado(false);
+//        limpiarVenanaEmpleado();
+//        setEditableVentanaInformacionEmpleado(false);
         //ACTUALIZAR LA TABLA
        
         initComponentesVentana();
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-         // hacer editable la ventana informacion de empleado
-        isModificar= true;
-        setEditableVentanaInformacionEmpleado(true);
-        prepararParaModificar();
-        legajo = (Integer) tblEmpleado.getModel().getValueAt(tblEmpleado.getSelectedRow(), 0);
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+    private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReporteActionPerformed
+    }//GEN-LAST:event_txtLegajoActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        isModificar= false;
-        limpiarVenanaEmpleado();
-        setEditableVentanaInformacionEmpleado(true);
-        prepararParaAgregar();
+    private void txtLegajoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLegajoFocusLost
+        //validar el empleado
         
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void tblEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadoMouseClicked
-         int fila = tblEmpleado.getSelectedRow(); 
-        if (fila != -1) {
-        modelo =(DefaultTableModel)tblEmpleado.getModel();
-        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
-        
-        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
-        cargarVentanaInformacionConEmpleado(empleado);
-         btnModificar.setEnabled(true);
+         try{
+        Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
+         if (e!=null) {
+            mensajero.mensajeError(this, "YA EXISTE EL EMPLEADO CON LEGAJO ="+e.getLegajo());
+            txtLegajo.setText("");
+            txtLegajo.requestFocus();
+        }else{
+             // es uno legajo nuevo , por defecto la clave sera la misma que su legajo
+             txtClave.setText(txtLegajo.getText());
+             txtClaveRepetir.setText(txtLegajo.getText());
+             txtApellido.requestFocus();
+         }
+        }catch(Exception eee){
+            if (!btnCancelarOperacion.isEnabled() ||txtLegajo.getText().trim().isEmpty() ) {
+            mensajero.mensajeError(this, "NO PUEDE ESTAR VACIEO EL CAMPO LEGAJO");
+            txtLegajo.setText("");
+            txtLegajo.requestFocus();
+        }  
         }
-        
-    }//GEN-LAST:event_tblEmpleadoMouseClicked
+    }//GEN-LAST:event_txtLegajoFocusLost
 
-    private void tblEmpleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblEmpleadoKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-        int fila = tblEmpleado.getSelectedRow();
-        if (fila!= -1) {
-        modelo =(DefaultTableModel)tblEmpleado.getModel();
-        legajo = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-        Empleado empleado = new EmpleadoDaoImp().getEmpleado(legajo);
-        setEditableVentanaInformacionEmpleado(false);
-        // AQUI SE DEBE MOSTRAR LA INFOMRACION DEL USUAIRO
-        cargarVentanaInformacionConEmpleado(empleado);
-         btnModificar.setEnabled(true);
-        }
-       }
-        
-    }//GEN-LAST:event_tblEmpleadoKeyPressed
-     
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        permitirSoloNumero(evt);
+    }//GEN-LAST:event_txtDniKeyTyped
+      private void permitirSoloNumero(java.awt.event.KeyEvent evt) {
+          // permitir solo el ingreso de numero
+         char caracter = evt.getKeyChar();
+        if(((caracter < '0') ||
+         (caracter > '9')) &&
+         (caracter != '\b' /*corresponde a BACK_SPACE*/))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+       
+     }    
     
     /**
      * @param args the command line arguments
@@ -705,17 +814,17 @@ public class GestorEmpleado extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.edisoncor.gui.button.ButtonIpod btnAgregar;
     private org.edisoncor.gui.button.ButtonIpod btnCancelarOperacion;
     private org.edisoncor.gui.button.ButtonIpod btnCargarFoto;
     private org.edisoncor.gui.button.ButtonIpod btnEliminar;
     private org.edisoncor.gui.button.ButtonIpod btnGuardar;
     private org.edisoncor.gui.button.ButtonIpod btnModificar;
+    private org.edisoncor.gui.button.ButtonIpod btnNuevo;
     private org.edisoncor.gui.button.ButtonIpod btnReporte;
     private org.edisoncor.gui.button.ButtonIpod btnSeleccion;
+    private org.edisoncor.gui.comboBox.ComboBoxRound cmbTipoUsuario;
     private org.edisoncor.gui.comboBox.ComboBoxRound comboBoxRound1;
-    private org.edisoncor.gui.comboBox.ComboBoxRound comboBoxRound2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFileChooser elegirFoto;
     private javax.swing.JScrollPane jScrollPane2;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric10;
@@ -728,8 +837,9 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private org.edisoncor.gui.label.LabelMetric labelMetric7;
     private org.edisoncor.gui.label.LabelMetric labelMetric8;
     private org.edisoncor.gui.label.LabelMetric labelMetric9;
+    private javax.swing.JLabel lblFotoEmpleado;
+    private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelInformacionEmpleado;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
-    private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete22;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete23;
     private javax.swing.JTable tblEmpleado;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtApellido;
@@ -800,12 +910,17 @@ public class GestorEmpleado extends javax.swing.JDialog {
             txtClave.setEditable(false);
             txtClaveRepetir.setEditable(false);
             txtApellido.requestFocus();
+            
+            //boton agregar no activar
+            btnNuevo.setEnabled(false);
         
      }
      private void prepararParaAgregar(){
           btnReporte.setEnabled(false);
           btnEliminar.setEnabled(false);
-           
+          
+          //boton modificar no activo
+          btnModificar.setEnabled(false);
         
      }
     
@@ -822,17 +937,27 @@ public class GestorEmpleado extends javax.swing.JDialog {
         txtLocalidad.setEditable(logico);
         txtTelefono.setEditable(logico);
         // el cmbo 
-        comboBoxRound2.setEnabled(logico);
+        cmbTipoUsuario.setEnabled(logico);
        //botones
         btnCargarFoto.setEnabled(logico);
         btnCancelarOperacion.setEnabled(logico);
         btnGuardar.setEnabled(logico);
         btnReporte.setEnabled(logico);
+        btnEliminar.setEnabled(logico);
+       
         //foco
         txtLegajo.requestFocus();
        
         
     }
+      private void adaptarTamaño (JLabel label , Image img){
+         Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
+          label.setIcon(iconoAdaptado);//  si manda en pantalla
+     }
+    /**
+     * 
+    * @param empleado recibe un empleado como parametro y sus datos se muestra en el panel informacion perosonal
+     */
     public void cargarVentanaInformacionConEmpleado(Empleado empleado){
         txtLegajo.setText(String.valueOf(empleado.getLegajo()));
         txtClave.setText(empleado.getClave());
@@ -843,5 +968,35 @@ public class GestorEmpleado extends javax.swing.JDialog {
         txtDireccion.setText(empleado.getDireccion());
         txtLocalidad.setText(empleado.getLocalidad());
         txtTelefono.setText(empleado.getTelefono());
+//        if (empleado.getImagen().length!=0) {
+//             ImageIcon im = new ImageIcon( empleado.getImagen());
+//             adaptarTamaño(lblFotoEmpleado,im.getImage());
+//        }
+       
+    }
+    private void setEnableVentanaInformacionEmpleado(boolean logico) {
+        // editable la ventana configuarcion
+        // cajas de texto
+        txtLegajo.setEnabled(logico);
+        txtClave.setEnabled(logico);
+        txtClaveRepetir.setEnabled(logico);
+        txtApellido.setEnabled(logico);
+        txtNombre.setEnabled(logico);
+        txtDni.setEnabled(logico);
+        txtDireccion.setEnabled(logico);
+        txtLocalidad.setEnabled(logico);
+        txtTelefono.setEnabled(logico);
+        // el cmbo 
+        cmbTipoUsuario.setEnabled(logico);
+       //botones
+//        btnCargarFoto.setEnabled(logico);
+      
+        btnCancelarOperacion.setEnabled(logico);
+        btnGuardar.setEnabled(logico);
+        btnNuevo.setEnabled(logico);
+        //foco
+        txtLegajo.requestFocus();
+       
+       
     }
 }

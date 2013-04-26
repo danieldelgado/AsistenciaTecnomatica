@@ -32,7 +32,12 @@ public class TablaUtil {
     public static void prepararTablaAsistencia(DefaultTableModel modelo, JTable tablaAsistencia){
         
         String[] titulos = {"LEGAJO","EMPLEADO","ENTRADA/SALIDA","FECHA","HORA"};
-       modelo= new DefaultTableModel(null,titulos);
+       modelo= new DefaultTableModel(null,titulos){
+                	@Override// impleamento este metodo para que la tabla sea no editable
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+       };
        tablaAsistencia.setModel(modelo);
     }
     
@@ -57,7 +62,12 @@ public class TablaUtil {
   public static void prepararTablaEmpleado(DefaultTableModel modelo, JTable tablaEmpleado){
         
         String[] titulos = {"LEGAJO","EMPLEADO"};
-       modelo= new DefaultTableModel(null,titulos);
+       modelo= new DefaultTableModel(null,titulos){
+                	@Override// impleamento este metodo para que la tabla sea no editable
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+       };
        tablaEmpleado.setModel(modelo);
     }  
     public static void cargarModeloEmpleado(DefaultTableModel modelo,List<Empleado>listaEmpleado,JTable tablaEmpleado){

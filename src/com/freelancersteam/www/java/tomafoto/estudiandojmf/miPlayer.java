@@ -101,26 +101,28 @@ public class miPlayer {
             mensajero.mensajeError(null, "Error de Entrada/Salida");
         }
     }
-    public static void guardaImagenEnBD2(Image img)
+    public static void guardaImagenEmpleado(byte[] bytee,int legajo)
     {
-        String formato = "JPEG";
-        if(img !=null)
+        //String formato = "JPEG";
+        if(!bytee.equals(null)){
         try
         {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            ImageIO.write((RenderedImage) img, formato, out);
-            InputStream in = new ByteArrayInputStream(out.toByteArray());
-            String sql = "INSERT INTO asistencia(imagen) VALUES (?)";
+            //ByteArrayOutputStream out = new ByteArrayOutputStream();
+           // ImageIO.write((RenderedImage) img, formato, out);
+            InputStream in = new ByteArrayInputStream(bytee);
+            String sql = "INSERT INTO asistencia(imagen,legajo) VALUES (?,?)";
             Connection cn=conexion.iniciaConexion();
             PreparedStatement stmt = cn.prepareStatement(sql);
             stmt.setBinaryStream(1, in);
+            stmt.setInt(2 ,legajo);
+            
             stmt.execute();
             stmt.close();
             conexion.cerrarConexion(cn);
         } catch (SQLException ex) {
             mensajero.mensajeError(null, "Error Al ejecutar sentencia SQL");
-        } catch (IOException ex) {
-            mensajero.mensajeError(null, "Error de Entrada/Salida");
+        
+    }
         }
     }
 }

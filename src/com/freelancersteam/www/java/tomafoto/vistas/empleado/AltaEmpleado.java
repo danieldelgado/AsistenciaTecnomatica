@@ -5,27 +5,36 @@
 package com.freelancersteam.www.java.tomafoto.vistas.empleado;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
-import com.freelancersteam.www.java.tomafoto.dominio.dao.EmpleadoDao;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
-import javax.swing.JOptionPane;
+import java.awt.Image;
+import java.io.IOException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
  * @author Leo
  */
 public class AltaEmpleado extends javax.swing.JDialog {
-
+    private ImageIcon icono;
+   byte[] imgByte;
     /**
      * Creates new form Personal
      */
     public AltaEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        btnNuevo.setEnabled(false);
         setLocationRelativeTo(this);
         setVisible(true);
+        // no se realizara la carga de foto
+       
+        
+        
     }
-
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,6 +44,7 @@ public class AltaEmpleado extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         panelTranslucidoComplete22 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
         labelMetric9 = new org.edisoncor.gui.label.LabelMetric();
         txtLegajo = new org.edisoncor.gui.textField.TextFieldRoundIcon();
@@ -50,17 +60,15 @@ public class AltaEmpleado extends javax.swing.JDialog {
         txtTelefono = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric15 = new org.edisoncor.gui.label.LabelMetric();
         txtDni = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
         btnCancelarOperacion = new org.edisoncor.gui.button.ButtonIpod();
         labelMetric16 = new org.edisoncor.gui.label.LabelMetric();
         txtClave = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        jLabel1 = new javax.swing.JLabel();
-        btnCargarFoto = new org.edisoncor.gui.button.ButtonIpod();
         labelMetric17 = new org.edisoncor.gui.label.LabelMetric();
         txtClaveRepetir = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric18 = new org.edisoncor.gui.label.LabelMetric();
         cmbTipoUsuario = new org.edisoncor.gui.comboBox.ComboBoxRound();
-        btnLimpiarVentana = new org.edisoncor.gui.button.ButtonIpod();
+        btnNuevo = new org.edisoncor.gui.button.ButtonIpod();
+        btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,8 +81,12 @@ public class AltaEmpleado extends javax.swing.JDialog {
         labelMetric9.setText("LEGAJO");
 
         txtLegajo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtLegajo.setText("No editable");
         txtLegajo.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txtLegajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLegajoActionPerformed(evt);
+            }
+        });
         txtLegajo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLegajoFocusLost(evt);
@@ -92,55 +104,46 @@ public class AltaEmpleado extends javax.swing.JDialog {
         labelMetric10.setText("APELLIDO");
 
         txtApellido.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtApellido.setText("En reporte");
         txtApellido.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric11.setText("NOMBRE");
 
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtNombre.setText("En reporte");
         txtNombre.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric12.setText("DIRECCION");
 
         txtDireccion.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtDireccion.setText("En reporte");
         txtDireccion.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric13.setText("LOCALIDAD");
 
         txtLocalidad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtLocalidad.setText("En reporte");
         txtLocalidad.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric14.setText("DNI");
 
         txtTelefono.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTelefono.setText("En reporte");
         txtTelefono.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 
         labelMetric15.setText("TELEFONO");
 
         txtDni.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtDni.setText("En reporte");
         txtDni.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        txtDni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDniFocusLost(evt);
+            }
+        });
         txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDniKeyTyped(evt);
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/GUARDAR.jpg"))); // NOI18N
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.setColorDeSombra(new java.awt.Color(255, 255, 255));
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
         btnCancelarOperacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Atras.png"))); // NOI18N
         btnCancelarOperacion.setText("ATRAS");
+        btnCancelarOperacion.setAnimacion(false);
         btnCancelarOperacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarOperacionActionPerformed(evt);
@@ -157,21 +160,6 @@ public class AltaEmpleado extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(153, 255, 153));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("FOTO");
-        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
-
-        btnCargarFoto.setText("cargar foto");
-        btnCargarFoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCargarFoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargarFotoActionPerformed(evt);
-            }
-        });
-
         labelMetric17.setText("REPETIR CLAVE");
 
         txtClaveRepetir.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -181,11 +169,21 @@ public class AltaEmpleado extends javax.swing.JDialog {
 
         cmbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COMUN", "ADMINISTRADOR" }));
 
-        btnLimpiarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/PDF1.png"))); // NOI18N
-        btnLimpiarVentana.setText("LIMPIAR");
-        btnLimpiarVentana.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
+        btnNuevo.setText("NUEVO");
+        btnNuevo.setAnimacion(false);
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarVentanaActionPerformed(evt);
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/GUARDAR.jpg"))); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.setAnimacion(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -198,47 +196,47 @@ public class AltaEmpleado extends javax.swing.JDialog {
                     .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(labelMetric18, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18))
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(70, 70, 70)))
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete22Layout.createSequentialGroup()
                                     .addComponent(labelMetric12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(60, 60, 60)
-                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(1, 1, 1))
+                                .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                                                .addComponent(labelMetric18, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18))
+                                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                                .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(70, 70, 70)))
+                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                            .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(75, 75, 75)))
+                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(39, 39, 39)
+                                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(47, 47, 47)
+                                    .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
                                     .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(labelMetric13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(labelMetric14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(59, 59, 59)
                                     .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(btnLimpiarVentana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,43 +247,33 @@ public class AltaEmpleado extends javax.swing.JDialog {
                         .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtClaveRepetir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtClaveRepetir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         panelTranslucidoComplete22Layout.setVerticalGroup(
             panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMetric16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtClaveRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMetric17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(10, 10, 10)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelMetric18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(btnCargarFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMetric16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtClaveRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMetric17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMetric18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -293,7 +281,7 @@ public class AltaEmpleado extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -301,61 +289,45 @@ public class AltaEmpleado extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMetric14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnLimpiarVentana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGap(12, 12, 12)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // guardar el empleado
-        Empleado e=  getEmpleadoVentanaInformacion();
-        // validar el empleado
-        
-        //agregar un empleado
-        new EmpleadoDaoImp().addEmpleado(e);
-        mensajero.mensajeInformacionAltaOK(this);
-        
-
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
     private void btnCancelarOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarOperacionActionPerformed
         // cancela la operacion actual
+        txtLegajo.setEnabled(false);//  esto  es para que no capture el evento foculost de txtlegajo
        this.dispose();
 
     }//GEN-LAST:event_btnCancelarOperacionActionPerformed
 
-    private void btnCargarFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarFotoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCargarFotoActionPerformed
-
-    private void btnLimpiarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarVentanaActionPerformed
-       limpiarVenanaEmpleado();
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiarVenanaEmpleado();
+        setEnableVentanaInformacionEmpleado(true);
        
-    }//GEN-LAST:event_btnLimpiarVentanaActionPerformed
+       
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtLegajoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyPressed
         
@@ -394,9 +366,14 @@ public class AltaEmpleado extends javax.swing.JDialog {
             mensajero.mensajeError(this, "YA EXISTE EL EMPLEADO CON LEGAJO ="+e.getLegajo());
             txtLegajo.setText("");
             txtLegajo.requestFocus();
-        }
+        }else{
+             // es uno legajo nuevo , por defecto la clave sera la misma que su legajo
+             txtClave.setText(txtLegajo.getText());
+             txtClaveRepetir.setText(txtLegajo.getText());
+             txtApellido.requestFocus();
+         }
         }catch(Exception eee){
-            if (!btnCancelarOperacion.isEnabled()) {
+            if (!btnCancelarOperacion.isEnabled() ||txtLegajo.getText().trim().isEmpty() ) {
             mensajero.mensajeError(this, "NO PUEDE ESTAR VACIEO EL CAMPO LEGAJO");
             txtLegajo.setText("");
             txtLegajo.requestFocus();
@@ -404,6 +381,60 @@ public class AltaEmpleado extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_txtLegajoFocusLost
+/**
+ * 
+ * @param label  label donde estara visualizada la imagen
+ * @param img   imagen que se quiere viusalizar en el label
+ */
+    private void adaptarTamaño (JLabel label , Image img){
+         Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
+          label.setIcon(iconoAdaptado);//  si manda en pantalla
+     }
+    
+    private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLegajoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+     // guardar el empleado
+        try {
+             Empleado e=  getEmpleadoVentanaInformacion();
+            //agregar un empleado
+            new EmpleadoDaoImp().addEmpleado(e);
+            mensajero.mensajeInformacionAltaOK(this);
+            
+            //prueba foto
+            e= new EmpleadoDaoImp().getEmpleado(e.getLegajo());
+            //adaptarTamaño(lblFotoPrueba, new ImageIcon(e.getImagen()).getImage());
+            setEnableVentanaInformacionEmpleado(false);
+            // BOTON
+            btnGuardar.setEnabled(false);
+            btnNuevo.setEnabled(true);
+            
+        } catch (Exception e) {
+           mensajero.mensajeError(this, "La claves no coinciden, corrija");
+        }
+       
+       
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtDniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDniFocusLost
+//        try{
+//        if (chkValidarDni.isSelected()) {
+//            mensajero.mensajeError(this, "entro");
+//             //
+//             List<Empleado> lista = new EmpleadoDaoImp().listarEmpleado();
+//             Empleado e = EmpleadoUtil.getEmpleado(lista,txtDni.getText().trim());
+//             if (e!=null) {
+//                mensajero.mensajeError(this, "YA EXISTE UNA PERSONA CON DNI: ");
+//                txtDni.requestFocus();
+//            }
+//        }
+//        }catch(Exception enul){
+//            mensajero.mensajeError(this, "NO PUEDE ESTAR VACIO EL DNI, INGRESE DE NUEVO");
+//            txtDni.requestFocus();
+//        }
+    }//GEN-LAST:event_txtDniFocusLost
 
     /**
      * @param args the command line arguments
@@ -448,11 +479,10 @@ public class AltaEmpleado extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.button.ButtonIpod btnCancelarOperacion;
-    private org.edisoncor.gui.button.ButtonIpod btnCargarFoto;
     private org.edisoncor.gui.button.ButtonIpod btnGuardar;
-    private org.edisoncor.gui.button.ButtonIpod btnLimpiarVentana;
+    private org.edisoncor.gui.button.ButtonIpod btnNuevo;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbTipoUsuario;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFileChooser jFileChooser1;
     private org.edisoncor.gui.label.LabelMetric labelMetric10;
     private org.edisoncor.gui.label.LabelMetric labelMetric11;
     private org.edisoncor.gui.label.LabelMetric labelMetric12;
@@ -486,29 +516,51 @@ public class AltaEmpleado extends javax.swing.JDialog {
        txtTelefono.setText("");
        txtClaveRepetir.setText("");
        cmbTipoUsuario.setSelectedIndex(0);
+       //BOTON
+      // btnGuardar.setEnabled(true);
+       btnNuevo.setEnabled(false);
+      
        // falta par aque  el cursor se situe en el campo legajo por defecyto
        txtLegajo.requestFocus();
     }
     
-    
-     private Empleado getEmpleadoVentanaInformacion(){
-        Empleado empleado;
+    /**
+     * 
+     * @return retornaun Objeto tipo Empleado a partir de los datos ingresados por el usuario
+     * ademas se encarga de hacer la validaciones de ingreso de datos, en caso de que haya ingresado mal algun 
+     * dato , el  metodo retorna NULL
+     */
+     private Empleado getEmpleadoVentanaInformacion() throws IOException{
+        Empleado empleado= null;
+     if (txtClave.getText().equals(txtClaveRepetir.getText())) {
         int legajo = Integer.parseInt(txtLegajo.getText());
         String clave = txtClave.getText();
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String direccion = txtDireccion.getText();
         String localidad = txtLocalidad.getText();
-        int dni = Integer.parseInt(txtDni.getText());
+        
         String telefono = txtTelefono.getText();
         empleado = new Empleado(legajo, apellido, nombre, clave);
         empleado.setDireccion(direccion);
         empleado.setLocalidad(localidad);
-        empleado.setDni(dni);
+       // agrega el dni solo si se ingreso el dni  
+        if(!txtDni.getText().isEmpty()){
+            int dni = Integer.parseInt(txtDni.getText());
+            empleado.setDni(dni);
+        }
+//         if (icono!=null) {
+//              
+//             empleado.setImagen(imgByte);
+//             
+//         }
         empleado.setTelefono(telefono);
         empleado.setAdministrador("ADMINISTRADOR".equals(cmbTipoUsuario.getSelectedItem().toString()));
+    }
+       
         return empleado;
      }
+     
       private void setEditableVentanaInformacionEmpleado(boolean logico) {
         // editable la ventana configuarcion
         // cajas de texto
@@ -524,13 +576,40 @@ public class AltaEmpleado extends javax.swing.JDialog {
         // el cmbo 
         cmbTipoUsuario.setEnabled(logico);
        //botones
-        btnCargarFoto.setEnabled(logico);
+//        btnCargarFoto.setEnabled(logico);
+      
+      //  btnCancelarOperacion.setEnabled(logico);
+        btnGuardar.setEnabled(logico);
+        btnNuevo.setEnabled(logico);
+        //foco
+      //  txtLegajo.requestFocus();
+       
+       
+    }
+     
+      private void setEnableVentanaInformacionEmpleado(boolean logico) {
+        // editable la ventana configuarcion
+        // cajas de texto
+        txtLegajo.setEnabled(logico);
+        txtClave.setEnabled(logico);
+        txtClaveRepetir.setEnabled(logico);
+        txtApellido.setEnabled(logico);
+        txtNombre.setEnabled(logico);
+        txtDni.setEnabled(logico);
+        txtDireccion.setEnabled(logico);
+        txtLocalidad.setEnabled(logico);
+        txtTelefono.setEnabled(logico);
+        // el cmbo 
+        cmbTipoUsuario.setEnabled(logico);
+       //botones
+//        btnCargarFoto.setEnabled(logico);
+      
         btnCancelarOperacion.setEnabled(logico);
         btnGuardar.setEnabled(logico);
-        btnLimpiarVentana.setEnabled(logico);
+        btnNuevo.setEnabled(logico);
         //foco
         txtLegajo.requestFocus();
        
-        
+       
     }
 }
