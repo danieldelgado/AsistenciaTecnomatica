@@ -7,8 +7,6 @@ package com.freelancersteam.www.java.tomafoto.vistas;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
-import com.mysql.jdbc.Util;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
