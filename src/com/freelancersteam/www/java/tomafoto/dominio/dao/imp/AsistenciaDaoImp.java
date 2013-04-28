@@ -5,11 +5,16 @@
 package com.freelancersteam.www.java.tomafoto.dominio.dao.imp;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
+import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.AsistenciaDao;
 import com.freelancersteam.www.java.tomafoto.hibernateUtil.Conexion;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -18,41 +23,75 @@ import org.hibernate.Transaction;
 public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
 
     public List<Asistencia> listarAsistencia() {
+        
+        Session session = getSessionFactory().openSession();
+        //session.beginTransaction();
+        Criteria criteria = session.createCriteria(Asistencia.class);
+        //criteria.addOrder(Order.asc("idAsistencia"));
+         List<Asistencia> lista = (List<Asistencia>)criteria.list();
+        //session.getTransaction().commit();        
+        session.close();
+        return lista;
        
-       Criteria criteria = getSession().createCriteria(Asistencia.class);
-       List<Asistencia>lista = criteria.list();
-       //getSession().close();
-       return lista;
+    }
+    public List<Asistencia> listarAsistencia(Empleado e) {
+        Session session = getSessionFactory().openSession();
+       // session.beginTransaction();
+        Criteria criteria = session.createCriteria(Asistencia.class);
+//        criteria.addOrder(Order.asc("idAsistencia"));
+        criteria.add(Restrictions.eq("empleado", e));
+        List<Asistencia> lista = criteria.list();
+     //   session.getTransaction().commit();
+        session.close();
+        return lista;
+       
     }
 
     public void addAsistencia(Asistencia a) {
-        Transaction t = getSession().beginTransaction();
-        getSession().save(a);
-        t.commit();
-       // getSession().close();
-       
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(a);
+        session.getTransaction().commit();
+        session.close();
     }
 
     public void deleteAsistencia(Asistencia a) {
-       Transaction t = getSession().beginTransaction();
-       getSession().delete(a);
-       t.commit();
-     //  getSession().close();
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(a);
+        session.getTransaction().commit();
+        session.close();
     }
 
     public void upDateAsistencia(Asistencia a) {
-        Transaction t = getSession().beginTransaction();
-         getSession().update(a);
-         t.commit();
-         //getSession().close();
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(a);
+        session.getTransaction().commit();
+        session.close();
     }
 
     public Asistencia getAsistencia(int idAsistencia) {
-        Transaction t = getSession().beginTransaction();
-           Asistencia a = (Asistencia) getSession().get(Asistencia.class, idAsistencia);
-           t.commit();
-        //   getSession().close();
-           return a;
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        Asistencia a = (Asistencia) session.get(Asistencia.class,idAsistencia);
+        session.getTransaction().commit();
+        session.close();
+        return a;
     }
+
+
+    public Object[] getLegajoYNombreEmpleadoDeAsis(int idAsistencia) {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        Asistencia a = (Asistencia) session.get(Asistencia.class,idAsistencia);
+        Empleado e = a.getEmpleado();
+        Object[] o ={e.getLegajo(),e.getNombre()};
+         session.getTransaction().commit();
+        session.close();
+        return o;
+    }
+   
     
 }
+

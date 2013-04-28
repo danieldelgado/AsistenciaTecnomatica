@@ -1,0 +1,63 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x053c1a9b, pid=5708, tid=304
+#
+# JRE version: 7.0-b147
+# Java VM: Java HotSpot(TM) Client VM (21.0-b17 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [jmddraw.dll+0x1a9b]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x040af400):  JavaThread "Loop thread: com.sun.media.renderer.video.DDRenderer@24de67" [_thread_in_native, id=304, stack(0x07130000,0x07180000)]
+
+siginfo: ExceptionCode=0xc0000005, writing address 0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0x06c706b0, ECX=0x00000000, EDX=0x28d6a9f0
+ESP=0x0717f458, EBP=0x098f0020, ESI=0x040af528, EDI=0x00000000
+EIP=0x053c1a9b, EFLAGS=0x00010202
+
+Top of Stack: (sp=0x0717f458)
+0x0717f458:   040af400 335e37e0 0717f5a8 335e37e0
+0x0717f468:   67217fa0 00000000 098f0020 0408b5b8
+0x0717f478:   00000000 28d6a9f0 670ba2a2 00000004
+0x0717f488:   ffffffff 000001b5 040af400 000002fb
+0x0717f498:   040af546 040af400 00000000 00000000
+0x0717f4a8:   00000000 00000000 00000280 000001e0
+0x0717f4b8:   040af400 00ab0584 28d6a9f0 040aa31e
+0x0717f4c8:   28d6a9f0 040af400 0717f4f4 670ddc09 
+
+Instructions: (pc=0x053c1a9b)
+0x053c1a7b:   85 c0 0f 84 31 01 00 00 83 f8 20 0f 84 28 01 00
+0x053c1a8b:   00 50 e8 6b 07 00 00 8b 54 24 28 8b f8 83 c4 04
+0x053c1a9b:   89 17 8b 43 1c 8d 54 24 24 8b 08 52 8d 54 24 38
+0x053c1aab:   57 52 50 ff 51 0c 57 e8 17 07 00 00 83 c4 04 c7 
+
+
+Register to memory mapping:
+
+EAX=0x00000000 is an unknown value
+EBX=0x06c706b0 is an unknown value
+ECX=0x00000000 is an unknown value
+EDX=0x28d6a9f0 is an oop
+com.sun.media.CircularBuffer 
+ - klass: 'com/sun/media/CircularBuffer'
+ESP=0x0717f458 is pointing into the stack for thread: 0x040af400
+EBP=0x098f0020 is an unknown value
+ESI=0x040af528 is an unknown value
+EDI=0x00000000 is an unknown value
+
+
+Stack: [0x07130000,0x07180000],  sp=0x0717f458,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C

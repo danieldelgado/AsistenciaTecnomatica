@@ -423,29 +423,32 @@ private void setearDatos(){
 }
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
        // validar el empleado
-     
        
-   try{
+         try{
        Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
        boolean encontrado = com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil.getValidarEmpleado(e,txtClave.getText().trim());
        if (encontrado) {
-         try{
+        // try{
             //saco foto 
             b.capturarImagen();
             // detengo la camara
             b.getPlayer().stop();
             //capturo el dato si es Entrada o Salida  q eligio el user
-                String elegir = (String)cmbElegir.getSelectedItem();
+            String elegir = (String)cmbElegir.getSelectedItem();
             //guardo la foto en la tabla asistencia
-            miPlayer.guardaImagenEnBD(b.getImagen());
+//         for (int i = 0; i < 300; i++) {
+             miPlayer.guardaImagenEnBD(b.getImagen());
             // Proceso de actualizaion de la asistencia creada 
            // 1-busco el id de la ultima asistencia guardada
 //           AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
 //           List<Asistencia> listaAsistencia ;
+                     
            List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
            int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
+           System.out.println("id asistencia recuperada para actualizar "+ idAsis);
            //2-obtengo la ultima asistencia guardada y seteo los valores que falta cargar
            Asistencia asistencia = new AsistenciaDaoImp().getAsistencia(idAsis);
+           
            asistencia.setEstado(elegir);
            asistencia.setEmpleado(e);
            asistencia.setFecha(new Date());
@@ -454,26 +457,31 @@ private void setearDatos(){
            asistencia.setCorrecto(true);
            // 3-actualizo la assitencia en la bd
            new AsistenciaDaoImp().upDateAsistencia(asistencia);
+           System.out.println("id asstencia"+ asistencia.getIdAsistencia());
+//             }
+    
+        
            
            // recupero la foto de la base de datos
-           byte[] imagenbyte = asistencia.getImagen();
-           ImageIcon imgIcon = new ImageIcon(imagenbyte,e.getLegajo()+" "+e.getApellido());
+//           byte[] imagenbyte = asistencia.getImagen();
+//           ImageIcon imgIcon = new ImageIcon(imagenbyte,e.getLegajo()+" "+e.getApellido());
           
           // adaptarTamaño(lbllFotoUser, imgIcon.getImage());
           // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
-            Thread.sleep(2000);
+         //  Thread.sleep(2000);
             b.getPlayer().start();
           // muestro un mensaje de bienvenida 
-            JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
-          //  limpio las cajas de texto                 
+         JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
+            
+            //  limpio las cajas de texto                 
               setearDatos();
  
 
        
-           }catch (Exception eee){
-               mensajero.mensajeError(this,"No se pudo guardar la imagen en la bd, ERROR DE CONEXION CON LA BD");
-       
-         }
+//           }catch (Exception eee){
+//               mensajero.mensajeError(this,"No se pudo guardar la imagen en la bd, ERROR DE CONEXION CON LA BD");
+//       
+//         }
        }else{
                // Ingreso mal los datos de autenticacion 
                JOptionPane.showMessageDialog(this, "Su Identificacion es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -484,6 +492,10 @@ private void setearDatos(){
        JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
        setearDatos();
       }        
+   
+            
+        
+       
    
     }//GEN-LAST:event_btnIngresarActionPerformed
   

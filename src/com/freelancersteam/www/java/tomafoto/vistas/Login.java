@@ -28,6 +28,7 @@ public class Login extends javax.swing.JDialog {
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("ADMINISTRADOR");
         setLocationRelativeTo(this);
         setVisible(true);
     }
@@ -90,7 +91,7 @@ public class Login extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,13 +144,13 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_txtLegajoActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-         EmpleadoDaoImp empleados = new EmpleadoDaoImp();
+//         EmpleadoDaoImp empleados = new EmpleadoDaoImp();
          
          try{
-         Empleado e = empleados.getEmpleado(Integer.parseInt(txtLegajo.getText()));
+         Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
          boolean isUsuarioCorrecto = EmpleadoUtil.getValidarEmpleado(e, txtClave.getText());
          
-         if (isUsuarioCorrecto) {
+         if (isUsuarioCorrecto && e.getAdministrador()) {// si existe el  usuario y es administrador
             BotonAceptar=true;
   
             this.dispose();
@@ -220,4 +221,18 @@ public class Login extends javax.swing.JDialog {
        txtClave.setText("");
        txtLegajo.requestFocus();
     }
+    
+    
+    private void permitirSoloNumero(java.awt.event.KeyEvent evt) {
+          // permitir solo el ingreso de numero
+         char caracter = evt.getKeyChar();
+        if(((caracter < '0') ||
+         (caracter > '9')) &&
+         (caracter != '\b' /*corresponde a BACK_SPACE*/))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+       
+        
+     }    
 }

@@ -79,7 +79,6 @@ public class GestorAsistencia extends javax.swing.JDialog {
         dateFin = new com.toedter.calendar.JDateChooser();
         btnBuscar = new org.edisoncor.gui.button.ButtonIpod();
         btnImprimir = new org.edisoncor.gui.button.ButtonIpod();
-        btnIreport = new org.edisoncor.gui.button.ButtonIpod();
         btnSalir = new org.edisoncor.gui.button.ButtonIpod();
         btnBusquedaPersonal = new org.edisoncor.gui.button.ButtonIcon();
         buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
@@ -94,7 +93,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         labelMetric1.setText("Busqueda");
 
         cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "LEGAJO" }));
-        cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14));
         cmbBusqueda.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbBusquedaItemStateChanged(evt);
@@ -110,7 +109,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         panelShadow1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonGroup1.add(rdbHoy);
-        rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12));
         rdbHoy.setSelected(true);
         rdbHoy.setText("Hoy");
         rdbHoy.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +120,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         panelShadow1.add(rdbHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         buttonGroup1.add(rdbMes);
-        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12));
         rdbMes.setText("Mes Actual");
         rdbMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +131,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         rdbFecha.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdbFecha);
-        rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12));
         rdbFecha.setText("Entre las Fechas");
         rdbFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,17 +140,19 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
         panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabel3.setText("Y");
         panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
+        dateInicio.setBackground(new java.awt.Color(255, 255, 255));
         dateInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        dateInicio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dateInicio.setFont(new java.awt.Font("Calibri", 1, 14));
         dateInicio.setMaxSelectableDate(new Date());
         panelShadow1.add(dateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
 
+        dateFin.setBackground(new java.awt.Color(255, 255, 255));
         dateFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        dateFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dateFin.setFont(new java.awt.Font("Calibri", 1, 14));
         dateFin.setMaxSelectableDate(new Date());
         panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
@@ -168,14 +169,6 @@ public class GestorAsistencia extends javax.swing.JDialog {
         btnImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirActionPerformed(evt);
-            }
-        });
-
-        btnIreport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/PDF1.png"))); // NOI18N
-        btnIreport.setText("PDF");
-        btnIreport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIreportActionPerformed(evt);
             }
         });
 
@@ -202,10 +195,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         tblAsistencia.setBackground(new java.awt.Color(204, 204, 204));
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "LEGAJO", "EMPLEADO", "ESTADO", "FECHA", "HORA"
@@ -228,37 +218,27 @@ public class GestorAsistencia extends javax.swing.JDialog {
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(228, 228, 228)
-                                .addComponent(btnIreport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(228, 228, 228)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 52, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(89, Short.MAX_VALUE)))
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
             panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,19 +255,18 @@ public class GestorAsistencia extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnIreport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                    .addGap(154, 154, 154)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(138, Short.MAX_VALUE)))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,46 +277,33 @@ public class GestorAsistencia extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 5, Short.MAX_VALUE))
+            .addComponent(panelTranslucidoComplete21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIreportActionPerformed
-             // validar el empleado
-   
-   List<Empleado> lisaEmpleado = new EmpleadoDaoImp().listarEmpleado();
-   boolean encontrado = false;
-   Empleado e = null ;
-   for ( Empleado empleado : lisaEmpleado) {
-       if (empleado.getLegajo()==Integer.parseInt(txtBusqueda.getText())) {
-           encontrado = true;
-           e =empleado;
-           break;
-       }
-   } 
-                                       
-    }//GEN-LAST:event_btnIreportActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       // este conjunto auxiliar contindra los datos q se mostrara a la tabla
       Set<Asistencia> conjuntoAsistencia= new HashSet<Asistencia>();
-     
+       
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo
            
             try {
-            EmpleadoDaoImp empleados = new EmpleadoDaoImp();   
-            Empleado  e = empleados.getEmpleado(Integer.parseInt(txtBusqueda.getText()));
-           
+//              
+              Empleado  e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtBusqueda.getText()));
+            
+            
+              //  System.out.println(e.getLegajo()+"");
             if (e!=null) {
-              // si exite el empleado entonces extraigo su conjunto de asistenica
-              conjuntoAsistencia= e.getAsistencias();
-                      
+               List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e);        
+                   
+              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
+              System.out.println(conjuntoAsistencia.size()+"");
+        
+                  
             }else{
             JOptionPane.showMessageDialog(this, "NO EXISTE EL EMPLEADO","ERROR",JOptionPane.ERROR_MESSAGE);
 
@@ -348,8 +314,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
        
         } else {
               // Busqueda asistencias de todos los empleados
-              AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
-              List<Asistencia> listaAsistencia = asistencias.listarAsistencia();
+              List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
               conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
               //System.out.println(conjuntoAsistencia.size());
 
@@ -370,7 +335,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
            conjunto.addAll(conjuntoAsistencia);
            //muestro en la tabla
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
-           TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
+           TablaUtil.cargarModeloAsistencia(modelo,conjuntoAsistencia , tblAsistencia);
                       
     }//GEN-LAST:event_btnBuscarActionPerformed
    
@@ -527,7 +492,6 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private org.edisoncor.gui.button.ButtonIpod btnBuscar;
     private org.edisoncor.gui.button.ButtonIcon btnBusquedaPersonal;
     private org.edisoncor.gui.button.ButtonIpod btnImprimir;
-    private org.edisoncor.gui.button.ButtonIpod btnIreport;
     private org.edisoncor.gui.button.ButtonIpod btnSalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private org.edisoncor.gui.button.ButtonIpod buttonIpod1;

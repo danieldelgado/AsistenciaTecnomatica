@@ -16,6 +16,7 @@ import java.util.Set;
 public class AsistenciaUtil {
     public static Set<Asistencia> getAsistenciasFiltradoPorAño (Set<Asistencia> conjunto,Date fechaInicio, Date fechaFin){
         int cont=0;
+        
          for (Iterator<Asistencia> it = conjunto.iterator(); it.hasNext();) {
             Asistencia asistencia = it.next();
             if(( com.freelancersteam.www.java.tomafoto.util.FechaUtil.getAnio(asistencia.getFecha())<com.freelancersteam.www.java.tomafoto.util.FechaUtil.getAnio(fechaInicio))||( com.freelancersteam.www.java.tomafoto.util.FechaUtil.getAnio(asistencia.getFecha())>com.freelancersteam.www.java.tomafoto.util.FechaUtil.getAnio(fechaFin))){
@@ -51,5 +52,6 @@ public class AsistenciaUtil {
         
         return conjunto;
     }
+    
     
 }

@@ -49,9 +49,9 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
         }else if("hora".equals(jrf.getName())){
             valor = com.freelancersteam.www.java.tomafoto.util.FechaUtil.getHora(listaAsistencia.get(index).getHora());
         }
-        else if("imagen".equals(jrf.getName())){
-            ImageIcon img = new ImageIcon(listaAsistencia.get(index).getImagen());
-            valor = img.getImage();
+//        else if("imagen".equals(jrf.getName())){
+//            ImageIcon img = new ImageIcon(listaAsistencia.get(index).getImagen());
+//            valor = img.getImage();
 //           
 //               ByteArrayOutputStream os = new ByteArrayOutputStream();
 //            try { 
@@ -62,10 +62,11 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
 //               InputStream fis = new ByteArrayInputStream(os.toByteArray());
 //               valor = fis;
           //  valor =listaAsistencia.get(index).getImagen();
-        }
-        
-        
-        return valor;
+//        }
+//        
+//        
+       return valor;
+    
     }
      public void addAsistencia(Asistencia a)
     {

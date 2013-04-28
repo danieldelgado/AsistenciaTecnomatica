@@ -8,6 +8,7 @@ package com.freelancersteam.www.java.tomafoto.util;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
+import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -52,11 +53,11 @@ public class TablaUtil {
          modelo =(DefaultTableModel) tablaOrdendelDia.getModel();
        for (Iterator it = listaOrdenDia.iterator(); it.hasNext();) {
         Asistencia a = (Asistencia) it.next();
-       String fecha= FechaUtil.getDateDDMMAAAA(a.getFecha());
-        
-        Object[] filaAsistencia = {a.getEmpleado().getLegajo(),a.getEmpleado().getApellido()+" "+a.getEmpleado().getNombre(),a.getEstado(),fecha,FechaUtil.getHora(a.getHora())}; 
-  
-           modelo.addRow(filaAsistencia);
+        // extraigo de la asistencia el legajo y nombre del empleado
+        Object[] empl = new AsistenciaDaoImp().getLegajoYNombreEmpleadoDeAsis(a.getIdAsistencia());
+        String fecha= FechaUtil.getDateDDMMAAAA(a.getFecha());
+        Object[] filaAsistencia = {empl[0],empl[1],a.getEstado(),fecha,FechaUtil.getHora(a.getHora())}; 
+        modelo.addRow(filaAsistencia);
     }
 }
   public static void prepararTablaEmpleado(DefaultTableModel modelo, JTable tablaEmpleado){
