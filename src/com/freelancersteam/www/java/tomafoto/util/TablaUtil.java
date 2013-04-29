@@ -32,13 +32,14 @@ public class TablaUtil {
      */
     public static void prepararTablaAsistencia(DefaultTableModel modelo, JTable tablaAsistencia){
         
-        String[] titulos = {"LEGAJO","EMPLEADO","ENTRADA/SALIDA","FECHA","HORA"};
+        String[] titulos = {"ID","LEGAJO","EMPLEADO","ENTRADA/SALIDA","FECHA","HORA"};
        modelo= new DefaultTableModel(null,titulos){
                 	@Override// impleamento este metodo para que la tabla sea no editable
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
        };
+       
        tablaAsistencia.setModel(modelo);
     }
     
@@ -56,9 +57,14 @@ public class TablaUtil {
         // extraigo de la asistencia el legajo y nombre del empleado
         Object[] empl = new AsistenciaDaoImp().getLegajoYNombreEmpleadoDeAsis(a.getIdAsistencia());
         String fecha= FechaUtil.getDateDDMMAAAA(a.getFecha());
-        Object[] filaAsistencia = {empl[0],empl[1],a.getEstado(),fecha,FechaUtil.getHora(a.getHora())}; 
+        Object[] filaAsistencia = {a.getIdAsistencia(),empl[0],empl[1],a.getEstado(),fecha,FechaUtil.getHora(a.getHora())}; 
         modelo.addRow(filaAsistencia);
+             
     }
+       // hago que la columna 0 no sea visible
+        tablaOrdendelDia.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaOrdendelDia.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaOrdendelDia.getColumnModel().getColumn(0).setPreferredWidth(0);
 }
   public static void prepararTablaEmpleado(DefaultTableModel modelo, JTable tablaEmpleado){
         

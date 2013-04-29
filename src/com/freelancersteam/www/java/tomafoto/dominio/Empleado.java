@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 22/04/2013 01:31:03 AM by Hibernate Tools 3.2.1.GA
+// Generated 29-abr-2013 10:49:10 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;

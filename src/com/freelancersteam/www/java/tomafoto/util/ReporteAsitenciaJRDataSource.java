@@ -5,6 +5,7 @@
 package com.freelancersteam.www.java.tomafoto.util;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
+import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,10 +39,13 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
 
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor=null;
+        Object[] empl = new AsistenciaDaoImp().getLegajoYNombreEmpleadoDeAsis(listaAsistencia.get(index).getIdAsistencia());
         if ("legajo".equals(jrf.getName())) {
-            valor =  listaAsistencia.get(index).getEmpleado().getLegajo();
+//            valor =  listaAsistencia.get(index).getEmpleado().getLegajo();
+            valor =  empl[0].toString();
         } else if ("empleado".equals(jrf.getName())) {
-            valor =  listaAsistencia.get(index).getEmpleado().getNombre();
+//            valor =  listaAsistencia.get(index).getEmpleado().getNombre();
+            valor =  empl[1];
         }else if("estado".equals(jrf.getName())){
             valor = listaAsistencia.get(index).getEstado();
         }else if("fecha".equals(jrf.getName())){

@@ -81,7 +81,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         btnImprimir = new org.edisoncor.gui.button.ButtonIpod();
         btnSalir = new org.edisoncor.gui.button.ButtonIpod();
         btnBusquedaPersonal = new org.edisoncor.gui.button.ButtonIcon();
-        buttonIpod1 = new org.edisoncor.gui.button.ButtonIpod();
+        btnVerEditar = new org.edisoncor.gui.button.ButtonIpod();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblAsistencia = new javax.swing.JTable();
 
@@ -189,8 +189,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
             }
         });
 
-        buttonIpod1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
-        buttonIpod1.setText("Modificar");
+        btnVerEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/modificar.png"))); // NOI18N
+        btnVerEditar.setText("Ver/Editar");
+        btnVerEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerEditarActionPerformed(evt);
+            }
+        });
 
         tblAsistencia.setBackground(new java.awt.Color(204, 204, 204));
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
@@ -198,11 +203,11 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
             },
             new String [] {
-                "LEGAJO", "EMPLEADO", "ESTADO", "FECHA", "HORA"
+                "ID", "LEGAJO", "EMPLEADO", "ESTADO", "FECHA", "HORA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -226,18 +231,17 @@ public class GestorAsistencia extends javax.swing.JDialog {
                         .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBusquedaPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                            .addComponent(panelShadow1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVerEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -255,17 +259,17 @@ public class GestorAsistencia extends javax.swing.JDialog {
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonIpod1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnVerEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)))
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -319,7 +323,12 @@ public class GestorAsistencia extends javax.swing.JDialog {
               //System.out.println(conjuntoAsistencia.size());
 
             }
-           
+           //  verificar de que la fecha inicio no sea mayor que la fecha fin
+            if (dateInicio.getDate().getTime()>dateFin.getDate().getTime()) {
+               JOptionPane.showMessageDialog(this, "La fecha inicio no puedes ser mayor a la fecha Fin ","ERROR",JOptionPane.ERROR_MESSAGE);
+
+        } else {
+        
             //filtrao por año
             conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
              
@@ -329,14 +338,14 @@ public class GestorAsistencia extends javax.swing.JDialog {
               //filtrado por dia
             conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
             
-           
+     //----AQUI HAY QUE MODIFICAR EL ASISTENCIA.DAOIMP PARA QEU AHI LO ORDENE  Y TABLA UTIL PARA Q MANEJE LISTA EN VEZ DE CONJUNTO-----//      
            // creo un conjunto nuevo pero agregandolo un comparador para que ordene por idAsistencia a los datos
            conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
            conjunto.addAll(conjuntoAsistencia);
            //muestro en la tabla
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
-           TablaUtil.cargarModeloAsistencia(modelo,conjuntoAsistencia , tblAsistencia);
-                      
+           TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
+            }              
     }//GEN-LAST:event_btnBuscarActionPerformed
    
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
@@ -431,6 +440,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
            JDialog reporte = new JDialog();
             reporte.setSize(900, 700);
             reporte.setLocationRelativeTo(null);
+            reporte.setModal(true);
             reporte.setTitle("INFORME");
            //  JasperReport lreporte = (JasperReport) JRLoader.loadObject("reportes/reporteAsistencia.jasper");
         try {
@@ -446,6 +456,22 @@ public class GestorAsistencia extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnVerEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEditarActionPerformed
+    int fila = tblAsistencia.getSelectedRow();
+    if (fila!= -1) { 
+        int idAsistencia = Integer.parseInt(tblAsistencia.getModel().getValueAt(fila, 0).toString());   
+        int legajo = Integer.parseInt(tblAsistencia.getModel().getValueAt(fila, 1).toString());   
+         verAsistencia  verAsistencia = new verAsistencia(null, true,idAsistencia,legajo);
+//         verAsistencia  verAsistencia = new verAsistencia(null, true);
+         
+    }else{
+        JOptionPane.showMessageDialog(null, "debes seleccionar una Fila de la Tabla ", "Informacion",JOptionPane.INFORMATION_MESSAGE);
+
+    }      
+       
+        
+    }//GEN-LAST:event_btnVerEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,8 +519,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private org.edisoncor.gui.button.ButtonIcon btnBusquedaPersonal;
     private org.edisoncor.gui.button.ButtonIpod btnImprimir;
     private org.edisoncor.gui.button.ButtonIpod btnSalir;
+    private org.edisoncor.gui.button.ButtonIpod btnVerEditar;
     private javax.swing.ButtonGroup buttonGroup1;
-    private org.edisoncor.gui.button.ButtonIpod buttonIpod1;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbBusqueda;
     private com.toedter.calendar.JDateChooser dateFin;
     private com.toedter.calendar.JDateChooser dateInicio;

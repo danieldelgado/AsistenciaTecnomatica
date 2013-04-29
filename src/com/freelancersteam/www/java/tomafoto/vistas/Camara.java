@@ -34,6 +34,8 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.Player;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -436,13 +438,10 @@ private void setearDatos(){
             //capturo el dato si es Entrada o Salida  q eligio el user
             String elegir = (String)cmbElegir.getSelectedItem();
             //guardo la foto en la tabla asistencia
-//         for (int i = 0; i < 300; i++) {
+//         for (int i = 0; i < 3000; i++) {
              miPlayer.guardaImagenEnBD(b.getImagen());
             // Proceso de actualizaion de la asistencia creada 
-           // 1-busco el id de la ultima asistencia guardada
-//           AsistenciaDaoImp asistencias = new AsistenciaDaoImp();
-//           List<Asistencia> listaAsistencia ;
-                     
+           // 1-busco el id de la ultima asistencia guardada                  
            List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
            int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
            System.out.println("id asistencia recuperada para actualizar "+ idAsis);
@@ -459,17 +458,13 @@ private void setearDatos(){
            new AsistenciaDaoImp().upDateAsistencia(asistencia);
            System.out.println("id asstencia"+ asistencia.getIdAsistencia());
 //             }
-    
-        
-           
-           // recupero la foto de la base de datos
-//           byte[] imagenbyte = asistencia.getImagen();
-//           ImageIcon imgIcon = new ImageIcon(imagenbyte,e.getLegajo()+" "+e.getApellido());
-          
-          // adaptarTamaño(lbllFotoUser, imgIcon.getImage());
-          // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
-         //  Thread.sleep(2000);
-            b.getPlayer().start();
+                try {
+                    // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
+                     Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Camara.class.getName()).log(Level.SEVERE, null, ex);
+                }
+           b.getPlayer().start();
           // muestro un mensaje de bienvenida 
          JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
             

@@ -80,7 +80,10 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
         return a;
     }
 
-
+/*
+     * obtinenw obj[1] legajo , y obj[2] nombre empleado
+     */
+    
     public Object[] getLegajoYNombreEmpleadoDeAsis(int idAsistencia) {
         Session session = getSessionFactory().openSession();
         session.beginTransaction();
