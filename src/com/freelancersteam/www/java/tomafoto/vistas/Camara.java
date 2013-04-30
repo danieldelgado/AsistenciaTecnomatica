@@ -32,6 +32,8 @@ import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -439,15 +441,31 @@ private void setearDatos(){
             String elegir = (String)cmbElegir.getSelectedItem();
             //guardo la foto en la tabla asistencia
 //         for (int i = 0; i < 3000; i++) {
-             miPlayer.guardaImagenEnBD(b.getImagen());
+//             miPlayer.guardaImagenEnBD(b.getImagen());
             // Proceso de actualizaion de la asistencia creada 
            // 1-busco el id de la ultima asistencia guardada                  
-           List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
-           int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
-           System.out.println("id asistencia recuperada para actualizar "+ idAsis);
-           //2-obtengo la ultima asistencia guardada y seteo los valores que falta cargar
-           Asistencia asistencia = new AsistenciaDaoImp().getAsistencia(idAsis);
+//           List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
+//           int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
+//           System.out.println("id asistencia recuperada para actualizar "+ idAsis);
+//           //2-obtengo la ultima asistencia guardada y seteo los valores que falta cargar
            
+//           
+//           Asistencia asistencia = new AsistenciaDaoImp().getAsistencia(idAsis);
+//          // guarda en fichero 
+            File file = new File(new File ("img.jpeg").getAbsolutePath ());
+            miPlayer.guardaImagenEnFichero(b.getImagen(), file);
+             byte[] bFile = new byte[(int) file.length()];
+            try {
+                   FileInputStream fileInputStream = new FileInputStream(file);
+                   //convert file into array of bytes
+                   fileInputStream.read(bFile);
+                   fileInputStream.close();
+                 } catch (Exception eio) {
+                   eio.printStackTrace();
+                 }
+                                           
+           Asistencia asistencia = new Asistencia();
+           asistencia.setImagen(bFile);
            asistencia.setEstado(elegir);
            asistencia.setEmpleado(e);
            asistencia.setFecha(new Date());
@@ -455,8 +473,9 @@ private void setearDatos(){
            asistencia.setModificado(false);
            asistencia.setCorrecto(true);
            // 3-actualizo la assitencia en la bd
-           new AsistenciaDaoImp().upDateAsistencia(asistencia);
-           System.out.println("id asstencia"+ asistencia.getIdAsistencia());
+           new AsistenciaDaoImp().addAsistencia(asistencia);
+//           new AsistenciaDaoImp().upDateAsistencia(asistencia);
+//           System.out.println("id asstencia"+ asistencia.getIdAsistencia());
 //             }
                 try {
                     // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara

@@ -8,6 +8,7 @@ import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -332,6 +333,8 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
       a.setObservacion(txtComentario.getText());
       
       new AsistenciaDaoImp().upDateAsistencia(a);
+      mensajero.mensajeInformacionAtualizacionOK(this);
+
 }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

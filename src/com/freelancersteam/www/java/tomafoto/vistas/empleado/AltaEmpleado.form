@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
@@ -10,7 +10,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -32,7 +31,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelTranslucidoComplete22" min="-2" pref="463" max="-2" attributes="0"/>
+          <Component id="panelTranslucidoComplete22" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -63,16 +62,16 @@
                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="labelMetric10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                                  <Component id="txtApellido" max="32767" attributes="0"/>
+                                  <Component id="txtApellido" pref="185" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="labelMetric11" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                                  <Component id="txtNombre" max="32767" attributes="0"/>
+                                  <Component id="txtNombre" pref="185" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="labelMetric12" min="-2" max="-2" attributes="0"/>
@@ -82,22 +81,21 @@
                               <Group type="102" attributes="0">
                                   <Component id="labelMetric13" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                                  <Component id="txtLocalidad" max="32767" attributes="0"/>
+                                  <Component id="txtLocalidad" pref="185" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labelMetric15" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                      <Component id="txtTelefono" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="labelMetric15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="labelMetric14" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="labelMetric14" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="txtDni" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtDni" pref="185" max="32767" attributes="0"/>
+                                      <Component id="txtTelefono" alignment="0" pref="185" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -130,13 +128,13 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="labelMetric18" min="-2" pref="120" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="cmbTipoUsuario" max="32767" attributes="0"/>
+                                          <Component id="cmbTipoUsuario" pref="135" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblFoto" max="32767" attributes="0"/>
-                                      <Component id="jButton1" max="32767" attributes="0"/>
+                                      <Component id="lblFoto" pref="96" max="32767" attributes="1"/>
+                                      <Component id="jButton1" alignment="0" max="32767" attributes="1"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -175,7 +173,7 @@
                           <Component id="jButton1" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="124" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelMetric18" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="cmbTipoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -208,12 +206,17 @@
                       <Component id="labelMetric13" min="-2" max="-2" attributes="0"/>
                       <Component id="txtLocalidad" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelMetric14" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtDni" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Component id="labelMetric14" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="txtDni" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="labelMetric15" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
@@ -226,7 +229,7 @@
                       </Group>
                       <Component id="btnCancelarOperacion" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -422,12 +425,21 @@
                 <LineBorder roundedCorners="true"/>
               </Border>
             </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[96, 96]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[96, 96]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[96, 96]"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="33" red="33" type="rgb"/>
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
