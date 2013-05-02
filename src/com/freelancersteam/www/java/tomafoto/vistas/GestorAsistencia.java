@@ -12,6 +12,8 @@ import com.freelancersteam.www.java.tomafoto.util.OrdenarAsistenciaPorId;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.EmpleadoDao;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.hibernateUtil.Conexion;
+import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import com.freelancersteam.www.java.tomafoto.util.ReporteAsitenciaJRDataSource;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -35,8 +37,9 @@ import net.sf.jasperreports.swing.JRViewer;
  * @author Leo
  */
 public class GestorAsistencia extends javax.swing.JDialog {
-    Set<Asistencia> conjunto;
+//    Set<Asistencia> conjunto;
     DefaultTableModel modelo;
+    private List<Asistencia> listaAsistencia;
 
     /**
      * Creates new form GestorAsistencia
@@ -54,6 +57,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         // pantalla se localice en el centro  de la pantalla
         setLocationRelativeTo(this);
         this.setVisible(true);
+        
     }
 
     /**
@@ -289,8 +293,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       // este conjunto auxiliar contindra los datos q se mostrara a la tabla
-      Set<Asistencia> conjuntoAsistencia= new HashSet<Asistencia>();
-       
+//      Set<Asistencia> conjuntoAsistencia= new HashSet<Asistencia>();
+     listaAsistencia= new  ArrayList<Asistencia>();
          
         if (cmbBusqueda.getSelectedIndex()==1) {
            //busqueda empleado por legajo
@@ -302,10 +306,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
             
               //  System.out.println(e.getLegajo()+"");
             if (e!=null) {
-               List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e);        
+//               List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e);        
+                 listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+
+                      
                    
-              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
-              System.out.println(conjuntoAsistencia.size()+"");
+//              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
+//              System.out.println(conjuntoAsistencia.size()+"");
         
                   
             }else{
@@ -318,8 +325,9 @@ public class GestorAsistencia extends javax.swing.JDialog {
        
         } else {
               // Busqueda asistencias de todos los empleados
-              List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
-              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
+//              List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
+               listaAsistencia = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+//              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
               //System.out.println(conjuntoAsistencia.size());
 
             }
@@ -330,21 +338,22 @@ public class GestorAsistencia extends javax.swing.JDialog {
         } else {
         
             //filtrao por año
-            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+//            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
              
             //filtrado por mes
-            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+//            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
                         
               //filtrado por dia
-            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
+//            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
             
      //----AQUI HAY QUE MODIFICAR EL ASISTENCIA.DAOIMP PARA QEU AHI LO ORDENE  Y TABLA UTIL PARA Q MANEJE LISTA EN VEZ DE CONJUNTO-----//      
            // creo un conjunto nuevo pero agregandolo un comparador para que ordene por idAsistencia a los datos
-           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-           conjunto.addAll(conjuntoAsistencia);
+//           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
+//           conjunto.addAll(conjuntoAsistencia);
            //muestro en la tabla
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
-           TablaUtil.cargarModeloAsistencia(modelo,conjunto , tblAsistencia);
+           TablaUtil.cargarModeloAsistencia(modelo,listaAsistencia , tblAsistencia);
+            
             }              
     }//GEN-LAST:event_btnBuscarActionPerformed
    
@@ -372,7 +381,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1));
+            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
             dateFin.setDate(new Date());
             deshabilitarFechas();
             
@@ -382,7 +391,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            dateInicio.setDate(new Date());
+            dateInicio.setDate(FechaUtil.getFechaSinhora(new Date()));
             dateFin.setDate(new Date());
             deshabilitarFechas();
             
@@ -390,8 +399,16 @@ public class GestorAsistencia extends javax.swing.JDialog {
     }//GEN-LAST:event_rdbHoyActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-       this.dispose();
-       
+//       this.dispose();
+        
+        List<Asistencia> lista = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+        System.out.println(lista.size());
+        if(cmbBusqueda.getSelectedIndex()==1){
+             Empleado e  = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtBusqueda.getText()));
+             List<Asistencia> lista2 = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+             System.out.println(lista2.size());
+        }
+            
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void cmbBusquedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBusquedaItemStateChanged
@@ -433,7 +450,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // GENERAR LA VISTA PREVIA CON IREPORT
         
-        List<Asistencia> listaAsistencia = new ArrayList<Asistencia>(conjunto);
+//        List<Asistencia> listaAsistencia = new ArrayList<Asistencia>(list);
         ReporteAsitenciaJRDataSource dataSource = new ReporteAsitenciaJRDataSource();
         dataSource.setListAsistencia(listaAsistencia); 
            JasperPrint jPrintt;

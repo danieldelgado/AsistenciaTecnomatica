@@ -23,25 +23,19 @@ import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.eventos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
-import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
 import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 
 
 import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.Player;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -440,21 +434,12 @@ private void setearDatos(){
             //capturo el dato si es Entrada o Salida  q eligio el user
             String elegir = (String)cmbElegir.getSelectedItem();
             //guardo la foto en la tabla asistencia
-//         for (int i = 0; i < 3000; i++) {
-//             miPlayer.guardaImagenEnBD(b.getImagen());
-            // Proceso de actualizaion de la asistencia creada 
-           // 1-busco el id de la ultima asistencia guardada                  
-//           List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
-//           int idAsis =listaAsistencia.get(listaAsistencia.size()-1).getIdAsistencia();
-//           System.out.println("id asistencia recuperada para actualizar "+ idAsis);
-//           //2-obtengo la ultima asistencia guardada y seteo los valores que falta cargar
-           
-//           
-//           Asistencia asistencia = new AsistenciaDaoImp().getAsistencia(idAsis);
-//          // guarda en fichero 
-            File file = new File(new File ("img.jpeg").getAbsolutePath ());
+        //  Recupero en byte[] a la imagen , a travez de un puente  
+            //1-guardo en fichero :crea img.jpeg donde se encuentra el .jar o sea en la carpeta dist 
+            File file = new File(new File ("img.jpeg").getAbsolutePath ()); 
             miPlayer.guardaImagenEnFichero(b.getImagen(), file);
-             byte[] bFile = new byte[(int) file.length()];
+           //2- lo recupero del fichero para poder convertirlo en byte[]
+            byte[] bFile = new byte[(int) file.length()];
             try {
                    FileInputStream fileInputStream = new FileInputStream(file);
                    //convert file into array of bytes
@@ -463,7 +448,7 @@ private void setearDatos(){
                  } catch (Exception eio) {
                    eio.printStackTrace();
                  }
-                                           
+           // creo el objeto  asitencia              
            Asistencia asistencia = new Asistencia();
            asistencia.setImagen(bFile);
            asistencia.setEstado(elegir);
@@ -472,11 +457,15 @@ private void setearDatos(){
            asistencia.setHora(new Date());
            asistencia.setModificado(false);
            asistencia.setCorrecto(true);
-           // 3-actualizo la assitencia en la bd
-           new AsistenciaDaoImp().addAsistencia(asistencia);
-//           new AsistenciaDaoImp().upDateAsistencia(asistencia);
-//           System.out.println("id asstencia"+ asistencia.getIdAsistencia());
-//             }
+           //agrego ala BD
+           for (int i = 0; i < 1000; i++) {
+          new AsistenciaDaoImp().addAsistencia(asistencia);
+          // cuando guardo la asistencia automaticamente hibernate completa el campo idAsistencia con su valor
+          //luego si quiero saber el numero que le asigno solo consulto al objeto que le pase 
+          System.out.println("id asstencia"+ asistencia.getIdAsistencia());
+     
+           }
+          
                 try {
                     // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
                      Thread.sleep(2000);
@@ -489,28 +478,20 @@ private void setearDatos(){
             
             //  limpio las cajas de texto                 
               setearDatos();
- 
-
-       
-//           }catch (Exception eee){
-//               mensajero.mensajeError(this,"No se pudo guardar la imagen en la bd, ERROR DE CONEXION CON LA BD");
-//       
-//         }
+        
        }else{
                // Ingreso mal los datos de autenticacion 
                JOptionPane.showMessageDialog(this, "Su Identificacion es Incorrecta, por favor Ingrese de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
                setearDatos();
-          } 
+          }
+       
           
       }catch(java.lang.NumberFormatException edd){
        JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
        setearDatos();
       }        
    
-            
-        
-       
-   
+ 
     }//GEN-LAST:event_btnIngresarActionPerformed
   
     private void mnuItmeGestorAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmeGestorAsistenciaActionPerformed

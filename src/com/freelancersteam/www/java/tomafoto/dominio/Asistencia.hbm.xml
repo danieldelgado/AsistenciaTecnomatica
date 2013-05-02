@@ -8,7 +8,7 @@
             <column name="ID_ASISTENCIA" />
             <generator class="identity" />
         </id>
-        <many-to-one name="empleado" class="com.freelancersteam.www.java.tomafoto.dominio.Empleado" fetch="select">
+        <many-to-one name="empleado" class="com.freelancersteam.www.java.tomafoto.dominio.Empleado" fetch="join" >
             <column name="LEGAJO" />
         </many-to-one>
         <property name="estado" type="string">

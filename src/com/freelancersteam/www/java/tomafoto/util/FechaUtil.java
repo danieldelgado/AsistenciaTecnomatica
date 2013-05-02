@@ -17,12 +17,33 @@ import java.util.GregorianCalendar;
 public class FechaUtil {
     
  
+    /**
+     * 
+     * @param fecha  recibe una fecha de tipo date
+     * @return la fecha en formato String  DD/MM/AAAA  
+     */
     public static String getDateDDMMAAAA (Date fecha){
         String mifecha = fecha.toString();
         String dia = mifecha.substring(8, 10);
         String  mes = mifecha.substring(5, 7);
         String anio = mifecha.substring(0, 4);
         String f = dia+"/"+mes+"/"+anio;
+        
+        return f;
+    }
+    
+    
+      /**
+     * 
+     * @param fecha de tipo date
+     * @return  convierte en String en el formato DD-MM-AAAA
+     */
+       public static String getDateDD_MM_AAAA (Date fecha){
+        String mifecha = fecha.toString();
+        int dia = getDia(fecha);
+        int mes = getMes(fecha);
+        int anio = getAnio(fecha);
+        String f = dia+"-"+mes+"-"+anio;
         
         return f;
     }
@@ -168,6 +189,12 @@ public class FechaUtil {
          return miHora;
      }
     
-    
+    public static Date getFechaSinhora (Date fecha){
+        fecha.setHours(0);
+        fecha.setMinutes(0);
+        fecha.setSeconds(0);
+        return fecha;
+        
+    }
      
 }

@@ -38,14 +38,17 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
     }
 
     public Object getFieldValue(JRField jrf) throws JRException {
+// ver como hacer el cierre de la conexion .....................  con la lista
         Object valor=null;
-        Object[] empl = new AsistenciaDaoImp().getLegajoYNombreEmpleadoDeAsis(listaAsistencia.get(index).getIdAsistencia());
+      //  Object[] empl = new AsistenciaDaoImp().getLegajoYNombreEmpleadoDeAsis(listaAsistencia.get(index).getIdAsistencia());
         if ("legajo".equals(jrf.getName())) {
-//            valor =  listaAsistencia.get(index).getEmpleado().getLegajo();
-            valor =  empl[0].toString();
+            valor =  listaAsistencia.get(index).getEmpleado().getLegajo();
+//            valor =  listaAsistencia.get(index).getEstado();
+//            valor =  empl[0].toString();
         } else if ("empleado".equals(jrf.getName())) {
-//            valor =  listaAsistencia.get(index).getEmpleado().getNombre();
-            valor =  empl[1];
+           valor =  listaAsistencia.get(index).getEmpleado().getNombre();
+//            valor =  listaAsistencia.get(index).getEstado();
+////            valor =  empl[1];
         }else if("estado".equals(jrf.getName())){
             valor = listaAsistencia.get(index).getEstado();
         }else if("fecha".equals(jrf.getName())){
