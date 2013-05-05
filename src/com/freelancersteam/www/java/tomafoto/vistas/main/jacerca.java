@@ -9,7 +9,7 @@
  * Created on 15/06/2010, 08:40:17 PM
  */
 
-package com.freelancersteam.www.java.tomafoto.vistas.empleado;
+package com.freelancersteam.www.java.tomafoto.vistas.main;
 
 /**
  *
@@ -36,20 +36,20 @@ public class jacerca extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Acerca");
 
-        panelRectTranslucidoComplete1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        panelRectTranslucidoComplete1.setFont(new java.awt.Font("Calibri", 1, 36));
         panelRectTranslucidoComplete1.setOpaque(false);
 
         labelMetric1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMetric1.setText("DISEÑADO Y CREADO POR");
-        labelMetric1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        labelMetric1.setFont(new java.awt.Font("Calibri", 1, 36));
 
         labelMetric2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMetric2.setText("JOEL PELAEZ  Y  LEONARDO CAMPOS");
-        labelMetric2.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        labelMetric2.setFont(new java.awt.Font("Calibri", 1, 36));
 
         labelMetric4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMetric4.setText("FREELANCERS TEAM");
-        labelMetric4.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        labelMetric4.setFont(new java.awt.Font("Calibri", 1, 36));
 
         javax.swing.GroupLayout panelRectTranslucidoComplete1Layout = new javax.swing.GroupLayout(panelRectTranslucidoComplete1);
         panelRectTranslucidoComplete1.setLayout(panelRectTranslucidoComplete1Layout);
@@ -94,8 +94,8 @@ public class jacerca extends javax.swing.JDialog {
                 .addGap(0, 5, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(630, 402));
-        setLocationRelativeTo(null);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-630)/2, (screenSize.height-402)/2, 630, 402);
     }// </editor-fold>//GEN-END:initComponents
 
 

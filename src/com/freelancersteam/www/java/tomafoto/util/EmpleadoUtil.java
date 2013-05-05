@@ -20,16 +20,17 @@ public class EmpleadoUtil {
     public static Empleado CreateEmpleadoAdministrador(){
         Empleado empleado = new Empleado();
         empleado.setLegajo(123456);
-        empleado.setNombre("Empleado Ficticio");
+        empleado.setNombre("Administrador");
         empleado.setApellido("Administrador ficticio");
-        empleado.setClave("654321");
+        empleado.setClave("123456");
+        empleado.setDni(123456);
         empleado.setAdministrador(true);
         return empleado;
     }
     public static boolean getValidarEmpleado(Empleado e , String clave){
         boolean encontrado= false;
-        if (e!=null) {
-             if ( e.getClave().equals(clave)) {
+        if (e!=null ) {
+             if ( e.getClave().equals(clave)&& e.getAdministrador()) {
              encontrado = true;
            
         }
@@ -43,16 +44,16 @@ public class EmpleadoUtil {
      * @param dni  del empleado a buscar
      * @return  un objeto empleado si existe ,  NULL si no existe
      */
-    public static Empleado getEmpleado(List<Empleado> lista , String dni){
-        Empleado e = null;
-        for (Empleado empleado : lista) {
-            if (empleado.getDni().equals(dni)) {
-                e = empleado;
-                break;
-            }
-        }
-        return e;
-    }
+//    public static Empleado getEmpleado(List<Empleado> lista , String dni){
+//        Empleado e = null;
+//        for (Empleado empleado : lista) {
+//            if (empleado.getDni().equals(dni)) {
+//                e = empleado;
+//                break;
+//            }
+//        }
+//        return e;
+//    }
  
    
     

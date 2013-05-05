@@ -4,14 +4,17 @@
  */
 package com.freelancersteam.www.java.tomafoto.vistas.empresa;
 
+import com.freelancersteam.www.java.tomafoto.dominio.Empresa;
+import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpresaDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
+import java.util.List;
 
 /**
  *
  * @author Leo
  */
 public class AltaEmpresa extends javax.swing.JDialog {
-
+    Empresa e=null ;
     /**
      * Creates new form AltaEmpresa
      */
@@ -19,6 +22,20 @@ public class AltaEmpresa extends javax.swing.JDialog {
         super(parent, modal);
         
         initComponents();
+        // configurar para que sea una sola empresa
+        List<Empresa> lista = new EmpresaDaoImp().listarEmpresa();
+        if (!lista.isEmpty()) {
+            e = lista.get(0);
+            System.out.println(e.getDenominacion());
+            txtCategoria.setText(e.getCategoria());
+            txtCuit.setText(String.valueOf(e.getCuit()));
+            txtDomicilio.setText(e.getDomicilio());
+//            txtFecIni.setText(e.getFechaInicio());
+            txtIngresos.setText(e.getIngresoBruto());
+            txtDenominacion.setText(e.getDenominacion());
+            
+        }
+        
         this.setLocationRelativeTo(this);
         this.setVisible(true);
     }
@@ -33,7 +50,7 @@ public class AltaEmpresa extends javax.swing.JDialog {
     private void initComponents() {
 
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
-        txtNombre = new org.edisoncor.gui.textField.TextFieldRoundIcon();
+        txtDenominacion = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
         labelMetric3 = new org.edisoncor.gui.label.LabelMetric();
         txtCuit = new org.edisoncor.gui.textField.TextFieldRoundIcon();
@@ -50,11 +67,17 @@ public class AltaEmpresa extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ALTA DE EMPRESA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
+        panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " EMPRESA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
 
-        labelMetric2.setText("Razon Social");
+        labelMetric2.setText("Denominacion");
 
         labelMetric3.setText("CUIT");
+
+        txtCuit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuitKeyTyped(evt);
+            }
+        });
 
         labelMetric4.setText("Domicilio");
 
@@ -88,10 +111,6 @@ public class AltaEmpresa extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
                         .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -99,10 +118,6 @@ public class AltaEmpresa extends javax.swing.JDialog {
                         .addComponent(labelMetric4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                         .addComponent(txtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(labelMetric5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
-                        .addComponent(txtFecIni, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelMetric7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -114,7 +129,15 @@ public class AltaEmpresa extends javax.swing.JDialog {
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(labelMetric2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelMetric5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFecIni, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDenominacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -123,7 +146,7 @@ public class AltaEmpresa extends javax.swing.JDialog {
                 .addGap(31, 31, 31)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,9 +193,45 @@ this.dispose();
 }//GEN-LAST:event_btnCancelarActionPerformed
 
 private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-   mensajero.mensajeInformacionAtualizacionOK(this);
-   
+    if (e==null) {
+        System.out.println("entro nuevo");
+        e= new Empresa();
+        e.setCategoria(txtCategoria.getText());
+        e.setCuit(Integer.parseInt(txtCuit.getText()));
+        e.setDenominacion(txtDenominacion.getText());
+        e.setDomicilio(txtDomicilio.getText());
+        //    e.setFechaInicio(null);
+        //    e.setImagen(imagen);
+        e.setIngresoBruto(txtIngresos.getText());
+        new EmpresaDaoImp().addEmpresa(e);
+    } else {
+         System.out.println("entro a modificar");
+
+        e.setCategoria(txtCategoria.getText());
+        e.setCuit(Integer.parseInt(txtCuit.getText()));
+        e.setDenominacion(txtDenominacion.getText());
+        e.setDomicilio(txtDomicilio.getText());
+        //    e.setFechaInicio(null);
+        //    e.setImagen(imagen);
+        e.setIngresoBruto(txtIngresos.getText());
+        new EmpresaDaoImp().upDateEmpresa(e);
+    }
+  
+    
+    mensajero.mensajeInformacionAtualizacionOK(this);
+    this.dispose();
 }//GEN-LAST:event_btnGuardarActionPerformed
+
+private void txtCuitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuitKeyTyped
+   // conusmir los caracteres del legajo excepto los numeros
+        char caracter = evt.getKeyChar();
+        if(((caracter < '0') ||
+         (caracter > '9')) &&
+         (caracter != '\b' /*corresponde a BACK_SPACE*/))
+      {
+         evt.consume();  // ignorar el evento de teclado
+      }
+}//GEN-LAST:event_txtCuitKeyTyped
 
     /**
      * @param args the command line arguments
@@ -227,9 +286,9 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtCategoria;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtCuit;
+    private org.edisoncor.gui.textField.TextFieldRoundIcon txtDenominacion;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDomicilio;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtFecIni;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtIngresos;
-    private org.edisoncor.gui.textField.TextFieldRoundIcon txtNombre;
     // End of variables declaration//GEN-END:variables
 }

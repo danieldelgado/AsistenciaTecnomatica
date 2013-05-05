@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.freelancersteam.www.java.tomafoto.vistas;
+package com.freelancersteam.www.java.tomafoto.vistas.administrador;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,9 +42,9 @@ public class Login extends javax.swing.JDialog {
     private void initComponents() {
 
         panelTranslucidoComplete21 = new org.edisoncor.gui.panel.PanelTranslucidoComplete2();
-        labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
+        Usuario = new org.edisoncor.gui.label.LabelMetric();
         labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
-        txtLegajo = new org.edisoncor.gui.textField.TextFieldRound();
+        txtDni = new org.edisoncor.gui.textField.TextFieldRound();
         txtClave = new org.edisoncor.gui.passwordField.PasswordFieldRound();
         btnLogin = new org.edisoncor.gui.button.ButtonIcon();
         btnCancelar = new org.edisoncor.gui.button.ButtonIcon();
@@ -52,19 +53,30 @@ public class Login extends javax.swing.JDialog {
 
         panelTranslucidoComplete21.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LOGIN", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 28))); // NOI18N
 
-        labelMetric1.setText("Legajo");
+        Usuario.setText("DNI");
 
-        labelMetric2.setText("Clave");
+        labelMetric2.setText("CLAVE");
 
-        txtLegajo.addActionListener(new java.awt.event.ActionListener() {
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLegajoActionPerformed(evt);
+                txtDniActionPerformed(evt);
+            }
+        });
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDniKeyPressed(evt);
+            }
+        });
+
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveKeyPressed(evt);
             }
         });
 
         btnLogin.setBackground(java.awt.SystemColor.controlDkShadow);
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/iconKey2.jpg"))); // NOI18N
-        btnLogin.setText("buttonIcon1");
+        btnLogin.setText("INGRESAR");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -87,18 +99,19 @@ public class Login extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete21Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnLogin, 0, 0, Short.MAX_VALUE)
+                                .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
+                                    .addGap(4, 4, 4)
+                                    .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(48, 48, 48))
         );
         panelTranslucidoComplete21Layout.setVerticalGroup(
@@ -106,16 +119,16 @@ public class Login extends javax.swing.JDialog {
             .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -137,18 +150,17 @@ public class Login extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
+    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLegajoActionPerformed
+    }//GEN-LAST:event_txtDniActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 //         EmpleadoDaoImp empleados = new EmpleadoDaoImp();
          
          try{
-         Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
-         boolean isUsuarioCorrecto = EmpleadoUtil.getValidarEmpleado(e, txtClave.getText());
-         
-         if (isUsuarioCorrecto && e.getAdministrador()) {// si existe el  usuario y es administrador
+         Empleado e = new EmpleadoDaoImp().getEmpleadoAdministrador(Integer.parseInt(txtDni.getText()),true,txtClave.getText());
+                  
+         if (e!=null) {// si existe el  usuario y es administrador
             BotonAceptar=true;
   
             this.dispose();
@@ -160,8 +172,47 @@ public class Login extends javax.swing.JDialog {
          }catch(java.lang.NumberFormatException edd){
            JOptionPane.showMessageDialog(this, "No pueden estar vacios sus datos de  identidad", "Error", JOptionPane.ERROR_MESSAGE);
            setearDatos();
+         }
     }//GEN-LAST:event_btnLoginActionPerformed
-    }
+
+private void txtDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyPressed
+
+      if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+//            btnIngresarActionPerformed(null);
+        }
+         else{
+             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+                 btnLogin.requestFocus();
+             } else {
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
+                     txtClave.requestFocus();
+                 }
+               
+             }
+    
+         }
+}//GEN-LAST:event_txtDniKeyPressed
+
+private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+             btnLoginActionPerformed(null);
+        }
+         else{
+             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+                  txtDni.requestFocus();
+             } else {
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
+                     btnLogin.requestFocus();
+                 }
+               
+             }
+    
+         }
+    
+}//GEN-LAST:event_txtClaveKeyPressed
+  
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -205,19 +256,19 @@ public class Login extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.edisoncor.gui.label.LabelMetric Usuario;
     private org.edisoncor.gui.button.ButtonIcon btnCancelar;
     private org.edisoncor.gui.button.ButtonIcon btnLogin;
-    private org.edisoncor.gui.label.LabelMetric labelMetric1;
     private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete21;
     private org.edisoncor.gui.passwordField.PasswordFieldRound txtClave;
-    private org.edisoncor.gui.textField.TextFieldRound txtLegajo;
+    private org.edisoncor.gui.textField.TextFieldRound txtDni;
     // End of variables declaration//GEN-END:variables
 
     private void setearDatos() {
-       txtLegajo.setText("");
+       txtDni.setText("");
        txtClave.setText("");
-       txtLegajo.requestFocus();
+       txtDni.requestFocus();
     }
     
     

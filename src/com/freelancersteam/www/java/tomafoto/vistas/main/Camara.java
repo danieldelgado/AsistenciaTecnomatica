@@ -9,12 +9,14 @@
  * Created on 11/06/2010, 11:53:04 PM
  */
 
-package com.freelancersteam.www.java.tomafoto.vistas;
+package com.freelancersteam.www.java.tomafoto.vistas.main;
 
 /**
  *
  * @author Cmop
  */
+import com.freelancersteam.www.java.tomafoto.vistas.administrador.Login;
+import com.freelancersteam.www.java.tomafoto.vistas.empleado.GestorEmpleado;
 import com.freelancersteam.www.java.tomafoto.vistas.empleado.AltaEmpleado;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
@@ -28,6 +30,9 @@ import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 
 
+import com.freelancersteam.www.java.tomafoto.vistas.GestorAsistencia;
+import com.freelancersteam.www.java.tomafoto.vistas.administrador.CuentaAdministrador;
+import com.freelancersteam.www.java.tomafoto.vistas.administrador.GestorAdministriador;
 import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -51,7 +56,7 @@ public class Camara extends javax.swing.JFrame{
         initComponents();
         initComponents2();
         setconfigurarcionMenuAdministrador(false);
-        setPaneldeControl(false);
+        txtLDni.requestFocus();
         // para cargar de entrada los empleaedos de entrada, causa lentitud al ejecutar la aplicacion y a veces conflicto con la camara
         //new EmpleadoDaoImp();
         // si la tabla esta vacia por defecto que cree un administrador ficticio
@@ -76,7 +81,7 @@ public class Camara extends javax.swing.JFrame{
         //mnu item
         mnuItmIniciarSesion.setVisible(!b);
         mnuItmCerrarSesion.setVisible(b);
-        mnuItmInciarControl.setVisible(b);
+       // mnuItmInciarControl.setVisible(b);
         mnuItmSalir.setVisible(true);
         
     }
@@ -135,12 +140,9 @@ public class Camara extends javax.swing.JFrame{
         lblFecha = new org.edisoncor.gui.label.LabelCustom();
         cmbElegir = new org.edisoncor.gui.comboBox.ComboBoxRound();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
-        labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
-        txtLegajo = new org.edisoncor.gui.textField.TextFieldRectIcon();
-        txtClave = new org.edisoncor.gui.passwordField.PasswordField();
+        txtLDni = new org.edisoncor.gui.textField.TextFieldRectIcon();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
-        mnuItmInciarControl = new javax.swing.JMenuItem();
         mnuItmIniciarSesion = new javax.swing.JMenuItem();
         mnuItmCerrarSesion = new javax.swing.JMenuItem();
         mnuItmSalir = new javax.swing.JMenuItem();
@@ -149,8 +151,10 @@ public class Camara extends javax.swing.JFrame{
         mnuItemGestorEmpleado = new javax.swing.JMenuItem();
         mnuAsistencia = new javax.swing.JMenu();
         mnuItmeGestorAsistencia = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuEmpresa = new javax.swing.JMenu();
         mnuItmConfigurarEmpresa = new javax.swing.JMenuItem();
+        mnuItmCuentaAdmin = new javax.swing.JMenuItem();
         mnuAcerca = new javax.swing.JMenu();
         mnuItmAcerca = new javax.swing.JMenuItem();
 
@@ -172,7 +176,7 @@ public class Camara extends javax.swing.JFrame{
 
         clockDigital2.setBackground(new java.awt.Color(255, 255, 255));
         clockDigital2.setForeground(new java.awt.Color(255, 255, 255));
-        clockDigital2.setFont(new java.awt.Font("Bodoni MT", 1, 30)); // NOI18N
+        clockDigital2.setFont(new java.awt.Font("Bodoni MT", 1, 30));
 
         clockFace2.setRomano(false);
 
@@ -180,11 +184,11 @@ public class Camara extends javax.swing.JFrame{
         clockFace2.setLayout(clockFace2Layout);
         clockFace2Layout.setHorizontalGroup(
             clockFace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
         clockFace2Layout.setVerticalGroup(
             clockFace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addGap(0, 178, Short.MAX_VALUE)
         );
 
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/login.jpg"))); // NOI18N
@@ -214,30 +218,27 @@ public class Camara extends javax.swing.JFrame{
                 cmbElegirActionPerformed(evt);
             }
         });
-
-        labelMetric1.setText("Legajo");
-
-        labelMetric2.setText("Clave");
-
-        txtLegajo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txtLegajo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLegajoActionPerformed(evt);
+        cmbElegir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbElegirKeyPressed(evt);
             }
         });
-        txtLegajo.addKeyListener(new java.awt.event.KeyAdapter() {
+
+        labelMetric1.setText("DNI");
+        labelMetric1.setFont(new java.awt.Font("Arial", 1, 18));
+
+        txtLDni.setFont(new java.awt.Font("Tahoma", 1, 18));
+        txtLDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLDniActionPerformed(evt);
+            }
+        });
+        txtLDni.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtLegajoKeyPressed(evt);
+                txtLDniKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtLegajoKeyTyped(evt);
-            }
-        });
-
-        txtClave.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtClave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClaveActionPerformed(evt);
+                txtLDniKeyTyped(evt);
             }
         });
 
@@ -246,77 +247,60 @@ public class Camara extends javax.swing.JFrame{
         panelInicioLayout.setHorizontalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelInicioLayout.createSequentialGroup()
-                        .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                .addContainerGap()
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInicioLayout.createSequentialGroup()
                         .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelInicioLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelInicioLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelInicioLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)
-                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelInicioLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelInicioLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInicioLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(clockDigital2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                                            .addComponent(clockFace2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)))
+                                    .addGroup(panelInicioLayout.createSequentialGroup()
+                                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(cmbElegir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtLDni, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                                        .addGap(8, 8, 8)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
+                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)))
+                        .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8))
+                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(11, 11, 11)
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInicioLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(panelInicioLayout.createSequentialGroup()
-                        .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
+                        .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBorder(null);
 
         mnuArchivo.setText("Archivo");
-
-        mnuItmInciarControl.setText("Iniciar el Control");
-        mnuItmInciarControl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuItmInciarControlActionPerformed(evt);
-            }
-        });
-        mnuArchivo.add(mnuItmInciarControl);
 
         mnuItmIniciarSesion.setText("Iniciar Sesion");
         mnuItmIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -369,9 +353,12 @@ public class Camara extends javax.swing.JFrame{
         });
         mnuAsistencia.add(mnuItmeGestorAsistencia);
 
+        jMenuItem1.setText("Borrar Asistencia");
+        mnuAsistencia.add(jMenuItem1);
+
         jMenuBar1.add(mnuAsistencia);
 
-        mnuEmpresa.setText("Empresa");
+        mnuEmpresa.setText("Configurarcion");
 
         mnuItmConfigurarEmpresa.setText("Configurar Datos de Empresa");
         mnuItmConfigurarEmpresa.addActionListener(new java.awt.event.ActionListener() {
@@ -380,6 +367,14 @@ public class Camara extends javax.swing.JFrame{
             }
         });
         mnuEmpresa.add(mnuItmConfigurarEmpresa);
+
+        mnuItmCuentaAdmin.setText("Cuenta Administrador");
+        mnuItmCuentaAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmCuentaAdminActionPerformed(evt);
+            }
+        });
+        mnuEmpresa.add(mnuItmCuentaAdmin);
 
         jMenuBar1.add(mnuEmpresa);
 
@@ -415,17 +410,17 @@ private void cmbElegirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 // TODO add your handling code here:
 }//GEN-LAST:event_cmbElegirActionPerformed
 private void setearDatos(){
-    txtLegajo.setText("");
-    txtClave.setText("");
-    txtLegajo.requestFocus();
+    txtLDni.setText("");
+//    txtClave.setText("");
+    txtLDni.requestFocus();
 }
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
        // validar el empleado
        
          try{
-       Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
-       boolean encontrado = com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil.getValidarEmpleado(e,txtClave.getText().trim());
-       if (encontrado) {
+       Empleado e = new EmpleadoDaoImp().getEmpleadoDni(Integer.parseInt(txtLDni.getText()));
+
+       if (e!=null) {
         // try{
             //saco foto 
             b.capturarImagen();
@@ -458,13 +453,13 @@ private void setearDatos(){
            asistencia.setModificado(false);
            asistencia.setCorrecto(true);
            //agrego ala BD
-           for (int i = 0; i < 1000; i++) {
+//           for (int i = 0; i < 1000; i++) {
           new AsistenciaDaoImp().addAsistencia(asistencia);
           // cuando guardo la asistencia automaticamente hibernate completa el campo idAsistencia con su valor
           //luego si quiero saber el numero que le asigno solo consulto al objeto que le pase 
           System.out.println("id asstencia"+ asistencia.getIdAsistencia());
      
-           }
+//           }
           
                 try {
                     // Detengo la aplicacion para que el usuario vea su foto durante 2 segundos y luego reinicio la camara
@@ -474,7 +469,7 @@ private void setearDatos(){
                 }
            b.getPlayer().start();
           // muestro un mensaje de bienvenida 
-         JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"LEGAJO: "+e.getLegajo()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
             
             //  limpio las cajas de texto                 
               setearDatos();
@@ -519,16 +514,18 @@ private void setearDatos(){
        
     }//GEN-LAST:event_mnuItmIniciarSesionActionPerformed
 
-    private void txtLegajoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyPressed
+    private void txtLDniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLDniKeyPressed
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
-           btnIngresarActionPerformed(null);
+//           btnIngresarActionPerformed(null);
+            cmbElegir.requestFocus();
+                        
         }
          else{
-             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+             if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyCode()==KeyEvent.VK_PLUS) {
                  btnIngresar.requestFocus();
              } else {
-                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
-                     txtClave.requestFocus();
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyCode()==KeyEvent.VK_MINUS) {
+                     cmbElegir.requestFocus();
                  }
                
              }
@@ -536,18 +533,18 @@ private void setearDatos(){
          }
         
         
-    }//GEN-LAST:event_txtLegajoKeyPressed
+    }//GEN-LAST:event_txtLDniKeyPressed
 
     private void btnIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnIngresarKeyPressed
          if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             btnIngresarActionPerformed(null);
         }
          else{
-             if (evt.getKeyCode()==KeyEvent.VK_UP) {
+             if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyCode()==KeyEvent.VK_PLUS) {
                   cmbElegir.requestFocus();
              } else {
-                 if (evt.getKeyCode()==KeyEvent.VK_DOWN) {
-                     txtLegajo.requestFocus();
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyCode()==KeyEvent.VK_MINUS) {
+                     txtLDni.requestFocus();
                  }
                
              }
@@ -555,7 +552,7 @@ private void setearDatos(){
          }
     }//GEN-LAST:event_btnIngresarKeyPressed
 
-    private void txtLegajoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyTyped
+    private void txtLDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLDniKeyTyped
         // conusmir los caracteres del legajo excepto los numeros
         char caracter = evt.getKeyChar();
         if(((caracter < '0') ||
@@ -565,31 +562,45 @@ private void setearDatos(){
          evt.consume();  // ignorar el evento de teclado
       }
         
-    }//GEN-LAST:event_txtLegajoKeyTyped
+    }//GEN-LAST:event_txtLDniKeyTyped
 
     private void mnuItemGestorEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemGestorEmpleadoActionPerformed
       GestorEmpleado ventanaGestorEmpleado= new GestorEmpleado(this, true,GestorEmpleado.MENU);
        
     }//GEN-LAST:event_mnuItemGestorEmpleadoActionPerformed
 
-    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+    private void txtLDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLDniActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtClaveActionPerformed
-
-    private void txtLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLegajoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLegajoActionPerformed
-
-    private void mnuItmInciarControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmInciarControlActionPerformed
-     setPaneldeControl(true);
-     setconfigurarcionMenuAdministrador(false);
-    }//GEN-LAST:event_mnuItmInciarControlActionPerformed
+    }//GEN-LAST:event_txtLDniActionPerformed
 
     private void mnuItmCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmCerrarSesionActionPerformed
        setconfigurarcionMenuAdministrador(false);
-       setPaneldeControl(false);
+       setPaneldeControl(true);
         
     }//GEN-LAST:event_mnuItmCerrarSesionActionPerformed
+
+private void cmbElegirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbElegirKeyPressed
+       if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            btnIngresar.requestFocus();
+        }
+         else{
+             if (evt.getKeyCode()==KeyEvent.VK_UP || evt.getKeyCode()==KeyEvent.VK_PLUS) {
+                  cmbElegir.requestFocus();
+             } else {
+                 if (evt.getKeyCode()==KeyEvent.VK_DOWN || evt.getKeyCode()==KeyEvent.VK_MINUS  ) {
+                     txtLDni.requestFocus();
+                 }
+               
+             }
+    
+         }
+      
+}//GEN-LAST:event_cmbElegirKeyPressed
+
+private void mnuItmCuentaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmCuentaAdminActionPerformed
+      GestorAdministriador ventanaGestAdmin = new GestorAdministriador(this, true);
+      
+}//GEN-LAST:event_mnuItmCuentaAdminActionPerformed
        
     /**
     * @param args the command line arguments
@@ -608,8 +619,8 @@ private void setearDatos(){
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
-    private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelCustom lblFecha;
     private javax.swing.JMenu mnuAcerca;
     private javax.swing.JMenu mnuArchivo;
@@ -621,14 +632,13 @@ private void setearDatos(){
     private javax.swing.JMenuItem mnuItmAltaEmpleado;
     private javax.swing.JMenuItem mnuItmCerrarSesion;
     private javax.swing.JMenuItem mnuItmConfigurarEmpresa;
-    private javax.swing.JMenuItem mnuItmInciarControl;
+    private javax.swing.JMenuItem mnuItmCuentaAdmin;
     private javax.swing.JMenuItem mnuItmIniciarSesion;
     private javax.swing.JMenuItem mnuItmSalir;
     private javax.swing.JMenuItem mnuItmeGestorAsistencia;
     private javax.swing.JPanel panelCam;
     private org.edisoncor.gui.panel.PanelRectTranslucidoComplete panelInicio;
-    private org.edisoncor.gui.passwordField.PasswordField txtClave;
-    private org.edisoncor.gui.textField.TextFieldRectIcon txtLegajo;
+    private org.edisoncor.gui.textField.TextFieldRectIcon txtLDni;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -4,43 +4,75 @@
  */
 package com.freelancersteam.www.java.tomafoto.vistas.empleado;
 
+import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
+import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
+import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
+import com.freelancersteam.www.java.tomafoto.hibernateUtil.Conexion;
+import com.sun.imageio.plugins.jpeg.JPEG;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import sun.net.www.content.image.png;
 
 /**
  *
  * @author Leo
  */
 public class AltaEmpleado extends javax.swing.JDialog {
+//    public static final int MENU =1;
+    public static final int GESTOR_EMPLEADO =1;
+    
+    
     private ImageIcon icono;
-   byte[] imgByte;
+    byte[] imgByte;
     private String pathFoto;
     int resp;// respuesta  si agrego o no una foto el empleado,  
     private boolean seleccionofoto=false;
+    private int legajo=0;
+    private boolean BotonGuardarSelecciono=false;
+    private String nombredelarchivo;
+
+    public boolean isBotonGuardarSelecciono() {
+        return BotonGuardarSelecciono;
+    }
     /**
      * Creates new form Personal
      */
+    
+    
     public AltaEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-        btnNuevo.setEnabled(false);
+        btneEliminar.setVisible(false);
+        btneEliminar.setEnabled(false);
         this.setTitle("NUEVO EMPLEADO");
         setLocationRelativeTo(this);
         setVisible(true);
+        // no se realizara la carga de foto
+       
+        
+        
+    }
+    
+    public AltaEmpleado(java.awt.Frame parent, boolean modal,int legajo) {
+        super(parent, modal);
+        initComponents();
+        this.legajo = legajo;
+        btneEliminar.setVisible(true);
+         this.setTitle("EDITAR EMPLEADO");
+         configurarParaEditar();
+         setLocationRelativeTo(this); 
+         setVisible(true);
         // no se realizara la carga de foto
        
         
@@ -73,13 +105,7 @@ public class AltaEmpleado extends javax.swing.JDialog {
         labelMetric15 = new org.edisoncor.gui.label.LabelMetric();
         txtDni = new org.edisoncor.gui.textField.TextFieldRoundIcon();
         btnCancelarOperacion = new org.edisoncor.gui.button.ButtonIpod();
-        labelMetric16 = new org.edisoncor.gui.label.LabelMetric();
-        txtClave = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        labelMetric17 = new org.edisoncor.gui.label.LabelMetric();
-        txtClaveRepetir = new org.edisoncor.gui.textField.TextFieldRoundIcon();
-        labelMetric18 = new org.edisoncor.gui.label.LabelMetric();
-        cmbTipoUsuario = new org.edisoncor.gui.comboBox.ComboBoxRound();
-        btnNuevo = new org.edisoncor.gui.button.ButtonIpod();
+        btneEliminar = new org.edisoncor.gui.button.ButtonIpod();
         btnGuardar = new org.edisoncor.gui.button.ButtonIpod();
         lblFoto = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -94,6 +120,7 @@ public class AltaEmpleado extends javax.swing.JDialog {
 
         labelMetric9.setText("LEGAJO");
 
+        txtLegajo.setBackground(new java.awt.Color(255, 255, 0));
         txtLegajo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtLegajo.setFont(new java.awt.Font("Calibri", 1, 14));
         txtLegajo.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +169,7 @@ public class AltaEmpleado extends javax.swing.JDialog {
 
         labelMetric15.setText("TELEFONO");
 
+        txtDni.setBackground(new java.awt.Color(255, 255, 0));
         txtDni.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtDni.setFont(new java.awt.Font("Calibri", 1, 14));
         txtDni.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -164,31 +192,12 @@ public class AltaEmpleado extends javax.swing.JDialog {
             }
         });
 
-        labelMetric16.setText("CLAVE");
-
-        txtClave.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtClave.setFont(new java.awt.Font("Calibri", 1, 14));
-        txtClave.addActionListener(new java.awt.event.ActionListener() {
+        btneEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/ELIMINAR3.jpg"))); // NOI18N
+        btneEliminar.setText("ELIMINAR");
+        btneEliminar.setAnimacion(false);
+        btneEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClaveActionPerformed(evt);
-            }
-        });
-
-        labelMetric17.setText("REPETIR CLAVE");
-
-        txtClaveRepetir.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtClaveRepetir.setFont(new java.awt.Font("Calibri", 1, 14));
-
-        labelMetric18.setText("TIPO DE USUARIO");
-
-        cmbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "COMUN", "ADMINISTRADOR" }));
-
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_16.png"))); // NOI18N
-        btnNuevo.setText("NUEVO");
-        btnNuevo.setAnimacion(false);
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
+                btneEliminarActionPerformed(evt);
             }
         });
 
@@ -209,7 +218,7 @@ public class AltaEmpleado extends javax.swing.JDialog {
         lblFoto.setPreferredSize(new java.awt.Dimension(96, 96));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11));
         jButton1.setText("CARGAR FOTO");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,144 +231,108 @@ public class AltaEmpleado extends javax.swing.JDialog {
         panelTranslucidoComplete22Layout.setHorizontalGroup(
             panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelMetric13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addComponent(labelMetric12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addComponent(labelMetric13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelMetric14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(63, 63, 63)
-                                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))))
-                        .addGap(89, 89, 89))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                                    .addComponent(txtLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)))
                             .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(82, 82, 82)
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                                .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(81, 81, 81)
-                                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(labelMetric16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(92, 92, 92)
-                                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                            .addComponent(labelMetric17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtClaveRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                        .addComponent(labelMetric18, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(22, 22, 22))))
+                                .addGap(51, 51, 51)
+                                .addComponent(btneEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                        .addComponent(labelMetric12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTranslucidoComplete22Layout.createSequentialGroup()
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMetric14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtLegajo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, 0, 0, Short.MAX_VALUE)
+                    .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         panelTranslucidoComplete22Layout.setVerticalGroup(
             panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMetric9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(11, 11, 11)
-                                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMetric16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtClaveRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelMetric17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addContainerGap(124, Short.MAX_VALUE)
+                            .addComponent(labelMetric14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelMetric18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(labelMetric10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMetric12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMetric13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(labelMetric14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTranslucidoComplete22Layout.createSequentialGroup()
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelMetric11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelMetric12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelMetric13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelMetric15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton1))
+                .addGap(38, 38, 38)
+                .addGroup(panelTranslucidoComplete22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btneEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelarOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                .addGap(138, 138, 138))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelTranslucidoComplete22, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
         );
 
         pack();
@@ -372,12 +345,19 @@ public class AltaEmpleado extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnCancelarOperacionActionPerformed
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        limpiarVenanaEmpleado();
-        setEnableVentanaInformacionEmpleado(true);
+    private void btneEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneEliminarActionPerformed
+//        limpiarVenanaEmpleado();
+//        setEnableVentanaInformacionEmpleado(true);
+          int resp =JOptionPane.showConfirmDialog(rootPane,"Esta seguro de eliminar el Empleado: \n"+txtApellido.getText()+txtNombre.getText()+" ?", "ELIMINAR EMPLEADO",JOptionPane.OK_CANCEL_OPTION);
+          if (resp==JOptionPane.OK_OPTION) {
+              Empleado e = new EmpleadoDaoImp().getEmpleado(legajo);
+              new EmpleadoDaoImp().deleteEmpleado(e);
+              JOptionPane.showMessageDialog(rootPane, "La Eliminacion se realizo exitosamente ", "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+              this.dispose();
+          }
+     
        
-       
-    }//GEN-LAST:event_btnNuevoActionPerformed
+    }//GEN-LAST:event_btneEliminarActionPerformed
 
     private void txtLegajoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLegajoKeyPressed
         
@@ -402,33 +382,29 @@ public class AltaEmpleado extends javax.swing.JDialog {
       permitirSoloNumero(evt);
     }//GEN-LAST:event_txtLegajoKeyTyped
 
-    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtClaveActionPerformed
-
     private void txtLegajoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLegajoFocusLost
         
-        //validar el empleado
-        
-         try{
-        Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
-         if (e!=null) {
-            mensajero.mensajeError(this, "YA EXISTE EL EMPLEADO CON LEGAJO ="+e.getLegajo());
-            txtLegajo.setText("");
-            txtLegajo.requestFocus();
-        }else{
-             // es uno legajo nuevo , por defecto la clave sera la misma que su legajo
-             txtClave.setText(txtLegajo.getText());
-             txtClaveRepetir.setText(txtLegajo.getText());
-             txtApellido.requestFocus();
-         }
-        }catch(Exception eee){
-            if (!btnCancelarOperacion.isEnabled() ||txtLegajo.getText().trim().isEmpty() ) {
-            mensajero.mensajeError(this, "NO PUEDE ESTAR VACIEO EL CAMPO LEGAJO");
-            txtLegajo.setText("");
-            txtLegajo.requestFocus();
-        }  
-        }
+//        //validar el empleado
+//        
+//         try{
+//        Empleado e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText()));
+//         if (e!=null) {
+//            mensajero.mensajeError(this, "YA EXISTE EL EMPLEADO CON LEGAJO ="+e.getLegajo());
+//            txtLegajo.setText("");
+//            txtLegajo.requestFocus();
+//        }else{
+//             // es uno legajo nuevo , por defecto la clave sera la misma que su legajo
+//             txtClave.setText(txtLegajo.getText());
+//             txtClaveRepetir.setText(txtLegajo.getText());
+//             txtApellido.requestFocus();
+//         }
+//        }catch(Exception eee){
+//            if (!btnCancelarOperacion.isEnabled() ||txtLegajo.getText().trim().isEmpty() ) {
+//            mensajero.mensajeError(this, "NO PUEDE ESTAR VACIEO EL CAMPO LEGAJO");
+//            txtLegajo.setText("");
+//            txtLegajo.requestFocus();
+//        }  
+//        }
 
     }//GEN-LAST:event_txtLegajoFocusLost
 /**
@@ -446,49 +422,70 @@ public class AltaEmpleado extends javax.swing.JDialog {
     }//GEN-LAST:event_txtLegajoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-     // guardar el empleado
-        Empleado e =null;
-        if(txtClave.getText().equals(txtClaveRepetir.getText())) {
-            try {
-                e=  getEmpleadoVentanaInformacion();
-              
-                
-              if (seleccionofoto&& e!=null) {  // agregar la foto
-                File file = new File(pathFoto);
-          
-                byte[] bFile = new byte[(int) file.length()];
-           
-                try {
-                   FileInputStream fileInputStream = new FileInputStream(file);
-                   //convert file into array of bytes
-                   fileInputStream.read(bFile);
-                   fileInputStream.close();
-                 } catch (Exception eio) {
-                   eio.printStackTrace();
-                 }
-                 e.setImagen(bFile);      
-               }
                
-               //agregar un empleado
-               new EmpleadoDaoImp().addEmpleado(e);
-               mensajero.mensajeInformacionAltaOK(this);
+//               try{ 
+               //obtengos los datos ingresados    
                
-               //prueba foto
-               e= new EmpleadoDaoImp().getEmpleado(e.getLegajo());
-               //adaptarTamaño(lblFotoPrueba, new ImageIcon(e.getImagen()).getImage());
-               setEnableVentanaInformacionEmpleado(false);
-               // BOTON
-               btnGuardar.setEnabled(false);
-               btnNuevo.setEnabled(true);
-            } catch (IOException ex) {
-                mensajero.mensajeError(this, "Elija otra foto mas liviana");
-            }
+                   if (legajo==0) {
+                      System.out.println("entro en nuevo"); 
+                       // nuevo empleado
+                       if(validarEmpleadoNuevo()){
+                       System.out.println(validarEmpleadoNuevo());
+                       Empleado e = getDatosEmpleado();
+                       // agrego los datos que faltan
+                       e.setAdministrador(false);
+//                       e.setClave("");
+//                       e.setFechaIngreso(null);
+                       new EmpleadoDaoImp().addEmpleado(e);         
+                       mensajero.mensajeInformacionAltaOK(this);
+                       this.dispose();
+                       }
+                   } else {
+                       System.out.println("entro a modificar"); 
+                       //actualizar empleado
+                       if (validarEmpleadoActulizado()) {                                        
+                             //obtengos los datos y creo el empelado
+                                Empleado e = getDatosEmpleado();
+                             if (legajo!=Integer.parseInt(txtLegajo.getText().trim())) {
+                                 Empleado o = new EmpleadoDaoImp().getEmpleado(legajo);
+                                 List<Asistencia> lista =new AsistenciaDaoImp().listarAsistencia(o); 
+                                 new EmpleadoDaoImp().addEmpleado(e);
+                                 // aqui va borrar el empleado o   porque se modiico la clave primario 
+                             
+                                 new EmpleadoDaoImp().deleteEmpleado(o); 
+                                 Empleado emplUp = new EmpleadoDaoImp().getEmpleado(e.getLegajo());
+                                
+                                for (Asistencia asistencia : lista) {
+                                    asistencia.setEmpleado(emplUp);                
+                                    new AsistenciaDaoImp().addAsistencia(asistencia);
+                                 }
+                                
+                           }else{
+                                new EmpleadoDaoImp().upDateEmpleado(e);         
+
+                             }
+                               // agregar todas la asistencia
+                           
+                            
+                         Conexion.getSessionFactory().close();
+                         mensajero.mensajeInformacionAtualizacionOK(this);
+                         this.dispose();
+                       }
+                       
+                   }
+                 
+//               setEnableVentanaInformacionEmpleado(false);
+//               // BOTON
+//               btnGuardar.setEnabled(false);
+//               btnNuevo.setEnabled(true);
+//               }catch(Exception ez){
+//                  mensajero.mensajeError(this,"Cargue fotos con tamaño menor a 1mb ");
+//                  lblFoto.removeAll();
+//                  seleccionofoto=false;
+//               }
             
-        } else{
-           mensajero.mensajeError(this, "La claves no coinciden, corrija");
-        }
-       
-       
+        
+                
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtDniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDniFocusLost
@@ -512,7 +509,9 @@ public class AltaEmpleado extends javax.swing.JDialog {
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
     
-        FileNameExtensionFilter filter=new FileNameExtensionFilter(".jpg", ".gif", ".png",".jpeg");
+        FileNameExtensionFilter filter=new FileNameExtensionFilter("png", "jpg", "jpeg");
+//        FileNameExtensionFilter filter=new FileNameExtensionFilter("png","JPEG file", "jpg", "jpeg");
+        elegirFichero.addChoosableFileFilter(filter);
         elegirFichero.setFileFilter(filter);
         resp=elegirFichero.showOpenDialog(this);
         
@@ -520,9 +519,11 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                seleccionofoto= true;
                pathFoto = elegirFichero.getSelectedFile().toString();
                File fichero=elegirFichero.getSelectedFile();
+               nombredelarchivo = fichero.getName();
                imgByte = new byte[(int) fichero.length()];
                icono=new ImageIcon(fichero.getPath());
-               adaptarTamaño(lblFoto, icono.getImage());   
+               adaptarTamaño(lblFoto, icono.getImage()); 
+               
         } else if (resp==JFileChooser.CANCEL_OPTION) {
                seleccionofoto = false;
 	             
@@ -575,8 +576,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.edisoncor.gui.button.ButtonIpod btnCancelarOperacion;
     private org.edisoncor.gui.button.ButtonIpod btnGuardar;
-    private org.edisoncor.gui.button.ButtonIpod btnNuevo;
-    private org.edisoncor.gui.comboBox.ComboBoxRound cmbTipoUsuario;
+    private org.edisoncor.gui.button.ButtonIpod btneEliminar;
     private javax.swing.JFileChooser elegirFichero;
     private javax.swing.JButton jButton1;
     private org.edisoncor.gui.label.LabelMetric labelMetric10;
@@ -585,15 +585,10 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private org.edisoncor.gui.label.LabelMetric labelMetric13;
     private org.edisoncor.gui.label.LabelMetric labelMetric14;
     private org.edisoncor.gui.label.LabelMetric labelMetric15;
-    private org.edisoncor.gui.label.LabelMetric labelMetric16;
-    private org.edisoncor.gui.label.LabelMetric labelMetric17;
-    private org.edisoncor.gui.label.LabelMetric labelMetric18;
     private org.edisoncor.gui.label.LabelMetric labelMetric9;
     private javax.swing.JLabel lblFoto;
     private org.edisoncor.gui.panel.PanelTranslucidoComplete2 panelTranslucidoComplete22;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtApellido;
-    private org.edisoncor.gui.textField.TextFieldRoundIcon txtClave;
-    private org.edisoncor.gui.textField.TextFieldRoundIcon txtClaveRepetir;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDireccion;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtDni;
     private org.edisoncor.gui.textField.TextFieldRoundIcon txtLegajo;
@@ -604,18 +599,16 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
      private void limpiarVenanaEmpleado() {
        txtApellido.setText("");
-       txtClave.setText("");
+       
        txtDireccion.setText("");
        txtDni.setText("");
        txtLegajo.setText("");
        txtLocalidad.setText("");
        txtNombre.setText("");
        txtTelefono.setText("");
-       txtClaveRepetir.setText("");
-       cmbTipoUsuario.setSelectedIndex(0);
        //BOTON
       // btnGuardar.setEnabled(true);
-       btnNuevo.setEnabled(false);
+       btneEliminar.setEnabled(false);
       
        // falta par aque  el cursor se situe en el campo legajo por defecyto
        txtLegajo.requestFocus();
@@ -627,43 +620,125 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
      * ademas se encarga de hacer la validaciones de ingreso de datos, en caso de que haya ingresado mal algun 
      * dato , el  metodo retorna NULL
      */
-     private Empleado getEmpleadoVentanaInformacion() throws IOException{
-        Empleado empleado= null;
-     if (txtClave.getText().equals(txtClaveRepetir.getText())) {
-        int legajo = Integer.parseInt(txtLegajo.getText());
-        String clave = txtClave.getText();
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String direccion = txtDireccion.getText();
-        String localidad = txtLocalidad.getText();
-        
-        String telefono = txtTelefono.getText();
-        empleado = new Empleado(legajo, apellido, nombre, clave);
-        empleado.setDireccion(direccion);
-        empleado.setLocalidad(localidad);
-       // agrega el dni solo si se ingreso el dni  
-        if(!txtDni.getText().isEmpty()){
-            int dni = Integer.parseInt(txtDni.getText());
-            empleado.setDni(dni);
-        }
-//         if (icono!=null) {
-//              
-//             empleado.setImagen(imgByte);
-//             
-//         }
-        empleado.setTelefono(telefono);
-        empleado.setAdministrador("ADMINISTRADOR".equals(cmbTipoUsuario.getSelectedItem().toString()));
-    }
        
-        return empleado;
+     public boolean validarEmpleadoActulizado(){
+        boolean todoOk=true;
+       
+//      try{
+        Empleado empOriginal = new EmpleadoDaoImp().getEmpleado(legajo); 
+        System.out.println("empleadooriginal "+empOriginal.getLegajo());
+        if (empOriginal.getDni()!=Integer.parseInt(txtDni.getText().trim())) {
+            // el empleado modifico el campo dni
+             Empleado empDni = new EmpleadoDaoImp().getEmpleadoDni(Integer.parseInt(txtDni.getText().trim())); 
+             if (empDni!=null) {
+                 // el dni existe
+                 todoOk = false;
+                 mensajero.mensajeError(this, "El DNI ya existe");
+             }
+         }
+         if (empOriginal.getLegajo() !=Integer.parseInt(txtLegajo.getText().trim())) {
+             // el empleado modifico el legajo
+            Empleado empLeg = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText().trim()));  
+             if (empLeg!=null) {
+                 // el dni no existe
+                 todoOk = false;
+                 mensajero.mensajeError(this, "El LEGAJO ya existe");
+             }
+         }
+//        }catch(Exception eio){
+//          mensajero.mensajeError(this, "Los campos LEGAJO Y DNI no pueden estar vacios");
+//          todoOk=false;
+//      }        
+        return todoOk;
+     }
+     
+     public boolean validarEmpleadoNuevo(){
+         boolean todoOk=false;
+         try{
+         Empleado empLeg = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtLegajo.getText().trim()));
+         Empleado empDni = new EmpleadoDaoImp().getEmpleadoDni(Integer.parseInt(txtDni.getText().trim()));  
+             //actualizar
+             
+             if (empLeg ==null && empDni==null ){
+                 todoOk= true;
+             }else{
+                 if (empLeg!=null) {
+                   mensajero.mensajeError(this, "El LEGAJO ya existe");
+                } else {
+                   mensajero.mensajeError(this, "El DNI ya existe");
+                     
+                 }
+             }
+           }catch(Exception ex){
+              mensajero.mensajeError(this, "Los campos LEGAJO Y DNI no pueden estar vacios");
+              todoOk=false;
+         }   
+         return todoOk;
+     }
+     public Empleado getDatosEmpleado(){
+                Empleado empleado = new Empleado();
+                
+                empleado.setLegajo(Integer.parseInt(txtLegajo.getText()));
+                empleado.setApellido(txtApellido.getText());
+                empleado.setNombre(txtNombre.getText());
+                empleado.setDireccion(txtDireccion.getText());
+                empleado.setLocalidad(txtLocalidad.getText());
+                empleado.setDni(Integer.parseInt(txtDni.getText()));
+                empleado.setTelefono(txtTelefono.getText());
+                // todos los empleados que se den de alta aqi no seran administradores
+                empleado.setAdministrador(false);
+               
+                
+//        empleado.setAdministrador("ADMINISTRADOR".equals(cmbTipoUsuario.getSelectedItem().toString()));
+                if (seleccionofoto) {  // agregar la foto
+                    System.out.println("seleccionofoto: ");
+                    System.out.println(seleccionofoto);
+                    File file = new File(pathFoto);
+//                    Image e= new ImageIcon(pathFoto).getImage();
+                    
+                    byte[] bFile = new byte[(int) file.length()];
+                       try {
+                        FileInputStream fileInputStream = new FileInputStream(file);
+                        //convert file into array of bytes
+                        fileInputStream.read(bFile);
+                        fileInputStream.close();
+                        empleado.setImagen(bFile);
+                        
+                         System.out.println("puso la imagen en el setimage()");
+                       } catch (Exception eio) {
+                             mensajero.mensajeError(this, "eliga otra foto mas liviana");
+                             empleado= null;
+                       }
+                  
+//                 //1-guardo en fichero :crea img.jpeg donde se encuentra el .jar o sea en la carpeta dist 
+//            File file = new File(new File (nombredelarchivo).getAbsolutePath ()); 
+//            System.out.println("nombre del archiov"+ nombredelarchivo);
+//            ImageIcon b = new ImageIcon(imgByte);
+//            Image scaledInstance = b.getImage().getScaledInstance(lblFoto.getWidth(),lblFoto.getHeight(),Image.SCALE_DEFAULT);
+//            miPlayer.guardaImagenEnFichero(scaledInstance, file);
+//           //2- lo recupero del fichero para poder convertirlo en byte[]
+//            byte[] bFile = new byte[(int) file.length()];
+//            try {
+//                   FileInputStream fileInputStream = new FileInputStream(file);
+//                   //convert file into array of bytes
+//                   fileInputStream.read(bFile);
+//                   fileInputStream.close();
+//                   empleado.setImagen(bFile);
+//                 } catch (Exception eio) {
+//                   eio.printStackTrace();
+//                 }
+//                
+                
+                }
+         return empleado;
      }
      
       private void setEditableVentanaInformacionEmpleado(boolean logico) {
         // editable la ventana configuarcion
         // cajas de texto
         txtLegajo.setEditable(logico);
-        txtClave.setEditable(logico);
-        txtClaveRepetir.setEditable(logico);
+//        txtClave.setEditable(logico);
+//        txtClaveRepetir.setEditable(logico);
         txtApellido.setEditable(logico);
         txtNombre.setEditable(logico);
         txtDni.setEditable(logico);
@@ -671,13 +746,13 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         txtLocalidad.setEditable(logico);
         txtTelefono.setEditable(logico);
         // el cmbo 
-        cmbTipoUsuario.setEnabled(logico);
+//        cmbTipoUsuario.setEnabled(logico);
        //botones
 //        btnCargarFoto.setEnabled(logico);
       
       //  btnCancelarOperacion.setEnabled(logico);
         btnGuardar.setEnabled(logico);
-        btnNuevo.setEnabled(logico);
+        btneEliminar.setEnabled(logico);
         //foco
       //  txtLegajo.requestFocus();
        
@@ -688,8 +763,8 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // editable la ventana configuarcion
         // cajas de texto
         txtLegajo.setEnabled(logico);
-        txtClave.setEnabled(logico);
-        txtClaveRepetir.setEnabled(logico);
+//        txtClave.setEnabled(logico);
+//        txtClaveRepetir.setEnabled(logico);
         txtApellido.setEnabled(logico);
         txtNombre.setEnabled(logico);
         txtDni.setEnabled(logico);
@@ -697,16 +772,35 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         txtLocalidad.setEnabled(logico);
         txtTelefono.setEnabled(logico);
         // el cmbo 
-        cmbTipoUsuario.setEnabled(logico);
+//        cmbTipoUsuario.setEnabled(logico);
        //botones
 //        btnCargarFoto.setEnabled(logico);
       
         btnCancelarOperacion.setEnabled(logico);
         btnGuardar.setEnabled(logico);
-        btnNuevo.setEnabled(logico);
+        btneEliminar.setEnabled(logico);
         //foco
         txtLegajo.requestFocus();
        
+       
+    }
+
+    private void configurarParaEditar() {
+        Empleado e = new EmpleadoDaoImp().getEmpleado(legajo);
+        txtLegajo.setText(String.valueOf(e.getLegajo()));
+        txtApellido.setText(e.getApellido());
+        txtNombre.setText(e.getNombre());
+        txtDireccion.setText(e.getDireccion());
+        txtLocalidad.setText(e.getLocalidad());
+        txtTelefono.setText(e.getTelefono());
+        txtDni.setText(String.valueOf(e.getDni()));
+        // si el empleado tiene foto mostarla incicar como un byte[] esta vacio
+        try {
+           ImageIcon img = new ImageIcon(e.getImagen());
+           adaptarTamaño(lblFoto, img.getImage());     
+        } catch (Exception ex) {
+            
+        }
        
     }
 }

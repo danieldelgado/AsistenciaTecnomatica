@@ -5,7 +5,7 @@
 
 package com.freelancersteam.www.java.tomafoto.estudiandojmf;
 
-import com.freelancersteam.www.java.tomafoto.vistas.Camara;
+import com.freelancersteam.www.java.tomafoto.vistas.main.Camara;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;

@@ -98,7 +98,7 @@ public class verAsistencia extends javax.swing.JDialog {
         labelMetric5.setText("Estado");
         labelMetric5.setFont(new java.awt.Font("Arial", 1, 16));
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SALIDA", "EXTRAORDINARIA" }));
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SALIDA" }));
         cmbEstado.setEnabled(false);
 
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/GUARDAR.jpg"))); // NOI18N
@@ -122,6 +122,11 @@ public class verAsistencia extends javax.swing.JDialog {
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Informe.jpg"))); // NOI18N
         btnReporte.setText("Reporte");
         btnReporte.setAnimacion(false);
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
 
         txtEmpleado.setFont(new java.awt.Font("Tahoma", 1, 14));
 
@@ -259,14 +264,13 @@ public class verAsistencia extends javax.swing.JDialog {
                     .addComponent(txtEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTranslucidoComplete21Layout.createSequentialGroup()
-                        .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelMetric3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelMetric4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTranslucidoComplete21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelMetric6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -336,6 +340,10 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
       mensajero.mensajeInformacionAtualizacionOK(this);
 
 }//GEN-LAST:event_btnGuardarActionPerformed
+
+private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_btnReporteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,12 +423,19 @@ private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         txtFecha.setText(FechaUtil.getDateDDMMAAAA(a.getFecha()));
         txtHora.setText(FechaUtil.getHora(a.getHora()));
         txtLegajo.setText(String.valueOf(e.getLegajo()));
-        //imagen de alta empleado
-        ImageIcon img2 = new ImageIcon(e.getImagen());
-        adaptarTamaño(lblFotoAlta, img2.getImage());
-        //imagen de asistencia
+                //imagen de asistencia
+
         ImageIcon img = new ImageIcon(a.getImagen());
         adaptarTamaño(lblFotoAsistencia, img.getImage());
+        //imagen de alta empleado
+        // esta un try xq puede no tener cargado una foto el empleado
+        try{
+        ImageIcon img2 = new ImageIcon(e.getImagen());
+        adaptarTamaño(lblFotoAlta, img2.getImage());
+        
+        }catch(java.lang.NullPointerException enull){
+            lblFotoAlta.setText("No Disponible");
+        }
         if (a.getCorrecto()) {
             rbtnSi.setSelected(true);
         } else {

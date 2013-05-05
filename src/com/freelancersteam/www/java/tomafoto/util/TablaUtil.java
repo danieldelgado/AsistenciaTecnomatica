@@ -82,7 +82,7 @@ public class TablaUtil {
 }
   public static void prepararTablaEmpleado(DefaultTableModel modelo, JTable tablaEmpleado){
         
-        String[] titulos = {"LEGAJO","EMPLEADO"};
+        String[] titulos = {"LEGAJO","APELLIDO","NOMBRE","DNI","INGRESO"};
        modelo= new DefaultTableModel(null,titulos){
                 	@Override// impleamento este metodo para que la tabla sea no editable
 			public boolean isCellEditable(int row, int column) {
@@ -94,7 +94,7 @@ public class TablaUtil {
     public static void cargarModeloEmpleado(DefaultTableModel modelo,List<Empleado>listaEmpleado,JTable tablaEmpleado){
          modelo =(DefaultTableModel) tablaEmpleado.getModel();
         for ( Empleado a : listaEmpleado) {
-          Object[] filaEmpleado = {a.getLegajo(),a.getApellido() +" "+ a.getNombre()}; 
+          Object[] filaEmpleado = {a.getLegajo(),a.getApellido() , a.getNombre(),a.getDni(),a.getDireccion()}; 
            modelo.addRow(filaEmpleado);
            
            }

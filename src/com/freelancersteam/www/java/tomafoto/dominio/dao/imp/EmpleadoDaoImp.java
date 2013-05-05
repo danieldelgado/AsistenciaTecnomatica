@@ -55,7 +55,8 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
     public void upDateEmpleado(Empleado a) {
        Session session = getSessionFactory().openSession();
         session.beginTransaction();
-        session.update(a);
+        session.saveOrUpdate(a);
+//        session.update(a);
         session.getTransaction().commit();
         session.close();
     }
@@ -67,6 +68,23 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
         session.getTransaction().commit();
         session.close();
         return a;
+    }
+    public Empleado getEmpleadoAdministrador(int dni,boolean adm,String clave){
+        Empleado e = null;
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Empleado.class);
+        criteria.add(Restrictions.eq("dni", dni));
+        criteria.add(Restrictions.eq("administrador", adm));
+        criteria.add(Restrictions.eq("clave",clave));
+        
+        List<Empleado> lista = (List<Empleado>)criteria.list();
+        if (lista.size()!=0) {
+            e = lista.get(0);
+        }         
+        session.getTransaction().commit();
+        session.close();
+        return e;
     }
     public Set<Asistencia> getAsistencia(int idEmpleado) {
         Set<Asistencia> setAsistencia = new HashSet<Asistencia>();
@@ -82,6 +100,38 @@ public class EmpleadoDaoImp extends Conexion implements EmpleadoDao {
         session.getTransaction().commit();
         session.close();
         return setAsistencia;
+    }
+
+   /**
+     * 
+     * @param DniEmpleado dni del empleado a buscar 
+     * @return objeto Empleado si existe , y NULL si no existe
+     */
+    public Empleado getEmpleadoDni(int DniEmpleado) {
+        Empleado e = null;
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Empleado.class);
+        criteria.add(Restrictions.eq("dni", DniEmpleado));
+        List<Empleado> lista = (List<Empleado>)criteria.list();
+        if (lista.size()!=0) {
+            e = lista.get(0);
+        }         
+        session.getTransaction().commit();
+        session.close();
+        return e;
+    }
+
+    public List<Empleado> listarEmpleadoAdministradores() {
+        Session session = getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(Empleado.class);
+        criteria.add(Restrictions.eq("administrador", true));
+        criteria.addOrder(Order.asc("legajo"));
+        List<Empleado> lista = (List<Empleado>)criteria.list();
+        session.getTransaction().commit();
+        session.close();
+        return lista;
     }
 
 

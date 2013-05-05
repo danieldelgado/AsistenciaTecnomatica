@@ -4,6 +4,8 @@
  */
 package com.freelancersteam.www.java.tomafoto.vistas;
 
+import com.freelancersteam.www.java.tomafoto.vistas.main.Camara;
+import com.freelancersteam.www.java.tomafoto.vistas.empleado.GestorEmpleado;
 import com.freelancersteam.www.java.tomafoto.util.TablaUtil;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
@@ -292,29 +294,19 @@ public class GestorAsistencia extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-      // este conjunto auxiliar contindra los datos q se mostrara a la tabla
-//      Set<Asistencia> conjuntoAsistencia= new HashSet<Asistencia>();
+ 
      listaAsistencia= new  ArrayList<Asistencia>();
-         
+       if (dateInicio.getDate().getTime()<=dateFin.getDate().getTime()) {
+            //  verificar de que la fecha inicio no sea mayor que la fecha fin
         if (cmbBusqueda.getSelectedIndex()==1) {
-           //busqueda empleado por legajo
-           
-            try {
-//              
+            
+           //busqueda empleado por legajo  
+            try {        
               Empleado  e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtBusqueda.getText()));
             
-            
-              //  System.out.println(e.getLegajo()+"");
             if (e!=null) {
-//               List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e);        
-                 listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
-
-                      
-                   
-//              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
-//              System.out.println(conjuntoAsistencia.size()+"");
-        
-                  
+              listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+          
             }else{
             JOptionPane.showMessageDialog(this, "NO EXISTE EL EMPLEADO","ERROR",JOptionPane.ERROR_MESSAGE);
 
@@ -325,36 +317,19 @@ public class GestorAsistencia extends javax.swing.JDialog {
        
         } else {
               // Busqueda asistencias de todos los empleados
-//              List<Asistencia> listaAsistencia = new AsistenciaDaoImp().listarAsistencia();
                listaAsistencia = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
-//              conjuntoAsistencia = new HashSet<Asistencia>(listaAsistencia);
-              //System.out.println(conjuntoAsistencia.size());
 
             }
-           //  verificar de que la fecha inicio no sea mayor que la fecha fin
-            if (dateInicio.getDate().getTime()>dateFin.getDate().getTime()) {
+          
+       }else{  
                JOptionPane.showMessageDialog(this, "La fecha inicio no puedes ser mayor a la fecha Fin ","ERROR",JOptionPane.ERROR_MESSAGE);
-
-        } else {
+       }
         
-            //filtrao por año
-//            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorAño(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-             
-            //filtrado por mes
-//            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorMes(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-                        
-              //filtrado por dia
-//            conjuntoAsistencia = com.freelancersteam.www.java.tomafoto.util.AsistenciaUtil.getAsistenciasFiltradoPorDia(conjuntoAsistencia, dateInicio.getDate(), dateFin.getDate());
-            
-     //----AQUI HAY QUE MODIFICAR EL ASISTENCIA.DAOIMP PARA QEU AHI LO ORDENE  Y TABLA UTIL PARA Q MANEJE LISTA EN VEZ DE CONJUNTO-----//      
-           // creo un conjunto nuevo pero agregandolo un comparador para que ordene por idAsistencia a los datos
-//           conjunto = new TreeSet<Asistencia>(new OrdenarAsistenciaPorId());
-//           conjunto.addAll(conjuntoAsistencia);
-           //muestro en la tabla
+    
            TablaUtil.prepararTablaAsistencia(modelo, tblAsistencia); 
            TablaUtil.cargarModeloAsistencia(modelo,listaAsistencia , tblAsistencia);
             
-            }              
+                          
     }//GEN-LAST:event_btnBuscarActionPerformed
    
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
@@ -399,15 +374,15 @@ public class GestorAsistencia extends javax.swing.JDialog {
     }//GEN-LAST:event_rdbHoyActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-//       this.dispose();
+       this.dispose();
         
-        List<Asistencia> lista = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
-        System.out.println(lista.size());
-        if(cmbBusqueda.getSelectedIndex()==1){
-             Empleado e  = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtBusqueda.getText()));
-             List<Asistencia> lista2 = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
-             System.out.println(lista2.size());
-        }
+//        List<Asistencia> lista = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+//        System.out.println(lista.size());
+//        if(cmbBusqueda.getSelectedIndex()==1){
+//             Empleado e  = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtBusqueda.getText()));
+//             List<Asistencia> lista2 = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+//             System.out.println(lista2.size());
+//        }
             
     }//GEN-LAST:event_btnSalirActionPerformed
 

@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 29-abr-2013 10:49:10 by Hibernate Tools 3.2.1.GA
+// Generated 04-may-2013 9:13:04 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -20,11 +20,12 @@ public class Asistencia  implements java.io.Serializable {
      private Date fechaModificado;
      private Boolean correcto;
      private String observacion;
+     private Boolean reajuste;
 
     public Asistencia() {
     }
 
-    public Asistencia(Empleado empleado, String estado, byte[] imagen, Date fecha, Date hora, Boolean modificado, Date fechaModificado, Boolean correcto, String observacion) {
+    public Asistencia(Empleado empleado, String estado, byte[] imagen, Date fecha, Date hora, Boolean modificado, Date fechaModificado, Boolean correcto, String observacion, Boolean reajuste) {
        this.empleado = empleado;
        this.estado = estado;
        this.imagen = imagen;
@@ -34,6 +35,7 @@ public class Asistencia  implements java.io.Serializable {
        this.fechaModificado = fechaModificado;
        this.correcto = correcto;
        this.observacion = observacion;
+       this.reajuste = reajuste;
     }
    
     public Integer getIdAsistencia() {
@@ -105,6 +107,13 @@ public class Asistencia  implements java.io.Serializable {
     
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+    public Boolean getReajuste() {
+        return this.reajuste;
+    }
+    
+    public void setReajuste(Boolean reajuste) {
+        this.reajuste = reajuste;
     }
 
 

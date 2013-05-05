@@ -8,16 +8,10 @@ import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.AsistenciaDao;
 import com.freelancersteam.www.java.tomafoto.hibernateUtil.Conexion;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -33,6 +27,8 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
         //session.beginTransaction();
         Criteria criteria = session.createCriteria(Asistencia.class);
         criteria.addOrder(Order.asc("idAsistencia"));
+        
+        
          List<Asistencia> lista = (List<Asistencia>)criteria.list();
         //session.getTransaction().commit();        
         session.close();
@@ -43,6 +39,7 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
         Session session = getSessionFactory().openSession();
        // session.beginTransaction();
         Criteria criteria = session.createCriteria(Asistencia.class);
+//        criteria.addOrder(Order.asc("fecha"));
         criteria.addOrder(Order.asc("idAsistencia"));
         criteria.add(Restrictions.eq("empleado", e));
         List<Asistencia> lista = criteria.list();
@@ -111,8 +108,9 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     public List<Asistencia> listarAsistencia(Date fechaInicio, Date fechaFin) {
         Session session = getSessionFactory().openSession();
           Criteria criteria = session.createCriteria(Asistencia.class);
-        criteria.addOrder(Order.asc("idAsistencia"));
-         criteria.add( Restrictions.ge("fecha", fechaInicio) );
+//          criteria.addOrder(Order.asc("fecha"));
+         criteria.addOrder(Order.asc("idAsistencia"));
+          criteria.add( Restrictions.ge("fecha", fechaInicio) );
          criteria.add( Restrictions.le("fecha", fechaFin) ); 
          List<Asistencia> lista = criteria.list();
 //         session.close();
@@ -131,7 +129,8 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     public List<Asistencia> listarAsistencia(Empleado e ,Date fechaInicio, Date fechaFin) {
         Session session = getSessionFactory().openSession();
          Criteria criteria = session.createCriteria(Asistencia.class);
-        criteria.addOrder(Order.asc("idAsistencia"));
+//        criteria.addOrder(Order.asc("fecha"));
+         criteria.addOrder(Order.asc("idAsistencia"));
          criteria.add(Restrictions.eq("empleado", e));
          criteria.add( Restrictions.ge("fecha", fechaInicio) );
          criteria.add( Restrictions.le("fecha", fechaFin) ); 

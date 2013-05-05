@@ -9,7 +9,7 @@ package com.freelancersteam.www.java.tomafoto.estudiandojmf;
  *
  * @author Cmop
  */
-import com.freelancersteam.www.java.tomafoto.vistas.Camara;
+import com.freelancersteam.www.java.tomafoto.vistas.main.Camara;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Vector;

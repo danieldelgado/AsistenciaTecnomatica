@@ -1,7 +1,8 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 29-abr-2013 10:49:10 by Hibernate Tools 3.2.1.GA
+// Generated 04-may-2013 9:13:04 by Hibernate Tools 3.2.1.GA
 
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +14,10 @@ public class Empleado  implements java.io.Serializable {
 
      private int legajo;
      private Empresa empresa;
+     private int dni;
      private String apellido;
      private String nombre;
-     private Integer dni;
+     private Date fechaIngreso;
      private String direccion;
      private String localidad;
      private String clave;
@@ -28,18 +30,17 @@ public class Empleado  implements java.io.Serializable {
     }
 
 	
-    public Empleado(int legajo, String apellido, String nombre, String clave) {
+    public Empleado(int legajo, int dni) {
         this.legajo = legajo;
-        this.apellido = apellido;
-        this.nombre = nombre;
-        this.clave = clave;
+        this.dni = dni;
     }
-    public Empleado(int legajo, Empresa empresa, String apellido, String nombre, Integer dni, String direccion, String localidad, String clave, Boolean administrador, byte[] imagen, String telefono, Set asistencias) {
+    public Empleado(int legajo, Empresa empresa, int dni, String apellido, String nombre, Date fechaIngreso, String direccion, String localidad, String clave, Boolean administrador, byte[] imagen, String telefono, Set asistencias) {
        this.legajo = legajo;
        this.empresa = empresa;
+       this.dni = dni;
        this.apellido = apellido;
        this.nombre = nombre;
-       this.dni = dni;
+       this.fechaIngreso = fechaIngreso;
        this.direccion = direccion;
        this.localidad = localidad;
        this.clave = clave;
@@ -63,6 +64,13 @@ public class Empleado  implements java.io.Serializable {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
+    public int getDni() {
+        return this.dni;
+    }
+    
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
     public String getApellido() {
         return this.apellido;
     }
@@ -77,12 +85,12 @@ public class Empleado  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public Integer getDni() {
-        return this.dni;
+    public Date getFechaIngreso() {
+        return this.fechaIngreso;
     }
     
-    public void setDni(Integer dni) {
-        this.dni = dni;
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
     public String getDireccion() {
         return this.direccion;

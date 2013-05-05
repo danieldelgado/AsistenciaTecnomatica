@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 29-abr-2013 10:49:33 by Hibernate Tools 3.2.1.GA -->
+<!-- Generated 04-may-2013 9:13:04 by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.freelancersteam.www.java.tomafoto.dominio.Asistencia" table="asistencia" catalog="toma_foto">
         <id name="idAsistencia" type="java.lang.Integer">
             <column name="ID_ASISTENCIA" />
             <generator class="identity" />
         </id>
-        <many-to-one name="empleado" class="com.freelancersteam.www.java.tomafoto.dominio.Empleado" fetch="join" >
+        <many-to-one name="empleado" class="com.freelancersteam.www.java.tomafoto.dominio.Empleado" fetch="select">
             <column name="LEGAJO" />
         </many-to-one>
         <property name="estado" type="string">
@@ -34,6 +34,9 @@
         </property>
         <property name="observacion" type="string">
             <column name="OBSERVACION" length="200" />
+        </property>
+        <property name="reajuste" type="java.lang.Boolean">
+            <column name="REAJUSTE" />
         </property>
     </class>
 </hibernate-mapping>

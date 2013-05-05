@@ -5,7 +5,7 @@
 
 package com.freelancersteam.www.java.tomafoto.estudiandojmf;
 
-import com.freelancersteam.www.java.tomafoto.vistas.Camara;
+import com.freelancersteam.www.java.tomafoto.vistas.main.Camara;
 import javax.media.Player;
 
 /**
