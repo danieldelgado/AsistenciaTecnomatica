@@ -47,6 +47,8 @@ public class jacerca extends javax.swing.JDialog {
         labelMetric2.setText("JOEL PELAEZ  Y  LEONARDO CAMPOS");
         labelMetric2.setFont(new java.awt.Font("Calibri", 1, 36));
 
+        panelCurves2.setBackground(new java.awt.Color(0, 0, 0));
+
         labelMetric4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMetric4.setText("FREELANCERS TEAM");
         labelMetric4.setFont(new java.awt.Font("Calibri", 1, 36));
@@ -56,15 +58,16 @@ public class jacerca extends javax.swing.JDialog {
         panelRectTranslucidoComplete1Layout.setHorizontalGroup(
             panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(panelCurves2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelMetric1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelMetric2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelMetric4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(panelCurves2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRectTranslucidoComplete1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelRectTranslucidoComplete1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMetric1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                            .addComponent(labelMetric2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                            .addComponent(labelMetric4, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelRectTranslucidoComplete1Layout.setVerticalGroup(
@@ -91,7 +94,7 @@ public class jacerca extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelRectTranslucidoComplete1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();

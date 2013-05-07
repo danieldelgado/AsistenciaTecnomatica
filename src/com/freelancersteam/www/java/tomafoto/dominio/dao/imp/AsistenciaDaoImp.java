@@ -24,26 +24,26 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     public List<Asistencia> listarAsistencia() {
         
         Session session = getSessionFactory().openSession();
-        //session.beginTransaction();
+        session.beginTransaction();
         Criteria criteria = session.createCriteria(Asistencia.class);
         criteria.addOrder(Order.asc("idAsistencia"));
         
         
          List<Asistencia> lista = (List<Asistencia>)criteria.list();
-        //session.getTransaction().commit();        
+        session.getTransaction().commit();        
         session.close();
         return lista;
        
     }
     public List<Asistencia> listarAsistencia(Empleado e) {
         Session session = getSessionFactory().openSession();
-       // session.beginTransaction();
+        session.beginTransaction();
         Criteria criteria = session.createCriteria(Asistencia.class);
 //        criteria.addOrder(Order.asc("fecha"));
         criteria.addOrder(Order.asc("idAsistencia"));
         criteria.add(Restrictions.eq("empleado", e));
         List<Asistencia> lista = criteria.list();
-     //   session.getTransaction().commit();
+        session.getTransaction().commit();
         session.close();
         return lista;
        
