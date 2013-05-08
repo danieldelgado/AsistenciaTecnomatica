@@ -23,11 +23,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CuentaAdministrador extends javax.swing.JDialog {
     Empleado e;
+    java.awt.Frame parent;
     
 
     /** Creates new form CuentaAdministrador */
     public CuentaAdministrador(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+       this.parent = parent;
         initComponents();
         this.setTitle("NUEVO ADMINISTRADOR");
         btneEliminar.setVisible(false);
@@ -256,7 +258,7 @@ private void txtNombreAdminActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
         // instanceo la ventana a donde quiero ir
-        GestorEmpleado ventanaPersonal = new GestorEmpleado(null, true, GestorEmpleado.VENTANA_GESTOR_ASISTENCIA);
+        GestorEmpleado ventanaPersonal = new GestorEmpleado(parent, true, GestorEmpleado.VENTANA_GESTOR_ASISTENCIA);
         if (ventanaPersonal.isBotonSeleccionado()) {
             // si el usuario selecciono un empleado
             e = new EmpleadoDaoImp().getEmpleado(ventanaPersonal.getLegajo());

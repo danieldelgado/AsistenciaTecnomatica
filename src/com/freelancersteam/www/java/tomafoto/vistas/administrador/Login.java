@@ -67,6 +67,9 @@ public class Login extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDniKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
+            }
         });
 
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -220,6 +223,10 @@ private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void btnCancelarOperacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarOperacion1ActionPerformed
      this.dispose();// TODO add your handling code here:
 }//GEN-LAST:event_btnCancelarOperacion1ActionPerformed
+
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        permitirSoloNumero(evt);
+    }//GEN-LAST:event_txtDniKeyTyped
   
     
     

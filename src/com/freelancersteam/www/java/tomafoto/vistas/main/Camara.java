@@ -55,16 +55,13 @@ public class Camara extends javax.swing.JFrame{
     /** Creates new form Camara */
     public Camara(){
         initComponents();
-//        getClass().getResource(null)
-//        setIconImage(new ImageIcon("src/com/freelancersteam/www/java/tomafoto/images/iconTecnomatica.png").getImage());
         setIconImage(new ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/iconTecnomatica.png")).getImage());
 //        D:\Poyectos Git\TomaFoto\src\com\freelancersteam\www\java\tomafoto\images\iconTecnomatica.png
         initComponents2();
         setconfigurarcionMenuAdministrador(false);
         txtLDni.requestFocus();
         // para cargar de entrada los empleaedos de entrada, causa lentitud al ejecutar la aplicacion y a veces conflicto con la camara
-        //new EmpleadoDaoImp();
-        // si la tabla esta vacia por defecto que cree un administrador ficticio
+             // si la tabla esta vacia por defecto que cree un administrador ficticio
         int numeroEmpleado = new EmpleadoDaoImp().listarEmpleado().size();
         if (numeroEmpleado==0) {
             //crea un empleado ficticio

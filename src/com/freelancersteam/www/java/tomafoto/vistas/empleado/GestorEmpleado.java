@@ -30,14 +30,17 @@ public class GestorEmpleado extends javax.swing.JDialog {
     private boolean seleccionado;
     private int legajo;
     int quienloyamo;
+    java.awt.Frame parent;// indica quien es el padre. me sirve para pasar el icono de la aplcacion
   //  EmpleadoDao empleados ;
-   ImageIcon icono;; // correspondiente a la imagen del usuario
+   ImageIcon icono;; // correspondiente a la im agen del usuario
     public GestorEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.parent = parent;
         initComponents();
-        this.setTitle("GESTOR DE EMPLEADOS");
-        initComponentesVentana();    
         
+        
+        initComponentesVentana();    
+        this.setTitle("Constantes.TITLE_APP");
         setLocationRelativeTo(this);
         setVisible(true);
         
@@ -45,8 +48,11 @@ public class GestorEmpleado extends javax.swing.JDialog {
     }
     public GestorEmpleado(java.awt.Frame parent, boolean modal,int quienloyamo) {
         super(parent, modal);
+        this.parent = parent;
         this.quienloyamo = quienloyamo;
         initComponents();
+        this.setTitle("Constantes.TITLE_APP");
+
          
         if (MENU== quienloyamo) {
             //boton seleccionar no debe aparecer
@@ -354,7 +360,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         if (fila!= -1) {
             legajo = (Integer) tblEmpleado.getModel().getValueAt(tblEmpleado.getSelectedRow(), 0);
             //LLAMAR A A LA VENTANA NUEVO EMPLEADO PARA EDITAR
-            AltaEmpleado ventanaEditEmpleado = new AltaEmpleado(null, true,legajo);
+            AltaEmpleado ventanaEditEmpleado = new AltaEmpleado(parent, true,legajo);
             cargarTablaConEmpleado();    
         }else{
             JOptionPane.showMessageDialog(null, "Debes seleccionar un Empleado de la Tabla");
@@ -363,7 +369,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
 
-        AltaEmpleado ventanaNuevoEmpleado = new AltaEmpleado(null, true);
+        AltaEmpleado ventanaNuevoEmpleado = new AltaEmpleado(parent, true);
 //        if (ventanaNuevoEmpleado.isBotonGuardarSelecciono()) {
             cargarTablaConEmpleado();
 //            ventanaNuevoEmpleado.dispose();

@@ -7,6 +7,7 @@ package com.freelancersteam.www.java.tomafoto.vistas.empresa;
 import com.freelancersteam.www.java.tomafoto.dominio.Empresa;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpresaDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
+import com.freelancersteam.www.java.tomafoto.util.Constantes;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class AltaEmpresa extends javax.swing.JDialog {
             txtDenominacion.setText(e.getDenominacion());
             
         }
-        
+        this.setTitle(Constantes.TITLE_APP);
         this.setLocationRelativeTo(this);
         this.setVisible(true);
     }
