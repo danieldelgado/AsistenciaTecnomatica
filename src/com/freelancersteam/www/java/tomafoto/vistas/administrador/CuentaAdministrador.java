@@ -269,8 +269,9 @@ private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) 
 private void btneEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneEliminarActionPerformed
           int resp =JOptionPane.showConfirmDialog(rootPane,"Esta seguro de eliminar la cuenta Administrador de: \n"+txtNombreAdmin.getText()+" ?", "ELIMINAR PRIVILEGIOS DE ADMINISTRADOR",JOptionPane.OK_CANCEL_OPTION);
           if (resp==JOptionPane.OK_OPTION) {
-              
-              new EmpleadoDaoImp().deleteEmpleado(e);
+              e.setAdministrador(false);
+              e.setClave(null);
+              new EmpleadoDaoImp().upDateEmpleado(e);
               JOptionPane.showMessageDialog(rootPane, "La Eliminacion se realizo exitosamente ", "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
               this.dispose();
           }
