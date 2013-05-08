@@ -169,8 +169,8 @@ public class Camara extends javax.swing.JFrame{
         setTitle("CONTROL DE ASISTENCIA");
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(560, 432));
-        setResizable(false);
         setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -202,9 +202,9 @@ public class Camara extends javax.swing.JFrame{
             .addGap(0, 178, Short.MAX_VALUE)
         );
 
-        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Profile.png"))); // NOI18N
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/MB_0004_photo.png"))); // NOI18N
         btnIngresar.setText("MARCAR");
-        btnIngresar.setAnimacion(false);
+        btnIngresar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/MB_0004_photo_1.png"))); // NOI18N
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -221,7 +221,7 @@ public class Camara extends javax.swing.JFrame{
         lblFecha.setText("Martes 12, de Marzo de 2013");
         lblFecha.setBorde(true);
         lblFecha.setColorDeSombra(new java.awt.Color(255, 255, 255));
-        lblFecha.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblFecha.setFont(new java.awt.Font("Arial", 1, 18));
         lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
 
         cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SALIDA" }));
@@ -346,7 +346,7 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmIniciarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         mnuItmIniciarSesion.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmIniciarSesion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        mnuItmIniciarSesion.setFont(new java.awt.Font("Calibri", 0, 12));
         mnuItmIniciarSesion.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Profile.png"))); // NOI18N
         mnuItmIniciarSesion.setText("Iniciar Sesion");
@@ -359,8 +359,9 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         mnuItmCerrarSesion.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmCerrarSesion.setFont(new java.awt.Font("Calibri", 0, 12));
+        mnuItmCerrarSesion.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         mnuItmCerrarSesion.setForeground(new java.awt.Color(204, 204, 204));
+        mnuItmCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/cerrar sesion - copia.png"))); // NOI18N
         mnuItmCerrarSesion.setText("Cerrar Sesion");
         mnuItmCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,7 +375,7 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         mnuItmSalir.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmSalir.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        mnuItmSalir.setFont(new java.awt.Font("Calibri", 0, 12));
         mnuItmSalir.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Exit.png"))); // NOI18N
         mnuItmSalir.setText("Salir");
@@ -391,7 +392,7 @@ public class Camara extends javax.swing.JFrame{
         mnuItemGestorEmpleado.setBackground(new java.awt.Color(51, 51, 51));
         mnuItemGestorEmpleado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         mnuItemGestorEmpleado.setForeground(new java.awt.Color(204, 204, 204));
-        mnuItemGestorEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_32.png"))); // NOI18N
+        mnuItemGestorEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/gestor empleado.png"))); // NOI18N
         mnuItemGestorEmpleado.setText("Gestor de Empleado");
         mnuItemGestorEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,7 +403,7 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmAltaEmpleado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         mnuItmAltaEmpleado.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmAltaEmpleado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        mnuItmAltaEmpleado.setFont(new java.awt.Font("Calibri", 0, 12));
         mnuItmAltaEmpleado.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmAltaEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/user_32.png"))); // NOI18N
         mnuItmAltaEmpleado.setText("Alta de Empleado");
@@ -424,7 +425,7 @@ public class Camara extends javax.swing.JFrame{
         mnuItmeGestorAsistencia.setBackground(new java.awt.Color(51, 51, 51));
         mnuItmeGestorAsistencia.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         mnuItmeGestorAsistencia.setForeground(new java.awt.Color(204, 204, 204));
-        mnuItmeGestorAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Modify.png"))); // NOI18N
+        mnuItmeGestorAsistencia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/asistencia empelado.png"))); // NOI18N
         mnuItmeGestorAsistencia.setText("Gestor de Asistencia");
         mnuItmeGestorAsistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -437,6 +438,7 @@ public class Camara extends javax.swing.JFrame{
         jMenuItem1.setBackground(new java.awt.Color(51, 51, 51));
         jMenuItem1.setFont(new java.awt.Font("Calibri", 0, 12));
         jMenuItem1.setForeground(new java.awt.Color(204, 204, 204));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Modify.png"))); // NOI18N
         jMenuItem1.setText("Borrar Asistencia");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,7 +456,7 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmConfigurarEmpresa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_MASK));
         mnuItmConfigurarEmpresa.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmConfigurarEmpresa.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        mnuItmConfigurarEmpresa.setFont(new java.awt.Font("Calibri", 0, 12));
         mnuItmConfigurarEmpresa.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmConfigurarEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/home_32.png"))); // NOI18N
         mnuItmConfigurarEmpresa.setText("Configurar Datos de Empresa");
@@ -467,7 +469,7 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmCuentaAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
         mnuItmCuentaAdmin.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmCuentaAdmin.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        mnuItmCuentaAdmin.setFont(new java.awt.Font("Calibri", 0, 12));
         mnuItmCuentaAdmin.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmCuentaAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/key_32.png"))); // NOI18N
         mnuItmCuentaAdmin.setText("Cuenta Administrador");
@@ -487,7 +489,7 @@ public class Camara extends javax.swing.JFrame{
 
         mnuItmAcerca.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         mnuItmAcerca.setBackground(new java.awt.Color(51, 51, 51));
-        mnuItmAcerca.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        mnuItmAcerca.setFont(new java.awt.Font("Calibri", 0, 12));
         mnuItmAcerca.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Info.png"))); // NOI18N
         mnuItmAcerca.setText("Acerca");
@@ -505,9 +507,7 @@ public class Camara extends javax.swing.JFrame{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

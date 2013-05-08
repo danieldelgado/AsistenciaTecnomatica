@@ -67,25 +67,32 @@ public class FechaUtil {
             } else {
                 if (index == Calendar.TUESDAY) {
                 dia ="MARTES";
-            } else {
+            } 
+                if (index == Calendar.WEDNESDAY) {
+                dia ="MIERCOLES";
+            } 
+                else {
                     if (index == Calendar.THURSDAY) {
                 dia ="JUEVES";
             } else {
                   if (index == Calendar.FRIDAY) {
                 dia ="VIERNES";
             } else {
-                   dia ="SABADO";   
+                  if (index == Calendar.SATURDAY) {
+                dia ="SABADO";    
+                     
             }      
             }
             }
             }
+        }
         }
         
        return dia;
     }
     
     public static String  getMesString(Date fecha){
-        String mes=null;
+        String mes="";
          GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(fecha);
         int index  = gc.get(Calendar.MONTH);

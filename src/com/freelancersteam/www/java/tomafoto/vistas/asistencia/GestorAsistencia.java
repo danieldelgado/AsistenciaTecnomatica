@@ -104,11 +104,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
             }
         });
 
-        panelShadow1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FILTRO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14))); // NOI18N
+        panelShadow1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FILTRO", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Calibri", 1, 14), new java.awt.Color(204, 204, 204))); // NOI18N
         panelShadow1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        rdbHoy.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbHoy);
         rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12));
+        rdbHoy.setForeground(new java.awt.Color(255, 255, 255));
         rdbHoy.setSelected(true);
         rdbHoy.setText("Hoy");
         rdbHoy.addActionListener(new java.awt.event.ActionListener() {
@@ -118,8 +120,10 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
         panelShadow1.add(rdbHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        rdbMes.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbMes);
-        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12));
+        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbMes.setForeground(new java.awt.Color(255, 255, 255));
         rdbMes.setText("Mes Actual");
         rdbMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,9 +132,10 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
         panelShadow1.add(rdbMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
 
-        rdbFecha.setBackground(new java.awt.Color(255, 255, 255));
+        rdbFecha.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbFecha);
         rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12));
+        rdbFecha.setForeground(new java.awt.Color(255, 255, 255));
         rdbFecha.setText("Entre las Fechas");
         rdbFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,9 +144,11 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
         panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18));
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Y");
-        panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+        panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 30, 40, 30));
 
         dateInicio.setBackground(new java.awt.Color(255, 255, 255));
         dateInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -151,7 +158,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         dateFin.setBackground(new java.awt.Color(255, 255, 255));
         dateFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        dateFin.setFont(new java.awt.Font("Calibri", 1, 14));
+        dateFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         dateFin.setMaxSelectableDate(new Date());
         panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
@@ -171,8 +178,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/SALIR.jpg"))); // NOI18N
-        btnSalir.setText("SALIR");
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Atras.png"))); // NOI18N
+        btnSalir.setText("ATRAS");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
