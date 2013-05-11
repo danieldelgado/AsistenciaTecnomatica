@@ -12,6 +12,7 @@ import com.freelancersteam.www.java.tomafoto.dominio.Asistencia;
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.util.Constantes;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import com.freelancersteam.www.java.tomafoto.util.ReporteAsitenciaJRDataSource;
 import java.awt.Color;
@@ -36,13 +37,14 @@ public class GestorAsistencia extends javax.swing.JDialog {
 //    Set<Asistencia> conjunto;
     DefaultTableModel modelo;
     private List<Asistencia> listaAsistencia;
-
+    java.awt.Frame parent;
     /**
      * Creates new form GestorAsistencia
      */
     public GestorAsistencia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.parent = parent;
         //las fechas por defectos desabikitada porque rbtn  en fecha  actual
         dateInicio.setDate(new Date());
         dateFin.setDate(new Date());
@@ -52,7 +54,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         rdbHoy.requestFocus();
         // pantalla se localice en el centro  de la pantalla
         setLocationRelativeTo(this);
-        this.setTitle("Constantes.TITLE_APP");
+        this.setTitle(Constantes.TITLE_APP);
 
         this.setVisible(true);
         
@@ -93,7 +95,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         labelMetric1.setText("Busqueda");
 
-        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "LEGAJO" }));
+        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "DNI" }));
         cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14));
         cmbBusqueda.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -124,7 +126,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         rdbMes.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbMes);
-        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12));
         rdbMes.setForeground(new java.awt.Color(255, 255, 255));
         rdbMes.setText("Mes Actual");
         rdbMes.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +148,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
         panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18));
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Y");
@@ -160,7 +162,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         dateFin.setBackground(new java.awt.Color(255, 255, 255));
         dateFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        dateFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dateFin.setFont(new java.awt.Font("Calibri", 1, 14));
         dateFin.setMaxSelectableDate(new Date());
         panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
@@ -206,6 +208,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
 
         tblAsistencia.setBackground(new java.awt.Color(204, 204, 204));
+        tblAsistencia.setFont(new java.awt.Font("Calibri", 0, 11));
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -302,9 +305,9 @@ public class GestorAsistencia extends javax.swing.JDialog {
             //  verificar de que la fecha inicio no sea mayor que la fecha fin
         if (cmbBusqueda.getSelectedIndex()==1) {
             
-           //busqueda empleado por legajo  
+           //busqueda empleado por DNI  
             try {        
-              Empleado  e = new EmpleadoDaoImp().getEmpleado(Integer.parseInt(txtBusqueda.getText()));
+              Empleado  e = new EmpleadoDaoImp().getEmpleadoDni(Integer.parseInt(txtBusqueda.getText()));
             
             if (e!=null) {
               listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
@@ -320,7 +323,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
         } else {
               // Busqueda asistencias de todos los empleados
                listaAsistencia = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
-
+              
+               System.out.println("cantidad de datos en la busqueda "+listaAsistencia.size());
             }
           
        }else{  
@@ -336,7 +340,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
    
     private void btnBusquedaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaPersonalActionPerformed
         // instanceo la ventana a donde quiero ir
-        GestorEmpleado ventanaPersonal = new GestorEmpleado(null, true, GestorEmpleado.VENTANA_GESTOR_ASISTENCIA);
+        GestorEmpleado ventanaPersonal = new GestorEmpleado(parent, true, GestorEmpleado.VENTANA_GESTOR_ASISTENCIA);
         if (ventanaPersonal.isBotonSeleccionado()) {
             // si el usuario selecciono un empleado
             txtBusqueda.setText(String.valueOf(ventanaPersonal.getLegajo()));
@@ -456,7 +460,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
     if (fila!= -1) { 
         int idAsistencia = Integer.parseInt(tblAsistencia.getModel().getValueAt(fila, 0).toString());   
         int legajo = Integer.parseInt(tblAsistencia.getModel().getValueAt(fila, 1).toString());   
-         verAsistencia  verAsistencia = new verAsistencia(null, true,idAsistencia,legajo);
+         verAsistencia  verAsistencia = new verAsistencia(parent, true,idAsistencia,legajo);
 //         verAsistencia  verAsistencia = new verAsistencia(null, true);
          
     }else{

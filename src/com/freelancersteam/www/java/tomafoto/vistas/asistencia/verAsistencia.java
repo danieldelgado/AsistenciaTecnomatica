@@ -9,6 +9,7 @@ import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.AsistenciaDaoImp;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.mensajero;
+import com.freelancersteam.www.java.tomafoto.util.Constantes;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -27,6 +28,8 @@ public class verAsistencia extends javax.swing.JDialog {
     public verAsistencia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setTitle(Constantes.TITLE_APP);
+
         this.setLocationRelativeTo(this);
         this.setVisible(true);
         
@@ -34,6 +37,8 @@ public class verAsistencia extends javax.swing.JDialog {
     public verAsistencia(java.awt.Frame parent, boolean modal,int idAsistencia,int legajo) {
         super(parent, modal);
         initComponents();
+        this.setTitle(Constantes.TITLE_APP);
+
         this.idAsistencia = idAsistencia;
         this.legajo = legajo;
         initComponentesVentana();

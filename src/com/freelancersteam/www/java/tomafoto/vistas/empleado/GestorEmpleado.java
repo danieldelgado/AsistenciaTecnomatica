@@ -6,6 +6,7 @@ package com.freelancersteam.www.java.tomafoto.vistas.empleado;
 
 import com.freelancersteam.www.java.tomafoto.dominio.Empleado;
 import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
+import com.freelancersteam.www.java.tomafoto.util.Constantes;
 import com.freelancersteam.www.java.tomafoto.vistas.empleado.AltaEmpleado;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         
         
         initComponentesVentana();    
-        this.setTitle("Constantes.TITLE_APP");
+        this.setTitle(Constantes.TITLE_APP);
         setLocationRelativeTo(this);
         setVisible(true);
         
@@ -51,7 +52,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         this.parent = parent;
         this.quienloyamo = quienloyamo;
         initComponents();
-        this.setTitle("Constantes.TITLE_APP");
+        this.setTitle(Constantes.TITLE_APP);
 
          
         if (MENU== quienloyamo) {
@@ -144,6 +145,7 @@ public class GestorEmpleado extends javax.swing.JDialog {
         });
 
         tblEmpleado.setBackground(new java.awt.Color(204, 204, 204));
+        tblEmpleado.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         tblEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
