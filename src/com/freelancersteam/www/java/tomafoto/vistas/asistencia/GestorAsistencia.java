@@ -16,9 +16,12 @@ import com.freelancersteam.www.java.tomafoto.util.Constantes;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 import com.freelancersteam.www.java.tomafoto.util.ReporteAsitenciaJRDataSource;
 import java.awt.Color;
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -46,8 +49,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
         initComponents();
         this.parent = parent;
         //las fechas por defectos desabikitada porque rbtn  en fecha  actual
-        dateInicio.setDate(new Date());
-        dateFin.setDate(new Date());
+        fechaInicio.setDate(new Date());
+        fechaFin.setDate(new Date());
         deshabilitarFechas();
         // por defecto el cmbBusqueda esta en Todos los empleados entonces inactivo txtbusqueda ybtnbusq
         inactivarBusqueda();
@@ -79,8 +82,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
         rdbMes = new javax.swing.JRadioButton();
         rdbFecha = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        dateInicio = new com.toedter.calendar.JDateChooser();
-        dateFin = new com.toedter.calendar.JDateChooser();
+        fechaInicio = new com.toedter.calendar.JDateChooser();
+        fechaFin = new com.toedter.calendar.JDateChooser();
         btnBuscar = new org.edisoncor.gui.button.ButtonIpod();
         btnImprimir = new org.edisoncor.gui.button.ButtonIpod();
         btnSalir = new org.edisoncor.gui.button.ButtonIpod();
@@ -154,17 +157,17 @@ public class GestorAsistencia extends javax.swing.JDialog {
         jLabel3.setText("Y");
         panelShadow1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 30, 40, 30));
 
-        dateInicio.setBackground(new java.awt.Color(255, 255, 255));
-        dateInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        dateInicio.setFont(new java.awt.Font("Calibri", 1, 14));
-        dateInicio.setMaxSelectableDate(new Date());
-        panelShadow1.add(dateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
+        fechaInicio.setBackground(new java.awt.Color(255, 255, 255));
+        fechaInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fechaInicio.setFont(new java.awt.Font("Calibri", 1, 14));
+        fechaInicio.setMaxSelectableDate(new Date());
+        panelShadow1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
 
-        dateFin.setBackground(new java.awt.Color(255, 255, 255));
-        dateFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        dateFin.setFont(new java.awt.Font("Calibri", 1, 14));
-        dateFin.setMaxSelectableDate(new Date());
-        panelShadow1.add(dateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
+        fechaFin.setBackground(new java.awt.Color(255, 255, 255));
+        fechaFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fechaFin.setFont(new java.awt.Font("Calibri", 1, 14));
+        fechaFin.setMaxSelectableDate(new Date());
+        panelShadow1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -301,7 +304,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
  
      listaAsistencia= new  ArrayList<Asistencia>();
-       if (dateInicio.getDate().getTime()<=dateFin.getDate().getTime()) {
+       if (fechaInicio.getDate().getTime()<=fechaFin.getDate().getTime()) {
             //  verificar de que la fecha inicio no sea mayor que la fecha fin
         if (cmbBusqueda.getSelectedIndex()==1) {
             
@@ -310,7 +313,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
               Empleado  e = new EmpleadoDaoImp().getEmpleadoDni(Integer.parseInt(txtBusqueda.getText()));
             
             if (e!=null) {
-              listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+              listaAsistencia = new AsistenciaDaoImp().listarAsistencia(e,FechaUtil.getFechaSinhora(fechaInicio.getDate()),fechaFin.getDate());
           
             }else{
             JOptionPane.showMessageDialog(this, "NO EXISTE EL EMPLEADO","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -322,7 +325,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
        
         } else {
               // Busqueda asistencias de todos los empleados
-               listaAsistencia = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(dateInicio.getDate()),dateFin.getDate());
+               listaAsistencia = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(fechaInicio.getDate()),fechaFin.getDate());
               
                System.out.println("cantidad de datos en la busqueda "+listaAsistencia.size());
             }
@@ -362,8 +365,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void rdbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbMesActionPerformed
         if (rdbMes.isSelected())
         {
-            dateInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
-            dateFin.setDate(new Date());
+            fechaInicio.setDate(new Date(new Date().getYear(),new Date().getMonth(),1,0,0,0));
+            fechaFin.setDate(new Date());
             deshabilitarFechas();
             
         }
@@ -372,8 +375,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private void rdbHoyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbHoyActionPerformed
         if (rdbHoy.isSelected())
         {
-            dateInicio.setDate(FechaUtil.getFechaSinhora(new Date()));
-            dateFin.setDate(new Date());
+            fechaInicio.setDate(FechaUtil.getFechaSinhora(new Date()));
+            fechaFin.setDate(new Date());
             deshabilitarFechas();
             
         }
@@ -430,8 +433,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
         // GENERAR LA VISTA PREVIA CON IREPORT
-        
-//        List<Asistencia> listaAsistencia = new ArrayList<Asistencia>(list);
+  // detrminar si es  reporte por todos los empleados o reporte para un solo empeladol
+
+////    Reporte para mostrar todas las asitencias    
+//      pasar los parametros fecha
+        Map<String,String> parametros = new HashMap<String,String>();
+        parametros.put("fechaInicio",FechaUtil.getDateDD_MM_AAAA(fechaInicio.getDate()));
+        parametros.put("fechaFin",FechaUtil.getDateDD_MM_AAAA(fechaFin.getDate()));
         ReporteAsitenciaJRDataSource dataSource = new ReporteAsitenciaJRDataSource();
         dataSource.setListAsistencia(listaAsistencia); 
            JasperPrint jPrintt;
@@ -443,7 +451,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
            //  JasperReport lreporte = (JasperReport) JRLoader.loadObject("reportes/reporteAsistencia.jasper");
         try {
             // jPrint = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("reportes/reporteAsistencia.jasper"),null, new JRBeanCollectionDataSource(listaAs));
-            jPrintt = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("com/freelancersteam/www/java/tomafoto/reportes/reporteAsistencia.jasper"),null, dataSource);
+            jPrintt = JasperFillManager.fillReport(this.getClass().getClassLoader().getResourceAsStream("com/freelancersteam/www/java/tomafoto/reportes/reporteAsistencia.jasper"),(Map)parametros, dataSource);
+           
             JRViewer jv = new JRViewer(jPrintt);
             reporte.getContentPane().add(jv);
             reporte.setVisible(true);
@@ -520,8 +529,8 @@ public class GestorAsistencia extends javax.swing.JDialog {
     private org.edisoncor.gui.button.ButtonIpod btnVerEditar;
     private javax.swing.ButtonGroup buttonGroup1;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbBusqueda;
-    private com.toedter.calendar.JDateChooser dateFin;
-    private com.toedter.calendar.JDateChooser dateInicio;
+    private com.toedter.calendar.JDateChooser fechaFin;
+    private com.toedter.calendar.JDateChooser fechaInicio;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
@@ -535,13 +544,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 private void habilitarFechas()
 {
-    dateInicio.setEnabled(true);
-    dateFin.setEnabled(true);
+    fechaInicio.setEnabled(true);
+    fechaFin.setEnabled(true);
     
 }
 private void deshabilitarFechas()
 {
-    dateInicio.setEnabled(false);
-    dateFin.setEnabled(false);
+    fechaInicio.setEnabled(false);
+    fechaFin.setEnabled(false);
 }
 }
