@@ -13,6 +13,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -108,11 +109,15 @@ public class AsistenciaDaoImp extends Conexion implements AsistenciaDao {
     public List<Asistencia> listarAsistencia(Date fechaInicio, Date fechaFin) {
         Session session = getSessionFactory().openSession();
           Criteria criteria = session.createCriteria(Asistencia.class);
-//          criteria.addOrder(Order.asc("fecha"));
+//         criteria.addOrder(Order.asc("fecha"));
          criteria.addOrder(Order.asc("idAsistencia"));
-          criteria.add( Restrictions.ge("fecha", fechaInicio) );
+         criteria.add( Restrictions.ge("fecha", fechaInicio) );
          criteria.add( Restrictions.le("fecha", fechaFin) ); 
-         List<Asistencia> lista = criteria.list();
+        
+          List<Asistencia> lista= criteria.list();
+//         List<Asistencia> lista= criteria.setProjection(Projections.projectionList()
+//         .add(Projections.groupProperty("estado"))).list();
+  
 //         session.close();
           return lista;
     }

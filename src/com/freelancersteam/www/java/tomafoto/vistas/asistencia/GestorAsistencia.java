@@ -99,7 +99,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         labelMetric1.setText("Busqueda");
 
         cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODO LOS EMPLEADOS", "DNI" }));
-        cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14));
+        cmbBusqueda.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         cmbBusqueda.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbBusquedaItemStateChanged(evt);
@@ -116,7 +116,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         rdbHoy.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbHoy);
-        rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12));
+        rdbHoy.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbHoy.setForeground(new java.awt.Color(255, 255, 255));
         rdbHoy.setSelected(true);
         rdbHoy.setText("Hoy");
@@ -129,7 +129,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         rdbMes.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbMes);
-        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12));
+        rdbMes.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbMes.setForeground(new java.awt.Color(255, 255, 255));
         rdbMes.setText("Mes Actual");
         rdbMes.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +141,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         rdbFecha.setBackground(new java.awt.Color(51, 51, 51));
         buttonGroup1.add(rdbFecha);
-        rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12));
+        rdbFecha.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         rdbFecha.setForeground(new java.awt.Color(255, 255, 255));
         rdbFecha.setText("Entre las Fechas");
         rdbFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +151,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
         panelShadow1.add(rdbFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18));
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Y");
@@ -159,13 +159,13 @@ public class GestorAsistencia extends javax.swing.JDialog {
 
         fechaInicio.setBackground(new java.awt.Color(255, 255, 255));
         fechaInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        fechaInicio.setFont(new java.awt.Font("Calibri", 1, 14));
+        fechaInicio.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         fechaInicio.setMaxSelectableDate(new Date());
         panelShadow1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 130, -1));
 
         fechaFin.setBackground(new java.awt.Color(255, 255, 255));
         fechaFin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        fechaFin.setFont(new java.awt.Font("Calibri", 1, 14));
+        fechaFin.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         fechaFin.setMaxSelectableDate(new Date());
         panelShadow1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, 130, -1));
 
@@ -211,7 +211,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
         });
 
         tblAsistencia.setBackground(new java.awt.Color(204, 204, 204));
-        tblAsistencia.setFont(new java.awt.Font("Calibri", 0, 11));
+        tblAsistencia.setFont(new java.awt.Font("Calibri", 0, 11)); // NOI18N
         tblAsistencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -327,7 +327,7 @@ public class GestorAsistencia extends javax.swing.JDialog {
               // Busqueda asistencias de todos los empleados
                listaAsistencia = new AsistenciaDaoImp().listarAsistencia(FechaUtil.getFechaSinhora(fechaInicio.getDate()),fechaFin.getDate());
               
-               System.out.println("cantidad de datos en la busqueda "+listaAsistencia.size());
+//               System.out.println("cantidad de datos en la busqueda "+listaAsistencia.size());
             }
           
        }else{  

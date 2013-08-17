@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 04-may-2013 9:13:04 by Hibernate Tools 3.2.1.GA
+// Generated 22/07/2013 12:24:46 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;

@@ -1,5 +1,5 @@
 package com.freelancersteam.www.java.tomafoto.dominio;
-// Generated 04-may-2013 9:13:04 by Hibernate Tools 3.2.1.GA
+// Generated 22/07/2013 12:24:46 by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -24,7 +24,7 @@ public class Empleado  implements java.io.Serializable {
      private Boolean administrador;
      private byte[] imagen;
      private String telefono;
-     private Set asistencias = new HashSet(0);
+     private Set<Asistencia> asistencias = new HashSet<Asistencia>(0);
 
     public Empleado() {
     }
@@ -34,7 +34,7 @@ public class Empleado  implements java.io.Serializable {
         this.legajo = legajo;
         this.dni = dni;
     }
-    public Empleado(int legajo, Empresa empresa, int dni, String apellido, String nombre, Date fechaIngreso, String direccion, String localidad, String clave, Boolean administrador, byte[] imagen, String telefono, Set asistencias) {
+    public Empleado(int legajo, Empresa empresa, int dni, String apellido, String nombre, Date fechaIngreso, String direccion, String localidad, String clave, Boolean administrador, byte[] imagen, String telefono, Set<Asistencia> asistencias) {
        this.legajo = legajo;
        this.empresa = empresa;
        this.dni = dni;
@@ -134,11 +134,11 @@ public class Empleado  implements java.io.Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-    public Set getAsistencias() {
+    public Set<Asistencia> getAsistencias() {
         return this.asistencias;
     }
     
-    public void setAsistencias(Set asistencias) {
+    public void setAsistencias(Set<Asistencia> asistencias) {
         this.asistencias = asistencias;
     }
 

@@ -46,7 +46,7 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
 //            valor =  listaAsistencia.get(index).getEstado();
 //            valor =  empl[0].toString();
         } else if ("empleado".equals(jrf.getName())) {
-           valor =  listaAsistencia.get(index).getEmpleado().getNombre();
+           valor =  listaAsistencia.get(index).getEmpleado().getApellido()+" "+listaAsistencia.get(index).getEmpleado().getNombre();
 //            valor =  listaAsistencia.get(index).getEstado();
 ////            valor =  empl[1];
         }else if("estado".equals(jrf.getName())){
@@ -55,6 +55,8 @@ public class ReporteAsitenciaJRDataSource implements JRDataSource{
             valor = com.freelancersteam.www.java.tomafoto.util.FechaUtil.getDateDDMMAAAA(listaAsistencia.get(index).getFecha());
         }else if("hora".equals(jrf.getName())){
             valor = com.freelancersteam.www.java.tomafoto.util.FechaUtil.getHora(listaAsistencia.get(index).getHora());
+        }else if("observacion".equals(jrf.getName())){
+            valor = listaAsistencia.get(index).getObservacion();
         }
 //        else if("imagen".equals(jrf.getName())){
 //            ImageIcon img = new ImageIcon(listaAsistencia.get(index).getImagen());

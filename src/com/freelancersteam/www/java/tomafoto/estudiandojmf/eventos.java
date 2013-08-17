@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,7 +61,12 @@ public class eventos implements WindowListener,ActionListener{
         else if(e.getActionCommand().equals("Salir"))
         {
             miPlayer.detenerPlayer(padre.getPlayer());
+//            System.exit(0);
+             int opc;
+        opc = JOptionPane.showConfirmDialog(null,"Esta seguro de Salir de la Aplicacion", "Salir", JOptionPane.YES_NO_OPTION);
+        if (opc==JOptionPane.YES_OPTION) {
             System.exit(0);
+        }
         }
         else if(e.getActionCommand().equals("Acerca"))
         {

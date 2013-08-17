@@ -26,6 +26,7 @@ import com.freelancersteam.www.java.tomafoto.dominio.dao.imp.EmpleadoDaoImp;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.eventos;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.jmfVideo;
 import com.freelancersteam.www.java.tomafoto.estudiandojmf.miPlayer;
+import com.freelancersteam.www.java.tomafoto.util.Constantes;
 import com.freelancersteam.www.java.tomafoto.util.EmpleadoUtil;
 import com.freelancersteam.www.java.tomafoto.util.FechaUtil;
 
@@ -34,6 +35,7 @@ import com.freelancersteam.www.java.tomafoto.vistas.administrador.GestorAdminist
 import com.freelancersteam.www.java.tomafoto.vistas.asistencia.BorrarAsistencia;
 import com.freelancersteam.www.java.tomafoto.vistas.asistencia.GestorAsistencia;
 import com.freelancersteam.www.java.tomafoto.vistas.empresa.AltaEmpresa;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +43,9 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.Player;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -119,12 +123,16 @@ public class Camara extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(this, "La Conexion con la Camara FALLO, revise si su dispositivo esta conectado a la PC y  reincie la aplicacion ", "NO SE RECONOCE LA CAMARA", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }       
-         
+        adaptarTamaño(lbliconEmpresa, new ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/iconTecnomatica.png")).getImage());        
+        lblNameSistema.setText(Constantes.TITLE_APP);
         setLocationRelativeTo(this); //centramos el formulario
 
     }
 
-
+ private void adaptarTamaño (JLabel label , Image img){
+         Icon iconoAdaptado= new ImageIcon(img.getScaledInstance(label.getWidth(),label.getHeight(),Image.SCALE_DEFAULT)); 
+          label.setIcon(iconoAdaptado);//  si manda en pantalla
+     }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -144,6 +152,10 @@ public class Camara extends javax.swing.JFrame{
         cmbElegir = new org.edisoncor.gui.comboBox.ComboBoxRound();
         labelMetric1 = new org.edisoncor.gui.label.LabelMetric();
         txtLDni = new org.edisoncor.gui.textField.TextFieldRectIcon();
+        lblNameSistema = new javax.swing.JLabel();
+        lbliconEmpresa = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        labelMetric2 = new org.edisoncor.gui.label.LabelMetric();
         titleBar1 = new org.edisoncor.gui.varios.TitleBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuArchivo = new javax.swing.JMenu();
@@ -165,12 +177,14 @@ public class Camara extends javax.swing.JFrame{
 
         setTitle("CONTROL DE ASISTENCIA");
         setBackground(new java.awt.Color(0, 0, 0));
-        setMinimumSize(new java.awt.Dimension(560, 432));
+        setMinimumSize(new java.awt.Dimension(560, 420));
         setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.setPreferredSize(new java.awt.Dimension(677, 523));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelInicio.setBackground(new java.awt.Color(255, 255, 255));
         panelInicio.setColorPrimario(new java.awt.Color(0, 0, 0));
@@ -192,16 +206,15 @@ public class Camara extends javax.swing.JFrame{
         clockFace2.setLayout(clockFace2Layout);
         clockFace2Layout.setHorizontalGroup(
             clockFace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 181, Short.MAX_VALUE)
+            .addGap(0, 198, Short.MAX_VALUE)
         );
         clockFace2Layout.setVerticalGroup(
             clockFace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 185, Short.MAX_VALUE)
         );
 
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/MB_0004_photo.png"))); // NOI18N
         btnIngresar.setText("MARCAR");
-        btnIngresar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/MB_0004_photo_1.png"))); // NOI18N
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -222,6 +235,7 @@ public class Camara extends javax.swing.JFrame{
         lblFecha.setForma(org.edisoncor.gui.label.LabelCustom.Forma.BOTTOM);
 
         cmbElegir.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SALIDA" }));
+        cmbElegir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         cmbElegir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbElegirActionPerformed(evt);
@@ -234,7 +248,7 @@ public class Camara extends javax.swing.JFrame{
         });
 
         labelMetric1.setText("DNI");
-        labelMetric1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        labelMetric1.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
 
         txtLDni.setColorDeBorde(new java.awt.Color(204, 204, 204));
         txtLDni.setDisabledTextColor(new java.awt.Color(255, 255, 255));
@@ -253,6 +267,21 @@ public class Camara extends javax.swing.JFrame{
             }
         });
 
+        lblNameSistema.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        lblNameSistema.setForeground(new java.awt.Color(204, 204, 204));
+        lblNameSistema.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNameSistema.setText("Sistema  Control de Asociado V1.0");
+
+        lbliconEmpresa.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        lbliconEmpresa.setForeground(new java.awt.Color(204, 204, 204));
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setText("www.tecnomati.co");
+
+        labelMetric2.setText("ACCION");
+        labelMetric2.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+
         javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
         panelInicio.setLayout(panelInicioLayout);
         panelInicioLayout.setHorizontalGroup(
@@ -260,30 +289,34 @@ public class Camara extends javax.swing.JFrame{
             .addGroup(panelInicioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInicioLayout.createSequentialGroup()
-                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelInicioLayout.createSequentialGroup()
+                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInicioLayout.createSequentialGroup()
+                                .addComponent(lbliconEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInicioLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelInicioLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(clockDigital2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                            .addComponent(clockFace2, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
+                                    .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
-                                        .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(cmbElegir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtLDni, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                                        .addGap(8, 8, 8)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
-                                .addGap(0, 81, Short.MAX_VALUE)
-                                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)))
-                        .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8))
-                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE))
+                                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(clockDigital2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                            .addGroup(panelInicioLayout.createSequentialGroup()
+                                                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(labelMetric1, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                                                    .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtLDni, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                                    .addComponent(cmbElegir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addGap(31, 31, 31)))))
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNameSistema, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelCam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
         );
         panelInicioLayout.setVerticalGroup(
@@ -294,54 +327,45 @@ public class Camara extends javax.swing.JFrame{
                 .addGap(11, 11, 11)
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInicioLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clockFace2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clockDigital2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(11, 11, 11)
                         .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelMetric1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelMetric2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbElegir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelCam, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelInicioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblNameSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelInicioLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbliconEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addContainerGap())))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(552, Short.MAX_VALUE)
-                .addComponent(titleBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(titleBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(476, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
+        jPanel1.add(panelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 12, -1, -1));
+        jPanel1.add(titleBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(681, 1, -1, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
         jMenuBar1.setBorder(null);
+        jMenuBar1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(320, 19));
 
         mnuArchivo.setBackground(new java.awt.Color(51, 51, 51));
         mnuArchivo.setForeground(new java.awt.Color(204, 204, 204));
         mnuArchivo.setText("Archivo");
+        mnuArchivo.setActionCommand("  Archivo");
         mnuArchivo.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         mnuItmIniciarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
@@ -379,6 +403,16 @@ public class Camara extends javax.swing.JFrame{
         mnuItmSalir.setForeground(new java.awt.Color(204, 204, 204));
         mnuItmSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/freelancersteam/www/java/tomafoto/images/Exit.png"))); // NOI18N
         mnuItmSalir.setText("Salir");
+        mnuItmSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuItmSalirMouseClicked(evt);
+            }
+        });
+        mnuItmSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItmSalirActionPerformed(evt);
+            }
+        });
         mnuArchivo.add(mnuItmSalir);
 
         jMenuBar1.add(mnuArchivo);
@@ -503,11 +537,11 @@ public class Camara extends javax.swing.JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -581,7 +615,7 @@ private void setearDatos(){
                 }
            b.getPlayer().start();
           // muestro un mensaje de bienvenida 
-         JOptionPane.showMessageDialog(this, "Empleado: "+e.getApellido()+" "+e.getNombre()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(this, "Asociado: "+e.getApellido()+" "+e.getNombre()+"\n"+"DIA : "+ FechaUtil.getFecha_Dia_DD_De_MM_De_AAAA(asistencia.getFecha())+"\n"+"HORA: "+ FechaUtil.getHora(asistencia.getHora()) , asistencia.getEstado(), JOptionPane.INFORMATION_MESSAGE);
             
             //  limpio las cajas de texto                 
               setearDatos();
@@ -718,6 +752,15 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
    BorrarAsistencia ventanaBorrarAsis = new BorrarAsistencia(this, true);
    
 }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void mnuItmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItmSalirActionPerformed
+ 
+             
+    }//GEN-LAST:event_mnuItmSalirActionPerformed
+
+    private void mnuItmSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuItmSalirMouseClicked
+
+    }//GEN-LAST:event_mnuItmSalirMouseClicked
        
     /**
     * @param args the command line arguments
@@ -735,12 +778,16 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private org.edisoncor.gui.varios.ClockDigital clockDigital2;
     private org.edisoncor.gui.varios.ClockFace clockFace2;
     private org.edisoncor.gui.comboBox.ComboBoxRound cmbElegir;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private org.edisoncor.gui.label.LabelMetric labelMetric1;
+    private org.edisoncor.gui.label.LabelMetric labelMetric2;
     private org.edisoncor.gui.label.LabelCustom lblFecha;
+    private javax.swing.JLabel lblNameSistema;
+    private javax.swing.JLabel lbliconEmpresa;
     private javax.swing.JMenu mnuAcerca;
     private javax.swing.JMenu mnuArchivo;
     private javax.swing.JMenu mnuAsistencia;
